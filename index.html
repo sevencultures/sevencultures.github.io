@@ -1,142 +1,542 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Server Maintenance | SwagVerse</title>
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="author" content="Reyy & Jibb">
+    <title>Seven Cultures | Genesis Light Engine v.04 (Mobile Fix)</title>
 
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    fontFamily: {
+                        'heritage': ['"Cinzel"', 'serif'],
+                        'neo': ['"Space Grotesk"', 'sans-serif'],
+                    },
                     colors: {
-                        swagDark: '#020617',
-                        swagCyan: '#06b6d4',
-                        swagPurple: '#7c3aed',
+                        'base': '#F4F4F4',
+                        'charcoal': '#121212',
+                        'accent-indigo': '#4F46E5',
+                        'mist': '#888888',
                     },
-                    animation: {
-                        'float-rocket': 'floatRocket 3s ease-in-out infinite',
-                        'pulse-glow': 'pulseGlow 2s ease-in-out infinite',
-                        'spin-slow': 'spin 8s linear infinite',
-                    },
-                    keyframes: {
-                        floatRocket: {
-                            '0%, 100%': { transform: 'translateY(0) rotate(0deg)' },
-                            '50%': { transform: 'translateY(-20px) rotate(2deg)' },
-                        },
-                        pulseGlow: {
-                            '0%, 100%': { opacity: 0.5, transform: 'scale(1)' },
-                            '50%': { opacity: 1, transform: 'scale(1.2)' },
-                        }
-                    }
                 }
             }
         }
     </script>
-</head>
-<body class="bg-swagDark text-white min-h-screen w-full flex flex-col items-center justify-between relative overflow-x-hidden overflow-y-auto selection:bg-cyan-500 selection:text-white">
 
-    <div class="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 fixed">
-        <div class="absolute top-[-10%] left-[-10%] w-96 h-96 bg-purple-600/20 rounded-full blur-[100px]"></div>
-        <div class="absolute bottom-[-10%] right-[-10%] w-96 h-96 bg-cyan-600/20 rounded-full blur-[100px]"></div>
+    <style>
+        body {
+            background-color: #F4F4F4;
+            color: #121212;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* GRID BACKGROUND */
+        .bg-pattern {
+            position: fixed; inset: 0;
+            background-image: radial-gradient(#d1d1d1 0.5px, transparent 0.5px);
+            background-size: 30px 30px; opacity: 0.5;
+            z-index: -1; pointer-events: none;
+        }
+
+        /* VIEWPORT FRAME (Garis Pinggir Layar) */
+        .viewport-frame {
+            position: fixed; inset: 0;
+            margin: 10px; /* Jarak aman di mobile */
+            pointer-events: none; z-index: 9998;
+        }
+        @media (min-width: 768px) { .viewport-frame { margin: 30px; } }
+
+        /* NAVIGATION STYLE */
+        nav { user-select: none; }
+        .nav-block {
+            padding: 8px;
+            background: rgba(244, 244, 244, 0.7);
+            backdrop-filter: blur(4px);
+            border-radius: 4px;
+        }
+
+        /* Hide scrollbar */
+        ::-webkit-scrollbar { width: 0px; background: transparent; }
         
-        <i class='bx bxs-cog absolute top-20 left-10 text-white/5 text-6xl animate-spin-slow'></i>
-        <i class='bx bxs-wrench absolute bottom-32 right-20 text-white/5 text-4xl -rotate-45'></i>
-        <i class='bx bxs-terminal absolute top-1/2 left-[-20px] text-white/5 text-8xl -rotate-12'></i>
+        /* Utility untuk teks vertikal (Hiasan Kiri) */
+        .writing-vertical {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            transform: rotate(180deg);
+        }
+
+        /* ANIMASI MARQUEE HALUS */
+@keyframes marquee-left {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+@keyframes marquee-right {
+    0% { transform: translateX(-50%); }
+    100% { transform: translateX(0); }
+}
+
+.animate-scroll-left {
+    display: flex;
+    width: max-content;
+    animation: marquee-left 20s linear infinite;
+    will-change: transform; /* Optimasi GPU */
+}
+
+.animate-scroll-right {
+    display: flex;
+    width: max-content;
+    animation: marquee-right 20s linear infinite;
+    will-change: transform; /* Optimasi GPU */
+}
+
+/* Agar pita tidak terpotong saat dimiringkan */
+.marquee-wrapper {
+    width: 120%; /* Lebih lebar dari layar */
+    margin-left: -10%; /* Tengahin */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1); /* Shadow halus */
+}
+
         
-        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
+        
+    </style>
+    
+</head>
+<body class="font-neo">
+
+    <div class="bg-pattern"></div>
+    <div class="viewport-frame"></div>
+
+    <nav class="fixed inset-0 pointer-events-none z-[9999] p-4 md:p-16 font-neo uppercase tracking-[0.2em] md:tracking-[0.4em] text-mist text-[8px] md:text-[10px]">
+        
+        <div class="absolute top-4 left-4 md:top-16 md:left-16 flex flex-col gap-2 pointer-events-auto nav-block max-w-[45%]">
+            <div class="flex items-center gap-2 md:gap-4">
+                <span class="text-charcoal font-heritage text-base md:text-xl font-black">7C</span>
+                <div class="flex flex-col">
+                    <span class="text-charcoal font-bold whitespace-nowrap">Seven Cultures™</span>
+                    <span class="text-[7px] opacity-60 hidden md:inline">Archive Genesis / Edition 01</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-2 hidden md:flex">
+                <span class="w-1.5 h-1.5 rounded-full bg-accent-indigo animate-pulse"></span>
+                <span class="text-[8px]">System Active</span>
+            </div>
+        </div>
+
+        <div class="absolute top-4 right-4 md:top-16 md:right-16 text-right flex flex-col gap-1 nav-block max-w-[45%]">
+            <div id="digital-clock" class="text-charcoal font-mono font-bold text-[10px] md:text-sm">--:--:--</div>
+            
+            <div class="flex flex-col opacity-70">
+                <span class="text-accent-indigo font-bold">BDG / ID</span>
+                <span class="hidden md:block">6.99° S / 107.62° E</span>
+            </div>
+        </div>
+
+        <div class="absolute bottom-4 left-4 md:bottom-16 md:left-16 flex flex-col gap-1 nav-block">
+            <div class="flex items-center gap-2">
+                <span class="h-[1px] w-4 bg-accent-indigo"></span>
+                <span class="text-accent-indigo font-bold hidden md:inline">Founders</span>
+            </div>
+            <span class="text-charcoal font-bold text-[9px] md:text-xs">Reyy & Jibb</span>
+            
+            <div class="mt-1 flex gap-3 pointer-events-auto text-charcoal opacity-60 hover:opacity-100">
+                <a href="#"><i class='bx bxl-instagram text-sm'></i></a>
+                <a href="#"><i class='bx bxl-tiktok text-sm'></i></a>
+            </div>
+        </div>
+
+        <div class="absolute bottom-4 right-4 md:bottom-16 md:right-16 text-right flex flex-col gap-1 items-end nav-block">
+            <div class="flex flex-col items-end opacity-70">
+                <span class="hidden md:inline">Vertical Scroll</span>
+                <span class="text-[7px]">SC-01</span>
+            </div>
+            
+            <div class="relative w-16 md:w-32 h-[1px] bg-charcoal/10 overflow-hidden">
+                <div id="scroll-progress-line" class="absolute top-0 left-0 h-full bg-accent-indigo transition-all duration-100" style="width: 0%;"></div>
+            </div>
+            
+            <div class="text-[8px] font-mono text-accent-indigo font-bold mt-1" id="scroll-percent">00%</div>
+        </div>
+
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[1px] h-10 bg-accent-indigo/20 hidden md:block"></div>
+        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[1px] h-10 bg-accent-indigo/20 hidden md:block"></div>
+
+    </nav>
+
+
+    <main id="main-content" class="relative z-10 w-full min-h-[300vh]">
+       <section class="relative min-h-screen w-full flex flex-col items-center justify-center overflow-hidden pt-20 pb-20">
+      
+          <div class="absolute top-[20%] right-[10%] md:right-[20%] transform rotate-12 z-0 opacity-0 hero-decor">
+              <div class="border border-accent-indigo/30 p-2 rounded-full w-24 h-24 flex items-center justify-center animate-[spin-slow_10s_linear_infinite]">
+                  <div class="text-[8px] font-neo text-accent-indigo text-center uppercase tracking-widest leading-relaxed">
+                      Original<br>Bandung<br>Supply<br>2025
+                  </div>
+              </div>
+          </div>
+      
+          <div class="absolute left-6 top-[30%] md:left-[15%] hidden md:block opacity-0 hero-decor">
+              <p class="font-neo text-[9px] text-mist writing-vertical tracking-[0.3em] uppercase">
+                  Fig. 01 — Culture Study
+              </p>
+          </div>
+      
+      
+          <div class="relative z-10 text-center px-4">
+              
+              <p class="font-neo text-accent-indigo text-[9px] md:text-xs tracking-[0.6em] uppercase mb-4 md:mb-8 opacity-0 hero-text-small">
+                  The Neo-Heritage Project
+              </p>
+      
+              <h1 class="font-heritage text-charcoal font-black leading-[0.85] tracking-tighter text-[15vw] md:text-[11vw] md:whitespace-nowrap mix-blend-darken">
+                  <span class="inline-block hero-word">SEVEN</span>
+                  <br class="block md:hidden" />
+                  <span class="inline-block hero-word text-transparent bg-clip-text bg-gradient-to-br from-charcoal to-mist">CULTURES</span>
+              </h1>
+      
+              <div class="mt-8 md:mt-12 max-w-md mx-auto opacity-0 hero-desc">
+                  <p class="font-neo text-charcoal/70 text-xs md:text-sm leading-loose tracking-widest uppercase text-justify md:text-center">
+                      Mendefinisikan ulang gaya jalanan <span class="font-bold text-accent-indigo">Dayeuhkolot</span>. 
+                      Sebuah arsip visual yang memadukan 7 unsur budaya universal dengan estetika modern.
+                  </p>
+              </div>
+      
+              <div class="mt-12 opacity-0 hero-btn">
+                  <a href="#archive" class="group relative inline-flex items-center gap-3 px-8 py-3 overflow-hidden rounded-full bg-charcoal text-white transition-all hover:bg-accent-indigo">
+                      <span class="relative font-neo text-[10px] font-bold tracking-[0.3em] uppercase">Explore Archive</span>
+                      <i class='bx bx-down-arrow-alt text-lg group-hover:translate-y-1 transition-transform'></i>
+                  </a>
+              </div>
+          </div>
+      
+          <div class="absolute bottom-20 flex gap-20 opacity-0 hero-decor">
+              <div class="text-[8px] font-mono text-mist tracking-widest">
+                  VOL. 1
+              </div>
+              <div class="text-[8px] font-mono text-mist tracking-widest">
+                  EST. 2025
+              </div>
+          </div>
+      
+      </section>
+
+<section class="relative py-32 w-full overflow-hidden flex items-center justify-center bg-transparent z-20">
+
+    <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <div class="marquee-wrapper bg-accent-indigo rotate-3 transform origin-center py-3 md:py-5 border-y border-white/20 opacity-90 z-10">
+            <div class="animate-scroll-left">
+                <div class="flex items-center gap-8 md:gap-16 px-4">
+                    <span class="font-heritage text-white text-2xl md:text-5xl font-black whitespace-nowrap">SEVEN CULTURES</span>
+                    <i class='bx bxs-star text-white/50 text-xl'></i>
+                    <span class="font-neo text-white text-xl md:text-4xl font-bold whitespace-nowrap tracking-widest">ARCHIVE GENESIS</span>
+                    <i class='bx bxs-star text-white/50 text-xl'></i>
+                    <span class="font-heritage text-white text-2xl md:text-5xl font-black whitespace-nowrap">DAYEUHKOLOT</span>
+                    <i class='bx bxs-star text-white/50 text-xl'></i>
+                </div>
+                <div class="flex items-center gap-8 md:gap-16 px-4">
+                    <span class="font-heritage text-white text-2xl md:text-5xl font-black whitespace-nowrap">SEVEN CULTURES</span>
+                    <i class='bx bxs-star text-white/50 text-xl'></i>
+                    <span class="font-neo text-white text-xl md:text-4xl font-bold whitespace-nowrap tracking-widest">ARCHIVE GENESIS</span>
+                    <i class='bx bxs-star text-white/50 text-xl'></i>
+                    <span class="font-heritage text-white text-2xl md:text-5xl font-black whitespace-nowrap">DAYEUHKOLOT</span>
+                    <i class='bx bxs-star text-white/50 text-xl'></i>
+                </div>
+                <div class="flex items-center gap-8 md:gap-16 px-4">
+                    <span class="font-heritage text-white text-2xl md:text-5xl font-black whitespace-nowrap">SEVEN CULTURES</span>
+                    <i class='bx bxs-star text-white/50 text-xl'></i>
+                    <span class="font-neo text-white text-xl md:text-4xl font-bold whitespace-nowrap tracking-widest">ARCHIVE GENESIS</span>
+                    <i class='bx bxs-star text-white/50 text-xl'></i>
+                    <span class="font-heritage text-white text-2xl md:text-5xl font-black whitespace-nowrap">DAYEUHKOLOT</span>
+                    <i class='bx bxs-star text-white/50 text-xl'></i>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <main class="flex-1 flex flex-col items-center justify-center text-center px-4 w-full max-w-2xl mx-auto z-10 py-12">
-        
-        <div class="relative mb-8 group">
-            <div class="absolute inset-0 bg-gradient-to-t from-orange-500 to-purple-600 rounded-full blur-[50px] opacity-40 animate-pulse-glow"></div>
-            <div class="relative animate-float-rocket">
-                <i class='bx bxs-rocket text-[120px] md:text-[160px] text-transparent bg-clip-text bg-gradient-to-tr from-gray-100 to-gray-500 drop-shadow-2xl'></i>
-                <div class="absolute -bottom-8 left-1/2 -translate-x-1/2 opacity-80 animate-pulse">
-                     <i class='bx bxs-flame text-5xl text-orange-500 blur-sm'></i>
+    <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <div class="marquee-wrapper bg-charcoal -rotate-3 transform origin-center py-4 md:py-6 border-y-2 border-white z-20 shadow-2xl">
+            <div class="animate-scroll-right">
+                <div class="flex items-center gap-8 md:gap-16 px-4">
+                    <span class="font-neo text-transparent text-stroke text-2xl md:text-5xl font-bold whitespace-nowrap tracking-super" style="-webkit-text-stroke: 1px white;">NEO HERITAGE</span>
+                    <span class="w-4 h-4 rounded-full bg-accent-indigo"></span>
+                    <span class="font-heritage text-white text-2xl md:text-5xl font-black whitespace-nowrap">BANDUNG PRIDE</span>
+                    <span class="w-4 h-4 rounded-full bg-accent-indigo"></span>
+                    <span class="font-mono text-white/50 text-lg md:text-2xl whitespace-nowrap">VOL. 2025</span>
+                    <span class="w-4 h-4 rounded-full bg-accent-indigo"></span>
+                </div>
+                <div class="flex items-center gap-8 md:gap-16 px-4">
+                    <span class="font-neo text-transparent text-stroke text-2xl md:text-5xl font-bold whitespace-nowrap tracking-super" style="-webkit-text-stroke: 1px white;">NEO HERITAGE</span>
+                    <span class="w-4 h-4 rounded-full bg-accent-indigo"></span>
+                    <span class="font-heritage text-white text-2xl md:text-5xl font-black whitespace-nowrap">BANDUNG PRIDE</span>
+                    <span class="w-4 h-4 rounded-full bg-accent-indigo"></span>
+                    <span class="font-mono text-white/50 text-lg md:text-2xl whitespace-nowrap">VOL. 2025</span>
+                    <span class="w-4 h-4 rounded-full bg-accent-indigo"></span>
+                </div>
+                 <div class="flex items-center gap-8 md:gap-16 px-4">
+                    <span class="font-neo text-transparent text-stroke text-2xl md:text-5xl font-bold whitespace-nowrap tracking-super" style="-webkit-text-stroke: 1px white;">NEO HERITAGE</span>
+                    <span class="w-4 h-4 rounded-full bg-accent-indigo"></span>
+                    <span class="font-heritage text-white text-2xl md:text-5xl font-black whitespace-nowrap">BANDUNG PRIDE</span>
+                    <span class="w-4 h-4 rounded-full bg-accent-indigo"></span>
+                    <span class="font-mono text-white/50 text-lg md:text-2xl whitespace-nowrap">VOL. 2025</span>
+                    <span class="w-4 h-4 rounded-full bg-accent-indigo"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="relative z-30 bg-base border-4 border-charcoal rounded-full w-20 h-20 md:w-32 md:h-32 flex items-center justify-center animate-bounce-slow shadow-xl">
+        <div class="text-center">
+            <span class="block font-heritage text-charcoal font-black text-xl md:text-3xl leading-none">7C</span>
+            <span class="block font-neo text-[8px] md:text-[10px] uppercase tracking-widest mt-1">Est. 2025</span>
+        </div>
+    </div>
+
+</section>
+
+<section id="archive" class="relative py-24 md:py-40 px-4 md:px-12 w-full max-w-[2560px] mx-auto z-10 bg-base">
+    
+    <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8 border-l-4 border-charcoal pl-6" data-aos="fade-right">
+        <div class="max-w-3xl">
+            <span class="text-accent-indigo font-bold tracking-[0.3em] uppercase text-[10px] mb-2 block">Bandung Street Archive</span>
+            <h2 class="font-heritage text-charcoal text-5xl md:text-8xl leading-[0.9] font-black tracking-tighter uppercase">
+                Concrete <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-charcoal to-mist">Jungle.</span>
+            </h2>
+        </div>
+        <div class="hidden md:block text-right">
+            <div class="text-[10px] font-neo text-charcoal uppercase tracking-widest bg-white px-4 py-2 border border-charcoal/10 shadow-sm">
+                Supply 01-07 // Ready Stock
+            </div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-4 h-auto md:h-[1500px]">
+
+        <div class="min-h-[400px] md:min-h-0 md:col-span-8 md:row-span-1 group relative overflow-hidden bg-white border border-charcoal/5" data-aos="fade-up">
+            <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?q=80&w=1200&auto=format&fit=crop" 
+                 class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 grayscale group-hover:grayscale-0" alt="Graphic Tee">
+            
+            <div class="absolute inset-0 bg-gradient-to-r from-charcoal/90 via-transparent to-transparent p-8 md:p-12 flex flex-col justify-center">
+                <span class="font-heritage text-6xl text-white/10 absolute right-8 top-8">01</span>
+                <h3 class="font-heritage text-4xl md:text-6xl text-white mb-2 leading-none">LANGUAGE</h3>
+                <div class="h-[1px] w-20 bg-accent-indigo mb-4"></div>
+                <p class="font-neo text-xs text-white/80 max-w-sm uppercase tracking-widest leading-relaxed">
+                    Graphic T-Shirt Series.<br>
+                    "Suara visual tembok Bandung."
+                </p>
+                <button class="mt-6 w-fit text-[9px] bg-white text-charcoal px-6 py-3 font-bold uppercase tracking-[0.2em] hover:bg-accent-indigo hover:text-white transition-colors">
+                    Shop Tees
+                </button>
+            </div>
+        </div>
+
+        <div class="min-h-[300px] md:min-h-0 md:col-span-4 md:row-span-1 group relative overflow-hidden bg-charcoal" data-aos="fade-up" data-aos-delay="100">
+            <img src="https://images.unsplash.com/photo-1576871337632-b9aef4c17ab9?q=80&w=800&auto=format&fit=crop" 
+                 class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-all duration-700 grayscale" alt="Beanie">
+            <div class="absolute inset-0 flex flex-col items-center justify-center p-6 text-center z-10 border-[0.5px] border-white/10 m-2">
+                <h3 class="font-heritage text-3xl text-white drop-shadow-lg">HEADWEAR</h3>
+                <span class="text-white/60 text-[8px] tracking-[0.3em] uppercase mt-2 bg-charcoal/50 px-2">Beanies & Caps</span>
+            </div>
+        </div>
+
+        <div class="min-h-[500px] md:min-h-0 md:col-span-4 md:row-span-2 group relative overflow-hidden bg-gray-200" data-aos="fade-up">
+            <img src="https://images.unsplash.com/photo-1551028919-ac66c5f8b50b?q=80&w=800&auto=format&fit=crop" 
+                 class="absolute inset-0 w-full h-full object-cover grayscale transition-transform duration-1000 group-hover:scale-110" alt="Tech Jacket">
+            
+            <div class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-charcoal to-transparent text-white">
+                <div class="flex justify-between items-end border-b border-white/30 pb-4 mb-2">
+                    <span class="font-heritage text-3xl">OUTER</span>
+                    <span class="font-mono text-xs text-accent-indigo">03</span>
+                </div>
+                <p class="font-neo text-[9px] tracking-widest uppercase">
+                    Utility Vest & Windbreaker.<br>
+                    Water Resistant Fabric.
+                </p>
+            </div>
+        </div>
+
+        <div class="min-h-[300px] md:min-h-0 md:col-span-4 md:row-span-1 group relative overflow-hidden bg-white border border-charcoal/5" data-aos="fade-up" data-aos-delay="100">
+            <img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?q=80&w=800&auto=format&fit=crop" 
+                 class="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" alt="Hoodie">
+            <div class="absolute top-4 left-4 bg-white px-3 py-1">
+                <span class="text-[8px] font-bold tracking-widest uppercase text-charcoal">Daily Driver</span>
+            </div>
+            <div class="absolute bottom-4 right-4">
+                <h3 class="font-heritage text-4xl text-white mix-blend-difference">HOODIE</h3>
+            </div>
+        </div>
+
+        <div class="min-h-[300px] md:min-h-0 md:col-span-4 md:row-span-1 group relative overflow-hidden bg-charcoal" data-aos="fade-up" data-aos-delay="200">
+            <img src="https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?q=80&w=800&auto=format&fit=crop" 
+                 class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-all grayscale" alt="Cargo Pants">
+            <div class="absolute inset-0 flex items-center justify-center">
+                <div class="bg-charcoal/80 backdrop-blur-sm p-6 text-center border border-white/10 hover:bg-accent-indigo/90 transition-colors cursor-pointer">
+                    <h3 class="font-heritage text-2xl text-white">BOTTOMS</h3>
+                    <p class="text-[8px] text-white/70 uppercase tracking-widest mt-1">Denim & Cargo</p>
+                </div>
+            </div>
+            <span class="absolute top-2 left-2 text-[8px] text-white/30">FIG. 05</span>
+        </div>
+
+        <div class="min-h-[300px] md:min-h-0 md:col-span-4 md:row-span-1 group relative overflow-hidden bg-white flex items-center justify-center p-8 border border-charcoal/5" data-aos="fade-up">
+             <img src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?q=80&w=800&auto=format&fit=crop" 
+                 class="absolute inset-0 w-full h-full object-cover grayscale opacity-20 group-hover:opacity-40 transition-all" alt="Jewelry">
+            <div class="z-10 text-center">
+                <i class='bx bxs-diamond text-2xl text-charcoal mb-2'></i>
+                <h3 class="font-heritage text-2xl text-charcoal tracking-[0.2em]">DETAILS</h3>
+                <span class="text-accent-indigo text-[8px] block tracking-widest font-bold uppercase mt-1">Rings & Chains</span>
+            </div>
+        </div>
+
+        <div class="min-h-[400px] md:min-h-0 md:col-span-8 md:row-span-1 group relative overflow-hidden bg-charcoal" data-aos="fade-up" data-aos-delay="100">
+            <img src="https://images.unsplash.com/photo-1603252109303-2751441dd157?q=80&w=1200&auto=format&fit=crop" 
+                 class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-all grayscale" alt="Flannel Shirt">
+            
+            <div class="absolute inset-0 p-8 md:p-12 flex flex-col md:flex-row items-center justify-between z-10">
+                <div class="text-center md:text-left">
+                    <h3 class="font-heritage text-4xl md:text-6xl text-white mb-2">THE ARTS</h3>
+                    <p class="font-neo text-[10px] md:text-xs text-white/70 max-w-md leading-relaxed tracking-wider uppercase">
+                        Koleksi Flannel & Kemeja.<br>Signature style anak musik & seni Bandung.
+                    </p>
+                </div>
+                <div class="mt-6 md:mt-0">
+                    <div class="w-16 h-16 rounded-full border border-white flex items-center justify-center group-hover:bg-white group-hover:text-charcoal transition-all cursor-pointer">
+                        <i class='bx bx-right-arrow-alt text-2xl'></i>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="space-y-4">
-            <h1 class="text-4xl md:text-5xl font-black tracking-tight flex flex-col md:flex-row items-center justify-center gap-2 md:gap-4">
-                <span>Server Lagi</span>
-                <span class="flex items-center gap-2 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400">
-                    Healing 
-                    <i class='bx bxs-battery-charging text-4xl md:text-5xl text-cyan-400 animate-pulse'></i>
-                </span>
-            </h1>
-            
-            <p class="text-gray-400 text-sm md:text-lg max-w-lg mx-auto leading-relaxed flex flex-col items-center gap-1">
-                <span>Sabar wir, lagi kita poles biar makin:</span>
-                <span class="text-white font-bold italic flex items-center gap-2 bg-white/5 px-3 py-1 rounded-full border border-white/10">
-                    <i class='bx bxs-zap text-yellow-400 text-xl'></i> Menyala Abangkuh
-                    <i class='bx bxs-flame text-orange-500 text-xl animate-bounce'></i>
-                </span>
-                
-                <span class="mt-2 text-gray-500 font-mono text-xs">(Jangan panik, ya masih lama sih.)</span>
-            </p>
-        </div>
+    </div>
+</section>
 
-        <div class="mt-10">
-            <a href="https://whatsapp.com/channel/0029Vb77fPc8qIzpfdexUm0C" target="_blank" class="group relative inline-flex items-center gap-3 px-8 py-4 bg-white/5 border border-white/10 rounded-full overflow-hidden transition-all duration-300 hover:bg-white/10 hover:border-cyan-500/50 hover:shadow-[0_0_30px_rgba(6,182,212,0.3)]">
-                <div class="w-8 h-8 rounded-full bg-cyan-500/20 flex items-center justify-center group-hover:bg-cyan-500/40 transition">
-                     <i class='bx bxs-megaphone text-xl text-cyan-400'></i>
-                </div>
-                <span class="font-bold text-sm md:text-base">Pantau Info Update</span>
-                <i class='bx bx-right-arrow-alt text-xl group-hover:translate-x-1 transition-transform'></i>
-                <div class="absolute top-0 -inset-full h-full w-1/2 z-5 block transform -skew-x-12 bg-gradient-to-r from-transparent to-white opacity-20 group-hover:animate-[shine_0.75s]"></div>
-            </a>
-            
-            <div class="flex items-center justify-center gap-2 mt-4 text-[10px] text-gray-600 font-mono">
-                <i class='bx bxs-hourglass'></i>
-                <span>Estimasi: Gak Tau Kapan™</span>
-            </div>
-        </div>
+
 
     </main>
 
-    <footer class="w-full p-6 pb-10 border-t border-white/5 bg-black/20 backdrop-blur-md z-10">
-        <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
             
-            <div class="flex items-center gap-2 opacity-50 hover:opacity-100 transition">
-                <i class='bx bxs-planet text-xl text-cyan-400'></i>
-                <span class="font-bold text-sm tracking-widest">SWAGVERSE</span>
-            </div>
+            /**
+             * 1. CLOCK FIX
+             * Dipastikan jalan karena di dalam event DOMContentLoaded
+             */
+            function startClock() {
+                const clockElement = document.getElementById('digital-clock');
+                
+                function update() {
+                    const now = new Date();
+                    // Format waktu HH:MM:SS
+                    const timeString = now.toLocaleTimeString('en-GB', { 
+                        hour12: false,
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        second: '2-digit'
+                    });
+                    
+                    if(clockElement) {
+                        clockElement.textContent = timeString;
+                    }
+                }
+                
+                update(); // Jalankan langsung sekali
+                setInterval(update, 1000); // Lalu loop setiap detik
+            }
+            startClock();
 
-            <div class="flex items-center gap-2">
-                <a href="https://github.com/swaggershop" class="w-10 h-10 flex items-center justify-center rounded-full bg-white/5 border border-white/5 text-gray-400 hover:text-white hover:bg-gray-800 hover:border-white/20 transition-all duration-300 group">
-                    <i class='bx bxl-github text-xl group-hover:scale-110 transition-transform'></i>
-                </a>
-                <a href="https://instagram.com/swagverse.id" class="w-10 h-10 flex items-center justify-center rounded-full bg-white/5 border border-white/5 text-gray-400 hover:text-pink-500 hover:bg-pink-500/10 hover:border-pink-500/30 transition-all duration-300 group">
-                    <i class='bx bxl-instagram text-xl group-hover:scale-110 transition-transform'></i>
-                </a>
-                <a href="https://wa.me/6283845587816" class="w-10 h-10 flex items-center justify-center rounded-full bg-white/5 border border-white/5 text-gray-400 hover:text-green-500 hover:bg-green-500/10 hover:border-green-500/30 transition-all duration-300 group">
-                    <i class='bx bxl-whatsapp text-xl group-hover:scale-110 transition-transform'></i>
-                </a>
-                <a href="mailto:raihanazhar160110@gmail.com" class="w-10 h-10 flex items-center justify-center rounded-full bg-white/5 border border-white/5 text-gray-400 hover:text-cyan-400 hover:bg-cyan-400/10 hover:border-cyan-400/30 transition-all duration-300 group">
-                    <i class='bx bxs-envelope text-xl group-hover:scale-110 transition-transform'></i>
-                </a>
-            </div>
 
-            <div class="text-[10px] text-gray-600 font-mono flex items-center gap-1">
-                <i class='bx bx-code-alt'></i>
-                <span>by reyy</span>
-            </div>
-        </div>
-    </footer>
+            /**
+             * 2. SCROLL PROGRESS FIX
+             */
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.scrollY;
+                const docHeight = document.body.scrollHeight - window.innerHeight;
+                
+                // Mencegah pembagian nol
+                const scrolled = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+                
+                const line = document.getElementById('scroll-progress-line');
+                const percentText = document.getElementById('scroll-percent');
+                
+                if(line) line.style.width = scrolled + "%";
+                if(percentText) percentText.textContent = Math.round(scrolled).toString().padStart(2, '0') + "%";
+            });
 
-    <style>
-        @keyframes shine {
-            100% { left: 125%; }
-        }
-    </style>
 
+            /**
+             * 3. INIT OTHER LIBS
+             */
+            AOS.init();
+            
+            const lenis = new Lenis({
+                duration: 1.2,
+                smoothWheel: true
+            });
+            function raf(time) {
+                lenis.raf(time);
+                requestAnimationFrame(raf);
+            }
+            requestAnimationFrame(raf);
+            
+            
+            /**
+             * 4. ANIMASI AWAL (Entrance)
+             */
+            gsap.from("nav .nav-block", {
+                y: -20,
+                opacity: 0,
+                duration: 1,
+                stagger: 0.1,
+                ease: "power2.out",
+                delay: 0.5
+            });
+
+            console.log("Seven Cultures: Systems Online");
+        });
+        // ANIMASI HERO SECTION
+        const tl = gsap.timeline({ delay: 0.5 });
+        
+        // 1. Munculkan teks kecil atas
+        tl.to(".hero-text-small", { 
+            opacity: 1, 
+            y: 0, 
+            duration: 1, 
+            ease: "power2.out" 
+        })
+        // 2. Munculkan Judul Utama (Seven Cultures) dengan efek naik
+        .from(".hero-word", { 
+            y: 100, 
+            opacity: 0, 
+            duration: 1.5, 
+            stagger: 0.2, // Jeda antara kata "Seven" dan "Cultures"
+            ease: "power4.out" 
+        }, "-=0.5")
+        // 3. Munculkan Deskripsi & Hiasan
+        .to([".hero-desc", ".hero-btn", ".hero-decor"], { 
+            opacity: 1, 
+            y: 0, 
+            duration: 1, 
+            stagger: 0.1, 
+            ease: "power2.out" 
+        }, "-=1");
+
+    </script>
 </body>
 </html>
