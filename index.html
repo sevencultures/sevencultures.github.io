@@ -133,92 +133,109 @@
     <div class="bg-pattern"></div>
     <div class="viewport-frame"></div>
 
-    <nav class="fixed inset-0 pointer-events-none z-[9999] p-4 md:p-16 font-neo uppercase tracking-[0.2em] md:tracking-[0.4em] text-mist text-[8px] md:text-[10px]">
+<nav class="fixed top-0 left-0 w-full z-[9999] pointer-events-none">
+    
+    <div class="w-full bg-white/70 backdrop-blur-md border-b border-charcoal/5 px-4 md:px-12 py-3 md:py-4 flex items-center justify-between pointer-events-auto nav-block">
         
-        <div class="absolute top-4 left-4 md:top-16 md:left-16 flex flex-col gap-2 pointer-events-auto nav-block max-w-[45%]">
-            <div class="flex items-center gap-2 md:gap-4">
-                <span class="text-charcoal font-heritage text-base md:text-xl font-black">7C</span>
-                <div class="flex flex-col">
-                    <span class="text-charcoal font-bold whitespace-nowrap">Seven Cultures™</span>
-                    <span class="text-[7px] opacity-60 hidden md:inline">Archive Genesis / Edition 01</span>
-                </div>
+        <div class="flex items-center">
+            <div class="relative w-10 h-10 md:w-12 md:h-12 flex items-center justify-center transform rotate-180 -translate-y-1.5 md:-translate-y-2.5 scale-[2.2] md:scale-[3] -translate-x-1 transition-transform duration-700 hover:rotate-0">
+                <img src="https://files.catbox.moe/3vewa0.svg" 
+                     alt="7C Logo" 
+                     class="w-full h-full object-contain">
             </div>
-            <div class="flex items-center gap-2 hidden md:flex">
-                <span class="w-1.5 h-1.5 rounded-full bg-accent-indigo animate-pulse"></span>
-                <span class="text-[8px]">System Active</span>
-            </div>
-        </div>
 
-        <div class="absolute top-4 right-4 md:top-16 md:right-16 text-right flex flex-col gap-1 nav-block max-w-[45%]">
-            <div id="digital-clock" class="text-charcoal font-mono font-bold text-[10px] md:text-sm">--:--:--</div>
-            
-            <div class="flex flex-col opacity-70">
-                <span class="text-accent-indigo font-bold">BDG / ID</span>
-                <span class="hidden md:block">6.99° S / 107.62° E</span>
+            <div class="flex flex-col border-l border-charcoal/10 pl-4 md:pl-6 ml-4 md:ml-7 z-10">
+                <span class="text-charcoal font-heritage font-black tracking-[0.2em] text-[10px] md:text-xs leading-none uppercase">Seven Cultures™</span>
+                <span class="text-[7px] md:text-[8px] text-mist font-neo uppercase tracking-[0.3em] mt-1">Archive Genesis / Ed.01</span>
             </div>
         </div>
 
-        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[1px] h-10 bg-accent-indigo/20 hidden md:block"></div>
-        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[1px] h-10 bg-accent-indigo/20 hidden md:block"></div>
+        <div class="hidden lg:flex items-center gap-3 bg-charcoal/5 px-4 py-1.5 rounded-full border border-charcoal/5">
+            <span class="w-1.5 h-1.5 rounded-full bg-accent-indigo animate-pulse"></span>
+            <span class="text-[8px] font-neo font-bold text-charcoal uppercase tracking-[0.4em]">System Active: Genesis_v.04</span>
+        </div>
 
-    </nav>
+        <div class="flex items-center gap-6 md:gap-10">
+            <div class="flex flex-col text-right">
+                <span id="digital-clock" class="text-charcoal font-mono font-bold text-[10px] md:text-sm leading-none tracking-tighter">00:00:00</span>
+                <span class="text-[7px] text-accent-indigo font-bold uppercase tracking-widest mt-1">Sync Active</span>
+            </div>
+
+            <div class="flex flex-col text-right border-l border-charcoal/10 pl-4 md:pl-6">
+                <span class="text-charcoal font-neo font-bold text-[9px] md:text-[10px] leading-none tracking-widest uppercase">BDG / ID</span>
+                <span class="hidden md:block text-[7px] text-mist font-mono mt-1 opacity-70">6.99° S / 107.62° E</span>
+            </div>
+        </div>
+
+    </div>
+</nav>
+
+<div class="h-16 md:h-24"></div>
+
 
 
     <main id="main-content" class="relative z-10 w-full min-h-[300vh]">
-       <section class="relative min-h-screen w-full flex flex-col items-center justify-center overflow-hidden pt-20 pb-20">
+<section class="relative min-h-screen w-full flex flex-col items-center justify-center overflow-hidden pt-20 pb-20 bg-base">
       
-          <div class="absolute top-[20%] right-[10%] md:right-[20%] transform rotate-12 z-0 opacity-0 hero-decor">
-              <div class="border border-accent-indigo/30 p-2 rounded-full w-24 h-24 flex items-center justify-center animate-[spin-slow_10s_linear_infinite]">
-                  <div class="text-[8px] font-neo text-accent-indigo text-center uppercase tracking-widest leading-relaxed">
-                      Original<br>Bandung<br>Supply<br>2025
-                  </div>
-              </div>
-          </div>
-      
-          <div class="absolute left-6 top-[30%] md:left-[15%] hidden md:block opacity-0 hero-decor">
-              <p class="font-neo text-[9px] text-mist writing-vertical tracking-[0.3em] uppercase">
-                  Fig. 01 — Culture Study
-              </p>
-          </div>
-      
-      
-          <div class="relative z-10 text-center px-4">
-              
-              <p class="font-neo text-accent-indigo text-[9px] md:text-xs tracking-[0.6em] uppercase mb-4 md:mb-8 opacity-0 hero-text-small">
-                  The Neo-Heritage Project
-              </p>
-      
-              <h1 class="font-heritage text-charcoal font-black leading-[0.85] tracking-tighter text-[15vw] md:text-[11vw] md:whitespace-nowrap mix-blend-darken">
-                  <span class="inline-block hero-word">SEVEN</span>
-                  <br class="block md:hidden" />
-                  <span class="inline-block hero-word text-transparent bg-clip-text bg-gradient-to-br from-charcoal to-mist">CULTURES</span>
-              </h1>
-      
-              <div class="mt-8 md:mt-12 max-w-md mx-auto opacity-0 hero-desc">
-                  <p class="font-neo text-charcoal/70 text-xs md:text-sm leading-loose tracking-widest uppercase text-justify md:text-center">
-                      Mendefinisikan ulang gaya jalanan <span class="font-bold text-accent-indigo">Dayeuhkolot</span>. 
-                      Sebuah arsip visual yang memadukan 7 unsur budaya universal dengan estetika modern.
-                  </p>
-              </div>
-      
-              <div class="mt-12 opacity-0 hero-btn">
-                  <a href="#archive" class="group relative inline-flex items-center gap-3 px-8 py-3 overflow-hidden rounded-full bg-charcoal text-white transition-all hover:bg-accent-indigo">
-                      <span class="relative font-neo text-[10px] font-bold tracking-[0.3em] uppercase">Explore Archive</span>
-                      <i class='bx bx-down-arrow-alt text-lg group-hover:translate-y-1 transition-transform'></i>
-                  </a>
-              </div>
-          </div>
-      
-          <div class="absolute bottom-20 flex gap-20 opacity-0 hero-decor">
-              <div class="text-[8px] font-mono text-mist tracking-widest">
-                  VOL. 1
-              </div>
-              <div class="text-[8px] font-mono text-mist tracking-widest">
-                  EST. 2025
-              </div>
-          </div>
-      
-      </section>
+<div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+    <div class="hero-decor opacity-0 w-full h-full flex items-start justify-start">
+        <img src="https://files.catbox.moe/3vewa0.svg" 
+             class="w-[150vw] md:w-[100vw] transform rotate-180 scale-[2.5] md:scale-[3.5] -translate-x-[15%] -translate-y-[20%] pointer-events-none" 
+             style="opacity: 0.055 !important;" 
+             alt="Background Watermark">
+    </div>
+</div>
+
+    <div class="absolute top-[20%] right-[10%] md:right-[20%] transform rotate-12 z-10 opacity-0 hero-decor">
+        <div class="border border-accent-indigo/30 p-2 rounded-full w-24 h-24 flex items-center justify-center animate-[spin-slow_10s_linear_infinite]">
+            <div class="text-[8px] font-neo text-accent-indigo text-center uppercase tracking-widest leading-relaxed">
+                Original<br>Bandung<br>Supply<br>2025
+            </div>
+        </div>
+    </div>
+
+    <div class="absolute left-6 top-[30%] md:left-[15%] hidden md:block opacity-0 hero-decor z-10">
+        <p class="font-neo text-[9px] text-mist writing-vertical tracking-[0.3em] uppercase">
+            Fig. 01 — Culture Study
+        </p>
+    </div>
+
+    <div class="relative z-20 text-center px-4">
+        <p class="font-neo text-accent-indigo text-[9px] md:text-xs tracking-[0.6em] uppercase mb-4 md:mb-8 opacity-0 hero-text-small">
+            The Neo-Heritage Project
+        </p>
+
+        <h1 class="font-heritage text-charcoal font-black leading-[0.85] tracking-tighter text-[15vw] md:text-[11vw] md:whitespace-nowrap mix-blend-darken">
+            <span class="inline-block hero-word">SEVEN</span>
+            <br class="block md:hidden" />
+            <span class="inline-block hero-word text-transparent bg-clip-text bg-gradient-to-br from-charcoal to-mist">CULTURES</span>
+        </h1>
+
+        <div class="mt-8 md:mt-12 max-w-md mx-auto opacity-0 hero-desc">
+            <p class="font-neo text-charcoal/70 text-xs md:text-sm leading-loose tracking-widest uppercase text-justify md:text-center">
+                Mendefinisikan ulang gaya jalanan <span class="font-bold text-accent-indigo">Dayeuhkolot</span>. 
+                Sebuah arsip visual yang memadukan 7 unsur budaya universal dengan estetika modern.
+            </p>
+        </div>
+
+        <div class="mt-12 opacity-0 hero-btn">
+            <a href="#archive" class="group relative inline-flex items-center gap-3 px-8 py-3 overflow-hidden rounded-full bg-charcoal text-white transition-all hover:bg-accent-indigo">
+                <span class="relative font-neo text-[10px] font-bold tracking-[0.3em] uppercase">Explore Archive</span>
+                <i class='bx bx-down-arrow-alt text-lg group-hover:translate-y-1 transition-transform'></i>
+            </a>
+        </div>
+    </div>
+
+    <div class="absolute bottom-20 flex gap-20 opacity-0 hero-decor z-10">
+        <div class="text-[8px] font-mono text-mist tracking-widest">
+            VOL. 1
+        </div>
+        <div class="text-[8px] font-mono text-mist tracking-widest">
+            EST. 2025
+        </div>
+    </div>
+
+</section>
 
 <section class="relative py-32 w-full overflow-hidden flex items-center justify-center bg-transparent z-20">
 
@@ -284,12 +301,17 @@
         </div>
     </div>
 
-    <div class="relative z-30 bg-base border-4 border-charcoal rounded-full w-20 h-20 md:w-32 md:h-32 flex items-center justify-center animate-bounce-slow shadow-xl">
-        <div class="text-center">
-            <span class="block font-heritage text-charcoal font-black text-xl md:text-3xl leading-none">7C</span>
-            <span class="block font-neo text-[8px] md:text-[10px] uppercase tracking-widest mt-1">Est. 2025</span>
-        </div>
+<div class="relative z-30 bg-base border-4 border-charcoal rounded-full w-20 h-20 md:w-32 md:h-32 flex items-center justify-center animate-bounce-slow shadow-xl">
+    <div class="flex flex-col items-center justify-center mb-2">
+        
+        <img src="https://files.catbox.moe/3vewa0.svg" 
+             alt="7C Logo" 
+             class="w-auto h-8 md:h-14 mb-2 mr-1 transform rotate-180 scale-[3.4] md:scale-[2.6] object-contain pointer-events-none">
+        
+        <span class="block font-neo text-[8px] md:text-[10px] font-bold uppercase tracking-widest leading-none text-charcoal z-10">Est. 2025</span>
     </div>
+</div>
+
 
 </section>
 
