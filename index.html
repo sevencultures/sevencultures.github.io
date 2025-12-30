@@ -1,849 +1,1272 @@
 <!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="author" content="Reyy & Jibb">
-    <title>Seven Cultures | Genesis Light Engine v.04 (Mobile Fix)</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seven Cultures | Bandung Neo-Heritage Archive</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: {
-                        'heritage': ['"Cinzel"', 'serif'],
-                        'neo': ['"Space Grotesk"', 'sans-serif'],
-                    },
                     colors: {
-                        'base': '#F4F4F4',
-                        'charcoal': '#121212',
-                        'accent-indigo': '#4F46E5',
-                        'mist': '#888888',
+                        'sc-black': '#0a0a0a',
+                        'sc-white': '#f5f5f5',
+                        'sc-gray': '#888888',
+                        'sc-dark': '#1a1a1a',
                     },
+                    fontFamily: {
+                        'bebas': ['Bebas Neue', 'sans-serif'],
+                        'space': ['Space Grotesk', 'sans-serif'],
+                        'playfair': ['Playfair Display', 'serif'],
+                        'cormorant': ['Cormorant Garamond', 'serif'],
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 1.5s ease-in-out infinite',
+                        'strip-move': 'stripMove 30s linear infinite',
+                        'strip-move-reverse': 'stripMoveReverse 30s linear infinite',
+                    },
+                    keyframes: {
+                        stripMove: {
+                            'from': { transform: 'translateX(0)' },
+                            'to': { transform: 'translateX(-50%)' },
+                        },
+                        stripMoveReverse: {
+                            'from': { transform: 'translateX(-50%)' },
+                            'to': { transform: 'translateX(0)' },
+                        },
+                    }
                 }
             }
         }
     </script>
-
     <style>
-    /* Menghilangkan seleksi biru di seluruh elemen */
-        * {
-            -webkit-tap-highlight-color: transparent; /* Untuk Mobile/Chrome/Safari */
-            user-select: none; /* Standar browser modern */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+            
+            -webkit-user-select: none; /* Chrome/Safari/Opera */
+            -moz-user-select: none;    /* Firefox */
+            -ms-user-select: none;     /* IE/Edge */
+            user-select: none;         /* Standar */
+            
+            -webkit-touch-callout: none; /* Matikan menu pop-up (Copy/Paste) saat tekan lama di HP */
+            -webkit-tap-highlight-color: transparent; /* Matikan warna biru saat tombol/link ditekan di Android */
         }
         
-        /* Jika ingin teks paragraf tetap bisa di-copy, aktifkan kembali khusus untuk <p> atau <span> tertentu */
-/*        p, span {
-            user-select: text;
+        /* Pengecualian: Biarkan input dan textarea tetap bisa diketik */
+        input, textarea {
+            -webkit-user-select: text !important;
+            -moz-user-select: text !important;
+            -ms-user-select: text !important;
+            user-select: text !important;
         }
-        */
+
+        /* Mencegah seleksi teks */
+        .no-select {
+            -webkit-user-select: none; /* Safari */
+            -ms-user-select: none; /* IE 10 and IE 11 */
+            user-select: none; /* Standard syntax */
+        }
 
         body {
-            background-color: #F4F4F4;
-            color: #121212;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
+            font-family: 'Space Grotesk', sans-serif;
         }
 
-        /* GRID BACKGROUND */
-        .bg-pattern {
-            position: fixed; inset: 0;
-            background-image: radial-gradient(#d1d1d1 0.5px, transparent 0.5px);
-            background-size: 30px 30px; opacity: 0.5;
-            z-index: -1; pointer-events: none;
+        /* Loader Animation */
+        @keyframes loaderPulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+        .loader-pulse {
+            animation: loaderPulse 1.5s ease-in-out infinite;
         }
 
-        /* VIEWPORT FRAME (Garis Pinggir Layar) */
-        .viewport-frame {
-            position: fixed; inset: 0;
-            margin: 10px; /* Jarak aman di mobile */
-            pointer-events: none; z-index: 9998;
+        /* Strip Animations */
+        @keyframes stripMove {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
         }
-        @media (min-width: 768px) { .viewport-frame { margin: 30px; } }
-
-        /* NAVIGATION STYLE */
-        nav { user-select: none; }
-        .nav-block {
-            padding: 8px;
-            background: rgba(244, 244, 244, 0.7);
-            backdrop-filter: blur(4px);
-            border-radius: 4px;
+        @keyframes stripMoveReverse {
+            from { transform: translateX(-50%); }
+            to { transform: translateX(0); }
         }
+        .animate-strip { animation: stripMove 30s linear infinite; }
+        .animate-strip-reverse { animation: stripMoveReverse 30s linear infinite; }
 
-        /* Hide scrollbar */
-        ::-webkit-scrollbar { width: 0px; background: transparent; }
+        /* Fade In Up Animation */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in-up {
+            animation: fadeInUp 1s ease forwards;
+            opacity: 0;
+        }
+        .delay-500 { animation-delay: 0.5s; }
+        .delay-700 { animation-delay: 0.7s; }
+        .delay-900 { animation-delay: 0.9s; }
+
+        /* Hide Scrollbar for Chrome, Safari and Opera */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
         
-        
-        
-        /* Utility untuk teks vertikal (Hiasan Kiri) */
-        .writing-vertical {
-            writing-mode: vertical-rl;
-            text-orientation: mixed;
+        /* Hide Scrollbar for IE, Edge and Firefox */
+        .hide-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+
+        /* Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* FAQ Answer Animation */
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+        }
+        .faq-item.active .faq-icon {
             transform: rotate(180deg);
         }
 
-        /* ANIMASI MARQUEE HALUS */
-@keyframes marquee-left {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-}
+        /* Brand Hidden */
+        .brand-hidden {
+            transform: translateY(100%);
+            transition: transform 0.4s ease;
+        }
+        .brand-item:hover .brand-hidden {
+            transform: translateY(0);
+        }
 
-@keyframes marquee-right {
-    0% { transform: translateX(-50%); }
-    100% { transform: translateX(0); }
-}
-
-.animate-scroll-left {
-    display: flex;
-    width: max-content;
-    animation: marquee-left 20s linear infinite;
-    will-change: transform; /* Optimasi GPU */
-}
-
-.animate-scroll-right {
-    display: flex;
-    width: max-content;
-    animation: marquee-right 20s linear infinite;
-    will-change: transform; /* Optimasi GPU */
-}
-
-/* Agar pita tidak terpotong saat dimiringkan */
-.marquee-wrapper {
-    width: 120%; /* Lebih lebar dari layar */
-    margin-left: -10%; /* Tengahin */
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1); /* Shadow halus */
-}
-
-        
-        
+        /* Philosophy Card Shine Effect */
+        .philosophy-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #f5f5f5, transparent);
+            transform: translateX(-100%);
+            transition: transform 0.5s ease;
+        }
+        .philosophy-card:hover::before {
+            transform: translateX(100%);
+        }
     </style>
-    
 </head>
-<body class="font-neo">
-
-    <div class="bg-pattern"></div>
-    <div class="viewport-frame"></div>
-
-<nav class="fixed top-0 left-0 w-full z-[9999] pointer-events-none">
-    
-    <div class="w-full bg-white/70 backdrop-blur-md border-b border-charcoal/5 px-4 md:px-12 py-3 md:py-4 flex items-center justify-between pointer-events-auto nav-block">
-        
-        <div class="flex items-center">
-            <div class="relative w-10 h-10 md:w-12 md:h-12 flex items-center justify-center transform rotate-180 -translate-y-1.5 md:-translate-y-2.5 scale-[2.2] md:scale-[3] -translate-x-1 transition-transform duration-700 hover:rotate-0">
-                <img src="https://files.catbox.moe/3vewa0.svg" 
-                     alt="7C Logo" 
-                     class="w-full h-full object-contain">
-            </div>
-
-            <div class="flex flex-col border-l border-charcoal/10 pl-4 md:pl-6 ml-4 md:ml-7 z-10">
-                <span class="text-charcoal font-heritage font-black tracking-[0.2em] text-[10px] md:text-xs leading-none uppercase">Seven Cultures™</span>
-                <span class="text-[7px] md:text-[8px] text-mist font-neo uppercase tracking-[0.3em] mt-1">Archive Genesis / Ed.01</span>
-            </div>
-        </div>
-
-        <div class="hidden lg:flex items-center gap-3 bg-charcoal/5 px-4 py-1.5 rounded-full border border-charcoal/5">
-            <span class="w-1.5 h-1.5 rounded-full bg-accent-indigo animate-pulse"></span>
-            <span class="text-[8px] font-neo font-bold text-charcoal uppercase tracking-[0.4em]">System Active: Genesis_v.04</span>
-        </div>
-
-        <div class="flex items-center gap-6 md:gap-10">
-            <div class="flex flex-col text-right">
-                <span id="digital-clock" class="text-charcoal font-mono font-bold text-[10px] md:text-sm leading-none tracking-tighter">00:00:00</span>
-                <span class="text-[7px] text-accent-indigo font-bold uppercase tracking-widest mt-1">Sync Active</span>
-            </div>
-
-            <div class="flex flex-col text-right border-l border-charcoal/10 pl-4 md:pl-6">
-                <span class="text-charcoal font-neo font-bold text-[9px] md:text-[10px] leading-none tracking-widest uppercase">BDG / ID</span>
-                <span class="hidden md:block text-[7px] text-mist font-mono mt-1 opacity-70">6.99° S / 107.62° E</span>
-            </div>
-        </div>
-
-    </div>
-</nav>
-
-<div class="h-16 md:h-24"></div>
-
-
-
-    <main id="main-content" class="relative z-10 w-full min-h-[300vh]">
-<section class="relative min-h-screen w-full flex flex-col items-center justify-center overflow-hidden pt-20 pb-20 bg-base">
-      
-<div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-    <div class="hero-decor opacity-0 w-full h-full flex items-start justify-start">
-        <img src="https://files.catbox.moe/3vewa0.svg" 
-             class="w-[150vw] md:w-[100vw] transform rotate-180 scale-[2.5] md:scale-[3.5] -translate-x-[15%] -translate-y-[20%] pointer-events-none" 
-             style="opacity: 0.055 !important;" 
-             alt="Background Watermark">
-    </div>
-</div>
-
-    <div class="absolute top-[20%] right-[10%] md:right-[20%] transform rotate-12 z-10 opacity-0 hero-decor">
-        <div class="border border-accent-indigo/30 p-2 rounded-full w-24 h-24 flex items-center justify-center animate-[spin-slow_10s_linear_infinite]">
-            <div class="text-[8px] font-neo text-accent-indigo text-center uppercase tracking-widest leading-relaxed">
-                Original<br>Bandung<br>Supply<br>2025
-            </div>
-        </div>
-    </div>
-
-    <div class="absolute left-6 top-[30%] md:left-[15%] hidden md:block opacity-0 hero-decor z-10">
-        <p class="font-neo text-[9px] text-mist writing-vertical tracking-[0.3em] uppercase">
-            Fig. 01 — Culture Study
-        </p>
-    </div>
-
-    <div class="relative z-20 text-center px-4">
-        <p class="font-neo text-accent-indigo text-[9px] md:text-xs tracking-[0.6em] uppercase mb-4 md:mb-8 opacity-0 hero-text-small">
-            Bandung Neo-Heritage Archive
-        </p>
-
-        <h1 class="font-heritage text-charcoal font-black leading-[0.85] tracking-tighter text-[15vw] md:text-[11vw] md:whitespace-nowrap mix-blend-darken">
-            <span class="inline-block hero-word">SEVEN</span>
-            <br class="block md:hidden" />
-            <span class="inline-block hero-word text-transparent bg-clip-text bg-gradient-to-br from-charcoal to-mist">CULTURES</span>
-        </h1>
-
-        <div class="mt-8 md:mt-12 max-w-md mx-auto opacity-0 hero-desc">
-            <p class="font-neo text-charcoal/70 text-xs md:text-sm leading-loose tracking-widest uppercase text-justify md:text-center">
-                Mendefinisikan ulang gaya jalanan <span class="font-bold text-accent-indigo">Dayeuhkolot</span>. 
-                Sebuah arsip visual yang memadukan 7 unsur budaya universal dengan estetika modern.
-            </p>
-        </div>
-
-        <div class="mt-12 opacity-0 hero-btn">
-            <a href="#archive" class="group relative inline-flex items-center gap-3 px-8 py-3 overflow-hidden rounded-full bg-charcoal text-white transition-all hover:bg-accent-indigo">
-                <span class="relative font-neo text-[10px] font-bold tracking-[0.3em] uppercase">Explore Archive</span>
-                <i class='bx bx-down-arrow-alt text-lg group-hover:translate-y-1 transition-transform'></i>
-            </a>
-        </div>
-    </div>
-
-    <div class="absolute bottom-20 flex gap-20 opacity-0 hero-decor z-10">
-        <div class="text-[8px] font-mono text-mist tracking-widest">
-            VOL. 1
-        </div>
-        <div class="text-[8px] font-mono text-mist tracking-widest">
-            EST. 2025
-        </div>
-    </div>
-
-</section>
-
-<section class="relative py-32 w-full overflow-hidden flex items-center justify-center bg-transparent z-20">
-
-    <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div class="marquee-wrapper bg-accent-indigo rotate-3 transform origin-center py-3 md:py-5 border-y border-white/20 opacity-90 z-10">
-            <div class="animate-scroll-left">
-                <div class="flex items-center gap-8 md:gap-16 px-4">
-                    <span class="font-heritage text-white text-2xl md:text-5xl font-black whitespace-nowrap">SEVEN CULTURES</span>
-                    <i class='bx bxs-star text-white/50 text-xl'></i>
-                    <span class="font-neo text-white text-xl md:text-4xl font-bold whitespace-nowrap tracking-widest">ARCHIVE GENESIS</span>
-                    <i class='bx bxs-star text-white/50 text-xl'></i>
-                    <span class="font-heritage text-white text-2xl md:text-5xl font-black whitespace-nowrap">DAYEUHKOLOT</span>
-                    <i class='bx bxs-star text-white/50 text-xl'></i>
-                </div>
-                <div class="flex items-center gap-8 md:gap-16 px-4">
-                    <span class="font-heritage text-white text-2xl md:text-5xl font-black whitespace-nowrap">SEVEN CULTURES</span>
-                    <i class='bx bxs-star text-white/50 text-xl'></i>
-                    <span class="font-neo text-white text-xl md:text-4xl font-bold whitespace-nowrap tracking-widest">ARCHIVE GENESIS</span>
-                    <i class='bx bxs-star text-white/50 text-xl'></i>
-                    <span class="font-heritage text-white text-2xl md:text-5xl font-black whitespace-nowrap">DAYEUHKOLOT</span>
-                    <i class='bx bxs-star text-white/50 text-xl'></i>
-                </div>
-                <div class="flex items-center gap-8 md:gap-16 px-4">
-                    <span class="font-heritage text-white text-2xl md:text-5xl font-black whitespace-nowrap">SEVEN CULTURES</span>
-                    <i class='bx bxs-star text-white/50 text-xl'></i>
-                    <span class="font-neo text-white text-xl md:text-4xl font-bold whitespace-nowrap tracking-widest">ARCHIVE GENESIS</span>
-                    <i class='bx bxs-star text-white/50 text-xl'></i>
-                    <span class="font-heritage text-white text-2xl md:text-5xl font-black whitespace-nowrap">DAYEUHKOLOT</span>
-                    <i class='bx bxs-star text-white/50 text-xl'></i>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div class="marquee-wrapper bg-charcoal -rotate-3 transform origin-center py-4 md:py-6 border-y-2 border-white z-20 shadow-2xl">
-            <div class="animate-scroll-right">
-                <div class="flex items-center gap-8 md:gap-16 px-4">
-                    <span class="font-neo text-transparent text-stroke text-2xl md:text-5xl font-bold whitespace-nowrap tracking-super" style="-webkit-text-stroke: 1px white;">NEO HERITAGE</span>
-                    <span class="w-4 h-4 rounded-full bg-accent-indigo"></span>
-                    <span class="font-heritage text-white text-2xl md:text-5xl font-black whitespace-nowrap">BANDUNG PRIDE</span>
-                    <span class="w-4 h-4 rounded-full bg-accent-indigo"></span>
-                    <span class="font-mono text-white/50 text-lg md:text-2xl whitespace-nowrap">VOL. 2025</span>
-                    <span class="w-4 h-4 rounded-full bg-accent-indigo"></span>
-                </div>
-                <div class="flex items-center gap-8 md:gap-16 px-4">
-                    <span class="font-neo text-transparent text-stroke text-2xl md:text-5xl font-bold whitespace-nowrap tracking-super" style="-webkit-text-stroke: 1px white;">NEO HERITAGE</span>
-                    <span class="w-4 h-4 rounded-full bg-accent-indigo"></span>
-                    <span class="font-heritage text-white text-2xl md:text-5xl font-black whitespace-nowrap">BANDUNG PRIDE</span>
-                    <span class="w-4 h-4 rounded-full bg-accent-indigo"></span>
-                    <span class="font-mono text-white/50 text-lg md:text-2xl whitespace-nowrap">VOL. 2025</span>
-                    <span class="w-4 h-4 rounded-full bg-accent-indigo"></span>
-                </div>
-                 <div class="flex items-center gap-8 md:gap-16 px-4">
-                    <span class="font-neo text-transparent text-stroke text-2xl md:text-5xl font-bold whitespace-nowrap tracking-super" style="-webkit-text-stroke: 1px white;">NEO HERITAGE</span>
-                    <span class="w-4 h-4 rounded-full bg-accent-indigo"></span>
-                    <span class="font-heritage text-white text-2xl md:text-5xl font-black whitespace-nowrap">BANDUNG PRIDE</span>
-                    <span class="w-4 h-4 rounded-full bg-accent-indigo"></span>
-                    <span class="font-mono text-white/50 text-lg md:text-2xl whitespace-nowrap">VOL. 2025</span>
-                    <span class="w-4 h-4 rounded-full bg-accent-indigo"></span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-<div class="relative z-30 bg-base border-4 border-charcoal rounded-full w-20 h-20 md:w-32 md:h-32 flex items-center justify-center animate-bounce-slow shadow-xl">
-    <div class="flex flex-col items-center justify-center mb-2">
-        
-        <img src="https://files.catbox.moe/3vewa0.svg" 
-             alt="7C Logo" 
-             class="w-auto h-8 md:h-14 mb-2 mr-1 transform rotate-180 scale-[3.4] md:scale-[2.6] object-contain pointer-events-none">
-        
-        <span class="block font-neo text-[8px] md:text-[10px] font-bold uppercase tracking-widest leading-none text-charcoal z-10">Est. 2025</span>
-    </div>
-</div>
-
-
-</section>
-
-<section class="relative py-24 md:py-40 px-6 md:px-20 bg-white border-b border-charcoal/5 overflow-hidden z-10">
-    
-    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[1px] h-20 bg-charcoal/20"></div>
-
-    <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center w-full max-w-[1920px] mx-auto">
-
-        <div class="md:col-span-5 relative" data-aos="fade-right">
-            <span class="font-heritage text-[15rem] md:text-[25rem] leading-none text-charcoal/5 font-black select-none absolute -top-20 md:-top-32 -left-10 z-0 pointer-events-none">
-                7
-            </span>
-            
-            <div class="relative z-10">
-                <p class="font-neo text-accent-indigo text-xs font-bold tracking-[0.4em] uppercase mb-4">
-                    The Philosophy
-                </p>
-                <h2 class="font-heritage text-6xl md:text-8xl text-charcoal leading-[0.9] font-black uppercase">
-                    WEARABLE <br> <span class="text-transparent bg-clip-text bg-gradient-to-r from-charcoal to-mist">CULTURE.</span>
-                </h2>
-            </div>
-
-            <div class="relative z-10 mt-8 border-l-4 border-accent-indigo pl-6">
-                <p class="font-neo text-[10px] font-bold tracking-[0.3em] uppercase mb-2 text-mist">Core Definition:</p>
-                <p class="font-serif italic text-lg md:text-2xl text-charcoal leading-relaxed">
-                    "Culture is the complex whole which includes knowledge, belief, art, law, morals, custom, and any other capabilities."
-                </p>
-            </div>
-        </div>
-
-        <div class="md:col-span-7" data-aos="fade-left">
-            <div class="flex flex-col gap-8 md:pl-10">
-                <div>
-                    <h3 class="font-neo text-sm font-bold tracking-[0.4em] uppercase text-charcoal mb-6 border-b border-charcoal/10 pb-4 inline-block">
-                        What is Seven Cultures?
-                    </h3>
-                    <p class="font-neo text-sm md:text-base text-charcoal/80 leading-loose text-justify">
-                        Lahir dari hiruk-pikuk industri <strong>Dayeuhkolot, Bandung</strong>. Seven Cultures adalah sebuah antitesis terhadap <em>fast-fashion</em>. Kami menerjemahkan <strong>7 Unsur Universal Kebudayaan</strong> ke dalam bentuk sandang modern.
-                    </p>
-                    <p class="font-neo text-sm md:text-base text-charcoal/80 leading-loose text-justify mt-4">
-                        Setiap jahitan adalah arsip. Setiap grafis adalah bahasa. Kami tidak hanya membuat baju, kami mendokumentasikan peradaban jalanan (street culture) hari ini melalui medium tekstil.
-                    </p>
-                </div>
-
-                <div class="bg-base p-6 md:p-8 rounded-sm border border-charcoal/5">
-                    <p class="text-[9px] uppercase tracking-widest text-mist mb-4">The Universal Elements:</p>
-                    <div class="grid grid-cols-2 gap-y-3 gap-x-8">
-                        <ul class="space-y-3 font-mono text-xs text-charcoal uppercase tracking-widest">
-                            <li class="flex items-center gap-3 group cursor-default">
-                                <span class="text-accent-indigo group-hover:scale-150 transition-transform">01</span> Language
-                            </li>
-                            <li class="flex items-center gap-3 group cursor-default">
-                                <span class="text-accent-indigo group-hover:scale-150 transition-transform">02</span> Knowledge
-                            </li>
-                            <li class="flex items-center gap-3 group cursor-default">
-                                <span class="text-accent-indigo group-hover:scale-150 transition-transform">03</span> Social Org
-                            </li>
-                            <li class="flex items-center gap-3 group cursor-default">
-                                <span class="text-accent-indigo group-hover:scale-150 transition-transform">04</span> Technology
-                            </li>
-                        </ul>
-                        <ul class="space-y-3 font-mono text-xs text-charcoal uppercase tracking-widest">
-                            <li class="flex items-center gap-3 group cursor-default">
-                                <span class="text-accent-indigo group-hover:scale-150 transition-transform">05</span> Livelihood
-                            </li>
-                            <li class="flex items-center gap-3 group cursor-default">
-                                <span class="text-accent-indigo group-hover:scale-150 transition-transform">06</span> Religion
-                            </li>
-                            <li class="flex items-center gap-3 group cursor-default">
-                                <span class="text-accent-indigo group-hover:scale-150 transition-transform">07</span> Arts
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="mt-4 pt-6 border-t border-dashed border-charcoal/20 flex items-center justify-between">
-                    <div>
-                        <span class="block text-[8px] uppercase tracking-widest text-mist">Curated by Founders</span>
-                        <span class="font-heritage text-xl text-charcoal mt-1">Reyy <span class="text-accent-indigo">&</span> Jibb</span>
-                    </div>
-                    <div class="border border-charcoal/20 rounded-full w-12 h-12 flex items-center justify-center opacity-50 rotate-12 select-none">
-                        <span class="text-[8px] font-bold uppercase text-center leading-none">Auth<br>Gen</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</section>
-
-<section id="archive" class="relative py-24 md:py-40 px-4 md:px-12 w-full max-w-[2560px] mx-auto z-10 bg-base">
-    
-    <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8 border-l-4 border-charcoal pl-6" data-aos="fade-right">
-        <div class="max-w-3xl">
-            <span class="text-accent-indigo font-bold tracking-[0.3em] uppercase text-[10px] mb-2 block">Bandung Street Archive</span>
-            <h2 class="font-heritage text-charcoal text-5xl md:text-8xl leading-[0.9] font-black tracking-tighter uppercase">
-                Concrete <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-charcoal to-mist">Jungle.</span>
-            </h2>
-        </div>
-        <div class="hidden md:block text-right">
-            <div class="text-[10px] font-neo text-charcoal uppercase tracking-widest bg-white px-4 py-2 border border-charcoal/10 shadow-sm">
-                Supply 01-07 // Ready Stock
-            </div>
-        </div>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
-
-    <div class="min-h-[500px] md:h-[600px] md:col-span-12 group relative overflow-hidden bg-white border border-charcoal/5" data-aos="fade-up">
-        <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?q=80&w=2000&auto=format&fit=crop" 
-             class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 grayscale group-hover:grayscale-0" alt="Graphic Tee">
-        
-        <div class="absolute inset-0 bg-gradient-to-r from-charcoal/90 via-charcoal/40 to-transparent p-8 md:p-16 flex flex-col justify-center">
-            <span class="font-heritage text-6xl md:text-9xl text-white/10 absolute right-8 top-8">01</span>
-            <h3 class="font-heritage text-5xl md:text-8xl text-white mb-4 leading-none tracking-tighter">LANGUAGE</h3>
-            <div class="h-[2px] w-24 bg-accent-indigo mb-6"></div>
-            <p class="font-neo text-xs md:text-sm text-white/80 max-w-lg uppercase tracking-widest leading-relaxed">
-                Graphic T-Shirt Series.<br>
-                "Manifestasi visual dari tembok jalanan Bandung."<br>
-                Heavyweight Cotton 24s.
-            </p>
-            <button class="mt-8 w-fit text-[10px] bg-white text-charcoal px-8 py-3 font-bold uppercase tracking-[0.2em] hover:bg-accent-indigo hover:text-white transition-colors">
-                Explore Collection
-            </button>
-        </div>
-    </div>
-
-    <div class="min-h-[400px] md:col-span-8 group relative overflow-hidden bg-charcoal" data-aos="fade-up" data-aos-delay="100">
-        <img src="https://images.unsplash.com/photo-1521369909029-2afed882baee?q=80&w=1200&auto=format&fit=crop" 
-             class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-all duration-700 grayscale" alt="Headwear">
-        <div class="absolute inset-0 flex flex-col items-start justify-end p-8 md:p-12 z-10">
-            <span class="text-accent-indigo font-bold text-[9px] tracking-[0.5em] mb-2 uppercase">02 / Protection</span>
-            <h3 class="font-heritage text-4xl md:text-5xl text-white">HEADWEAR</h3>
-        </div>
-    </div>
-
-    <div class="min-h-[400px] md:col-span-4 group relative overflow-hidden bg-gray-200" data-aos="fade-up" data-aos-delay="200">
-        <img src="https://images.unsplash.com/photo-1605908502724-9093a79a1b39?q=80&w=800&auto=format&fit=crop" 
-             class="absolute inset-0 w-full h-full object-cover grayscale transition-transform duration-1000 group-hover:scale-110" alt="Tactical Jacket">
-        
-        <div class="absolute inset-0 bg-gradient-to-t from-charcoal via-transparent to-transparent flex flex-col justify-end p-8">
-            <div class="flex justify-between items-end border-b border-white/30 pb-4 mb-2">
-                <span class="font-heritage text-3xl text-white">OUTER</span>
-                <span class="font-mono text-xs text-accent-indigo">03</span>
-            </div>
-            <p class="font-neo text-[9px] text-white/80 tracking-widest uppercase">
-                Utility Vest & Parka.<br>Weather Proof.
-            </p>
-        </div>
-    </div>
-
-    <div class="min-h-[400px] md:col-span-4 group relative overflow-hidden bg-white border border-charcoal/5" data-aos="fade-up">
-        <img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?q=80&w=800&auto=format&fit=crop" 
-             class="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" alt="Hoodie">
-        <div class="absolute top-4 left-4 bg-white px-3 py-1 z-10">
-            <span class="text-[8px] font-bold tracking-widest uppercase text-charcoal">Daily Driver</span>
-        </div>
-        <div class="absolute inset-0 flex items-center justify-center bg-charcoal/10 group-hover:bg-transparent">
-            <h3 class="font-heritage text-4xl text-white mix-blend-difference">HOODIE</h3>
-        </div>
-    </div>
-
-    <div class="min-h-[400px] md:col-span-8 group relative overflow-hidden bg-charcoal" data-aos="fade-up" data-aos-delay="100">
-        <img src="https://images.unsplash.com/photo-1604176354204-9268737828e4?q=80&w=1200&auto=format&fit=crop" 
-             class="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:opacity-100 transition-all duration-1000 grayscale" alt="Streetwear Pants">
-        
-        <div class="absolute inset-0 flex items-center justify-center">
-            <div class="bg-charcoal/90 backdrop-blur-md px-10 py-8 text-center border border-white/10 hover:bg-accent-indigo hover:border-accent-indigo transition-all duration-300 cursor-pointer group-hover:scale-105">
-                <span class="text-[8px] text-white/50 uppercase tracking-[0.4em] mb-2 block">Utility Gear</span>
-                <h3 class="font-heritage text-5xl text-white mb-2">BOTTOMS</h3>
-                <div class="h-[1px] w-full bg-white/20 my-2"></div>
-                <p class="text-[9px] text-white/90 uppercase tracking-widest">Cargo / Denim / Chino</p>
-            </div>
-        </div>
-        <span class="absolute top-6 left-6 text-[10px] text-white/30 tracking-widest font-mono">FIG. 05 / DURABILITY TESTED</span>
-    </div>
-
-    <div class="min-h-[400px] md:col-span-8 group relative overflow-hidden bg-white border border-charcoal/5" data-aos="fade-up">
-         <img src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?q=80&w=1200&auto=format&fit=crop" 
-             class="absolute inset-0 w-full h-full object-cover grayscale opacity-30 group-hover:opacity-50 transition-all" alt="Jewelry">
-        <div class="absolute inset-0 flex items-center justify-start p-8 md:p-16">
-            <div class="z-10">
-                <i class='bx bxs-diamond text-3xl text-charcoal mb-4'></i>
-                <h3 class="font-heritage text-5xl text-charcoal tracking-tight mb-2">DETAILS</h3>
-                <span class="text-accent-indigo text-[10px] block tracking-[0.4em] font-bold uppercase">Rings & Chains</span>
-            </div>
-        </div>
-    </div>
-
-    <div class="min-h-[400px] md:col-span-4 group relative overflow-hidden bg-charcoal" data-aos="fade-up" data-aos-delay="100">
-        <img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?q=80&w=800&auto=format&fit=crop" 
-             class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-90 transition-all duration-700 grayscale" alt="Flannel Pattern">
-        
-        <div class="absolute inset-0 bg-gradient-to-t from-charcoal via-transparent to-transparent flex flex-col justify-end p-8 z-10">
-            <div class="border-l-2 border-white pl-4 mb-4">
-                <h3 class="font-heritage text-4xl text-white leading-none mb-2">THE<br>ARTS</h3>
-            </div>
-            <div class="flex justify-between items-end">
-                <p class="font-neo text-[9px] text-white/80 leading-relaxed tracking-wider uppercase max-w-[150px]">
-                    Flannel & Layering.<br>Bandung Signature.
-                </p>
-                <span class="font-heritage text-4xl text-white/20">07</span>
-            </div>
-        </div>
-    </div>
-
-</div>
-
-</section>
-
-<section id="campaign" class="relative py-24 px-4 md:px-12 w-full max-w-[1920px] mx-auto z-10 bg-base">
-    
-    <div class="mb-10 flex items-end justify-between px-2" data-aos="fade-up">
-        <div>
-            <span class="text-accent-indigo font-bold tracking-[0.3em] uppercase text-[10px] mb-2 block">Seasonal Campaign</span>
-            <h2 class="font-heritage text-charcoal text-4xl md:text-6xl uppercase leading-none">Concrete<br>Dreams.</h2>
-        </div>
-        <div class="flex gap-4">
-            <button class="camp-prev w-12 h-12 border border-charcoal/20 flex items-center justify-center hover:bg-charcoal hover:text-white transition-all">
-                <i class='bx bx-left-arrow-alt text-2xl'></i>
-            </button>
-            <button class="camp-next w-12 h-12 border border-charcoal/20 flex items-center justify-center hover:bg-charcoal hover:text-white transition-all">
-                <i class='bx bx-right-arrow-alt text-2xl'></i>
-            </button>
-        </div>
-    </div>
-
-    <div class="w-full h-[50vh] md:h-[70vh] relative overflow-hidden rounded-sm shadow-2xl" data-aos="fade-up" data-aos-delay="100">
-        
-        <div class="swiper lookbookSwiper w-full h-full">
-            <div class="swiper-wrapper">
-
-                <div class="swiper-slide relative w-full h-full">
-                    <img src="https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?q=80&w=2000&auto=format&fit=crop" 
-                         class="absolute inset-0 w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000" alt="Campaign 1">
-                    
-                    <div class="absolute bottom-6 left-6 md:bottom-16 md:left-16 w-[80%] md:w-[400px] bg-white/60 backdrop-blur-md border border-white/40 p-6 md:p-8 shadow-lg z-20 transition-transform duration-500 hover:-translate-y-2">
-                        <span class="text-[9px] font-bold tracking-widest text-accent-indigo uppercase mb-2 block">Vol. 01 — Urban</span>
-                        <h3 class="font-heritage text-2xl md:text-4xl text-charcoal mb-3">CITY WALKER</h3>
-                        <p class="font-neo text-[10px] md:text-xs text-charcoal/80 leading-relaxed uppercase tracking-wide">
-                            Eksplorasi sudut kota Bandung dengan kenyamanan teknikal.
-                            <br><span class="opacity-50 mt-2 block">Featured: Cargo Pants & Vest.</span>
-                        </p>
-                    </div>
-                </div>
-
-                <div class="swiper-slide relative w-full h-full">
-                    <img src="https://images.unsplash.com/photo-1503342394128-c104d54dba01?q=80&w=2000&auto=format&fit=crop" 
-                         class="absolute inset-0 w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000" alt="Campaign 2">
-                    
-                    <div class="absolute bottom-6 left-6 md:bottom-16 md:left-16 w-[80%] md:w-[400px] bg-white/60 backdrop-blur-md border border-white/40 p-6 md:p-8 shadow-lg z-20 transition-transform duration-500 hover:-translate-y-2">
-                        <span class="text-[9px] font-bold tracking-widest text-accent-indigo uppercase mb-2 block">Vol. 02 — Roots</span>
-                        <h3 class="font-heritage text-2xl md:text-4xl text-charcoal mb-3">RAW MATERIAL</h3>
-                        <p class="font-neo text-[10px] md:text-xs text-charcoal/80 leading-relaxed uppercase tracking-wide">
-                            Kembali ke esensi. Material organik bertemu desain brutalism.
-                            <br><span class="opacity-50 mt-2 block">Featured: Heavy Cotton Tee.</span>
-                        </p>
-                    </div>
-                </div>
-
-                <div class="swiper-slide relative w-full h-full">
-                    <img src="https://images.unsplash.com/photo-1523398002811-999ca8dec234?q=80&w=2000&auto=format&fit=crop" 
-                         class="absolute inset-0 w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000" alt="Campaign 3">
-                    
-                    <div class="absolute bottom-6 left-6 md:bottom-16 md:left-16 w-[80%] md:w-[400px] bg-white/60 backdrop-blur-md border border-white/40 p-6 md:p-8 shadow-lg z-20 transition-transform duration-500 hover:-translate-y-2">
-                        <span class="text-[9px] font-bold tracking-widest text-accent-indigo uppercase mb-2 block">Vol. 03 — Movement</span>
-                        <h3 class="font-heritage text-2xl md:text-4xl text-charcoal mb-3">KINETIC</h3>
-                        <p class="font-neo text-[10px] md:text-xs text-charcoal/80 leading-relaxed uppercase tracking-wide">
-                            Didesain untuk bergerak. Durabilitas untuk aktivitas tinggi.
-                            <br><span class="opacity-50 mt-2 block">Featured: Utility Jacket.</span>
-                        </p>
-                    </div>
-                </div>
-
-                <div class="swiper-slide relative w-full h-full">
-                    <img src="https://images.unsplash.com/photo-1504194921103-f8b80c338d47?q=80&w=2000&auto=format&fit=crop" 
-                         class="absolute inset-0 w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000" alt="Campaign 4">
-                    
-                    <div class="absolute bottom-6 left-6 md:bottom-16 md:left-16 w-[80%] md:w-[400px] bg-white/60 backdrop-blur-md border border-white/40 p-6 md:p-8 shadow-lg z-20 transition-transform duration-500 hover:-translate-y-2">
-                        <span class="text-[9px] font-bold tracking-widest text-accent-indigo uppercase mb-2 block">Vol. 04 — Night</span>
-                        <h3 class="font-heritage text-2xl md:text-4xl text-charcoal mb-3">AFTER HOURS</h3>
-                        <p class="font-neo text-[10px] md:text-xs text-charcoal/80 leading-relaxed uppercase tracking-wide">
-                            Estetika malam Bandung. Reflektif dan misterius.
-                            <br><span class="opacity-50 mt-2 block">Featured: Black on Black Series.</span>
-                        </p>
-                    </div>
-                </div>
-
-            </div>
-            
-            <div class="absolute bottom-0 left-0 w-full z-30">
-                <div class="swiper-pagination-lookbook h-1 bg-accent-indigo w-0 transition-all duration-300"></div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="relative py-24 px-4 md:px-12 w-full max-w-[1920px] mx-auto z-10 bg-base flex justify-center">
-    
-    <div class="relative w-full max-w-4xl bg-white border border-charcoal/10 p-2 shadow-2xl" data-aos="fade-up">
-        
-        <div class="absolute -left-2 top-1/2 -translate-y-1/2 w-4 h-8 bg-base rounded-r-full border-r border-charcoal/10"></div>
-        <div class="absolute -right-2 top-1/2 -translate-y-1/2 w-4 h-8 bg-base rounded-l-full border-l border-charcoal/10"></div>
-
-        <div class="border border-dashed border-charcoal/20 p-8 md:p-16 flex flex-col md:flex-row items-center gap-12 text-center md:text-left">
-            
-            <div class="flex-1">
-                <span class="font-mono text-[10px] text-accent-indigo uppercase tracking-widest bg-accent-indigo/5 px-2 py-1 mb-4 inline-block">
-                    Restricted Access
-                </span>
-                <h2 class="font-heritage text-4xl md:text-5xl text-charcoal mb-4">JOIN THE<br>CULTURE.</h2>
-                <p class="font-neo text-xs text-mist leading-relaxed uppercase tracking-wide max-w-sm mx-auto md:mx-0">
-                    Dapatkan akses awal ke koleksi terbatas, undangan event Dayeuhkolot, dan konten eksklusif.
-                </p>
-            </div>
-
-            <div class="flex-1 w-full max-w-sm">
-                <form class="flex flex-col gap-4">
-                    <div class="group relative">
-                        <input type="email" placeholder="ENTER YOUR EMAIL" 
-                               class="w-full bg-base border-b border-charcoal/20 py-3 text-xs font-bold tracking-widest uppercase text-charcoal focus:outline-none focus:border-accent-indigo transition-colors placeholder:text-charcoal/30">
-                        <i class='bx bx-right-arrow-alt absolute right-0 top-3 text-charcoal/30 group-focus-within:text-accent-indigo transition-colors'></i>
-                    </div>
-                    <button type="button" class="w-full bg-charcoal text-white py-4 text-[10px] font-bold uppercase tracking-[0.3em] hover:bg-accent-indigo transition-all duration-300 flex items-center justify-center gap-2 group">
-                        <span>Secure Access</span>
-                        <i class='bx bxs-lock-alt text-sm group-hover:text-white/80'></i>
-                    </button>
-                    <p class="text-[8px] text-charcoal/40 text-center uppercase tracking-widest mt-2">
-                        No Spam. Pure Culture.
-                    </p>
-                </form>
-            </div>
-
-        </div>
-    </div>
-</section>
-
-<footer class="relative bg-charcoal text-white pt-20 md:pt-32 pb-10 px-6 md:px-12 w-full overflow-hidden z-20">
-    
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8 mb-20 max-w-[1920px] mx-auto border-b border-white/10 pb-20">
-        
-        <div class="md:col-span-1">
-            <div class="flex items-center gap-3 mb-6">
-                <div class="w-8 h-8 border border-white flex items-center justify-center rounded-full">
-                    <span class="font-heritage font-black text-sm">7C</span>
-                </div>
-                <span class="font-bold tracking-widest text-xs">SEVEN CULTURES™</span>
-            </div>
-            <p class="font-neo text-[10px] text-white/60 leading-loose uppercase tracking-wide max-w-xs">
-                Sebuah studi visual tentang identitas manusia melalui tekstil. Dikurasi di Bandung, untuk dunia.
-            </p>
-        </div>
-
-        <div class="md:col-span-1">
-            <h4 class="font-neo text-[10px] font-bold text-accent-indigo uppercase tracking-[0.3em] mb-6">Connect</h4>
-            <ul class="space-y-4">
-                <li><a href="https://instagram.com/@sevencultures.archive" class="flex items-center gap-2 text-xs text-white/60 hover:text-white uppercase tracking-widest transition-colors"><i class='bx bxl-instagram'></i> Instagram</a></li>
-                <li><a href="#" class="flex items-center gap-2 text-xs text-white/60 hover:text-white uppercase tracking-widest transition-colors"><i class='bx bxl-tiktok'></i> TikTok</a></li>
-                <li><a href="#" class="flex items-center gap-2 text-xs text-white/60 hover:text-white uppercase tracking-widest transition-colors"><i class='bx bxl-whatsapp'></i> WhatsApp</a></li>
-                <li><a href="#" class="flex items-center gap-2 text-xs text-white/60 hover:text-white uppercase tracking-widest transition-colors"><i class='bx bx-envelope'></i> Email</a></li>
-            </ul>
-        </div>
-
-        <div class="md:col-span-1">
-            <h4 class="font-neo text-[10px] font-bold text-accent-indigo uppercase tracking-[0.3em] mb-6">Headquarters</h4>
-            <address class="font-neo text-xs text-white/60 not-italic leading-loose uppercase tracking-wide">
-                Dayeuhkolot Laboratory<br>
-                Bandung, West Java<br>
-                Indonesia, 40257<br>
-                <span class="block mt-4 text-accent-indigo">Est. 2025</span>
-            </address>
-        </div>
-    </div>
-
-    <div class="w-full flex flex-col items-center justify-center opacity-20 select-none">
-        <h1 class="font-heritage text-[13vw] leading-none text-white font-black tracking-tighter">
+<body class="bg-sc-black text-sc-white overflow-x-hidden font-space">
+    <!-- Loader -->
+    <div class="fixed inset-0 bg-sc-black flex flex-col gap-4 items-center justify-center z-[10000] transition-all duration-800" id="loader">
+        <div class="font-playfair text-4xl md:text-5xl font-bold tracking-[0.3rem] md:tracking-[0.5rem] text-white loader-pulse">
             SEVEN CULTURES
-        </h1>
-    </div>
-
-    <div class="flex justify-between items-end mt-10 md:mt-0 text-[9px] text-white/40 uppercase tracking-widest font-mono">
-        <div>
-            &copy; 2025 REYY & JIBB.<br>ALL RIGHTS RESERVED.
         </div>
-        <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="group flex items-center gap-2 hover:text-white transition-colors cursor-pointer">
-            <span>Back to Top</span>
-            <div class="w-6 h-6 border border-white/20 rounded-full flex items-center justify-center group-hover:bg-white group-hover:text-charcoal transition-all">
-                <i class='bx bx-up-arrow-alt'></i>
-            </div>
-        </button>
+        
+        <div class="text-[0.65rem] md:text-xs font-sans font-light tracking-[0.3em] md:tracking-[0.5em] text-sc-gray uppercase animate-pulse">
+            BANDUNG NEO-HERITAGE ARCHIVE
+        </div>
     </div>
 
-</footer>
 
-    </main>
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 w-full px-4 md:px-12 py-4 md:py-6 flex justify-between items-center z-[1000] bg-gradient-to-b from-sc-black/95 to-transparent transition-all duration-300" id="navbar">
+        <div class="flex items-center gap-3 md:gap-4">
+            <div class="w-10 h-10 md:w-12 md:h-12 border-2 border-sc-white flex items-center justify-center font-playfair font-bold text-base md:text-xl">7C</div>
+            <span class="font-playfair text-base md:text-xl font-semibold tracking-[0.15rem] md:tracking-[0.2rem]">SEVEN CULTURES</span>
+        </div>
+        
+        <ul class="hidden lg:flex gap-8 xl:gap-12 list-none">
+            <li><a href="#home" class="text-sc-white no-underline text-xs xl:text-sm tracking-[0.15rem] uppercase relative hover:text-sc-gray transition-colors after:content-[''] after:absolute after:bottom-[-5px] after:left-0 after:w-0 after:h-[1px] after:bg-sc-white after:transition-all hover:after:w-full">Home</a></li>
+            <li><a href="#store" class="text-sc-white no-underline text-xs xl:text-sm tracking-[0.15rem] uppercase relative hover:text-sc-gray transition-colors after:content-[''] after:absolute after:bottom-[-5px] after:left-0 after:w-0 after:h-[1px] after:bg-sc-white after:transition-all hover:after:w-full">Store</a></li>
+            <li><a href="#about" class="text-sc-white no-underline text-xs xl:text-sm tracking-[0.15rem] uppercase relative hover:text-sc-gray transition-colors after:content-[''] after:absolute after:bottom-[-5px] after:left-0 after:w-0 after:h-[1px] after:bg-sc-white after:transition-all hover:after:w-full">About</a></li>
+            <li><a href="#help" class="text-sc-white no-underline text-xs xl:text-sm tracking-[0.15rem] uppercase relative hover:text-sc-gray transition-colors after:content-[''] after:absolute after:bottom-[-5px] after:left-0 after:w-0 after:h-[1px] after:bg-sc-white after:transition-all hover:after:w-full">Bantuan</a></li>
+        </ul>
 
+        <div class="flex lg:hidden flex-col gap-1.5 cursor-pointer z-[1001]" id="menuToggle">
+            <span class="w-6 h-0.5 bg-sc-white transition-all"></span>
+            <span class="w-6 h-0.5 bg-sc-white transition-all"></span>
+            <span class="w-6 h-0.5 bg-sc-white transition-all"></span>
+        </div>
+    </nav>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <!-- Mobile Menu -->
+    <div class="fixed inset-0 bg-sc-black z-[999] flex flex-col items-center justify-center gap-8 transition-all duration-500 translate-x-full" id="mobileMenu">
+        <a href="#home" onclick="closeMobileMenu()" class="text-sc-white no-underline font-playfair text-3xl tracking-[0.3rem] hover:text-sc-gray transition-colors">Home</a>
+        <a href="#store" onclick="closeMobileMenu()" class="text-sc-white no-underline font-playfair text-3xl tracking-[0.3rem] hover:text-sc-gray transition-colors">Store</a>
+        <a href="#about" onclick="closeMobileMenu()" class="text-sc-white no-underline font-playfair text-3xl tracking-[0.3rem] hover:text-sc-gray transition-colors">About</a>
+        <a href="#help" onclick="closeMobileMenu()" class="text-sc-white no-underline font-playfair text-3xl tracking-[0.3rem] hover:text-sc-gray transition-colors">Bantuan</a>
+        <div class="flex items-center gap-6 mt-8">
+            <i class='bx bx-search text-2xl cursor-pointer'></i>
+            <i class='bx bx-shopping-bag text-2xl cursor-pointer'></i>
+            <i class='bx bx-user text-2xl cursor-pointer'></i>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="h-[100dvh] w-full flex flex-col items-center justify-center relative overflow-hidden p-4 md:p-8 bg-sc-black" id="home">
+        
+        <div class="absolute font-playfair text-[25vw] md:text-[35vw] font-black opacity-[0.03] whitespace-nowrap select-none tracking-tighter text-white pointer-events-none z-0">7C</div>
+        
+        <div class="text-center z-10 relative">
+            <h1 class="font-playfair text-5xl sm:text-7xl md:text-8xl lg:text-[10rem] font-bold tracking-[0.05em] md:tracking-[0.1em] leading-[0.9] animate-fade-in-up delay-500 text-white select-none">SEVEN CULTURES</h1>
+            <p class="font-cormorant text-base sm:text-lg md:text-xl lg:text-2xl tracking-[0.2em] md:tracking-[0.5em] text-sc-gray mt-4 md:mt-6 font-light animate-fade-in-up delay-700 select-none">BANDUNG NEO-HERITAGE ARCHIVE</p>
+            <div class="inline-flex items-center gap-3 md:gap-4 mt-6 md:mt-8 px-4 md:px-8 py-2 md:py-3 border border-white/20 text-xs md:text-sm tracking-[0.2em] md:tracking-[0.3rem] animate-fade-in-up delay-900 text-white select-none">
+                <i class='bx bx-radio-circle-marked'></i>
+                VOL 01 — 2026
+            </div>
+        </div>
     
-    <script>
+    </section>
+
+    <!-- Strip X -->
+    <section class="relative h-[300px] md:h-[400px] overflow-hidden bg-sc-black">
+        
+        <div class="absolute top-1/2 left-1/2 w-[120%] -translate-x-1/2 -translate-y-1/2 -rotate-[8deg] py-3 md:py-4 bg-sc-white text-sc-black whitespace-nowrap font-bebas text-sm md:text-xl tracking-[0.2rem] shadow-lg z-0">
+            <div class="inline-flex animate-strip">
+                <span class="px-6 md:px-12 inline-flex items-center gap-2 md:gap-4"><i class='bx bxs-star'></i> STREETWEAR BANDUNG</span>
+                <span class="px-6 md:px-12 inline-flex items-center gap-2 md:gap-4"><i class='bx bxs-star'></i> NEO-HERITAGE</span>
+                <span class="px-6 md:px-12 inline-flex items-center gap-2 md:gap-4"><i class='bx bxs-star'></i> AUTHENTIC CULTURE</span>
+                <span class="px-6 md:px-12 inline-flex items-center gap-2 md:gap-4"><i class='bx bxs-star'></i> LOCAL PRIDE</span>
+                <span class="px-6 md:px-12 inline-flex items-center gap-2 md:gap-4"><i class='bx bxs-star'></i> URBAN STYLE</span>
+                 <span class="px-6 md:px-12 inline-flex items-center gap-2 md:gap-4"><i class='bx bxs-star'></i> STREETWEAR BANDUNG</span>
+                <span class="px-6 md:px-12 inline-flex items-center gap-2 md:gap-4"><i class='bx bxs-star'></i> NEO-HERITAGE</span>
+                <span class="px-6 md:px-12 inline-flex items-center gap-2 md:gap-4"><i class='bx bxs-star'></i> AUTHENTIC CULTURE</span>
+                <span class="px-6 md:px-12 inline-flex items-center gap-2 md:gap-4"><i class='bx bxs-star'></i> LOCAL PRIDE</span>
+                <span class="px-6 md:px-12 inline-flex items-center gap-2 md:gap-4"><i class='bx bxs-star'></i> URBAN STYLE</span>
+            </div>
+        </div>
+        
+        <div class="absolute top-1/2 left-1/2 w-[120%] -translate-x-1/2 -translate-y-1/2 rotate-[8deg] py-3 md:py-4 bg-sc-white text-sc-black whitespace-nowrap font-bebas text-sm md:text-xl tracking-[0.2rem] shadow-lg z-0">
+            <div class="inline-flex animate-strip-reverse">
+                <span class="px-6 md:px-12 inline-flex items-center gap-2 md:gap-4"><i class='bx bxs-diamond'></i> SEVEN CULTURES</span>
+                <span class="px-6 md:px-12 inline-flex items-center gap-2 md:gap-4"><i class='bx bxs-diamond'></i> EST. 2026</span>
+                <span class="px-6 md:px-12 inline-flex items-center gap-2 md:gap-4"><i class='bx bxs-diamond'></i> BANDUNG INDONESIA</span>
+                <span class="px-6 md:px-12 inline-flex items-center gap-2 md:gap-4"><i class='bx bxs-diamond'></i> PREMIUM QUALITY</span>
+                <span class="px-6 md:px-12 inline-flex items-center gap-2 md:gap-4"><i class='bx bxs-diamond'></i> STREET FASHION</span>
+                 <span class="px-6 md:px-12 inline-flex items-center gap-2 md:gap-4"><i class='bx bxs-diamond'></i> SEVEN CULTURES</span>
+                <span class="px-6 md:px-12 inline-flex items-center gap-2 md:gap-4"><i class='bx bxs-diamond'></i> EST. 2026</span>
+                <span class="px-6 md:px-12 inline-flex items-center gap-2 md:gap-4"><i class='bx bxs-diamond'></i> BANDUNG INDONESIA</span>
+                <span class="px-6 md:px-12 inline-flex items-center gap-2 md:gap-4"><i class='bx bxs-diamond'></i> PREMIUM QUALITY</span>
+                <span class="px-6 md:px-12 inline-flex items-center gap-2 md:gap-4"><i class='bx bxs-diamond'></i> STREET FASHION</span>
+            </div>
+        </div>
+    
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
+            <div class="w-28 h-28 md:w-40 md:h-40 bg-sc-black text-center border-4 border-sc-white rounded-full flex flex-col justify-center items-center shadow-2xl">
+                <div class="font-playfair text-2xl md:text-4xl font-bold text-sc-white">7C</div>
+                <div class="text-[10px] md:text-xs tracking-[0.2rem] text-sc-gray mt-1">VOL 01</div>
+            </div>
+        </div>
+        
+    </section>
+
+    <!-- Philosophy Section -->
+    <section class="py-16 md:py-32 px-4 md:px-8 bg-gradient-to-b from-sc-black via-sc-dark to-sc-black" id="about">
+        <div class="text-center mb-12 md:mb-20 reveal">
+            <p class="text-xs md:text-sm tracking-[0.3rem] md:tracking-[0.4rem] text-sc-gray mb-2 md:mb-4">THE PHILOSOPHY</p>
+            <h2 class="font-playfair text-3xl md:text-5xl lg:text-6xl font-semibold">CERITA DI BALIK SEVEN CULTURES</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 max-w-7xl mx-auto">
+            <div class="philosophy-card relative p-6 md:p-10 border border-white/10 bg-white/[0.02] hover:border-white/30 hover:-translate-y-2 transition-all duration-400 overflow-hidden reveal">
+                <i class='bx bx-bulb text-3xl md:text-4xl mb-4 md:mb-6 block'></i>
+                <h3 class="font-playfair text-xl md:text-2xl mb-2 md:mb-4">Filosofi</h3>
+                <p class="text-sc-gray leading-relaxed text-sm md:text-base">Seven Cultures lahir dari filosofi tujuh elemen yang menyatukan budaya jalanan Bandung — kreativitas, keberanian, keaslian, komunitas, warisan, inovasi, dan semangat. Setiap helai benang menceritakan kisah dari jalanan kota kembang.</p>
+            </div>
+            
+            <div class="philosophy-card relative p-6 md:p-10 border border-white/10 bg-white/[0.02] hover:border-white/30 hover:-translate-y-2 transition-all duration-400 overflow-hidden reveal" style="transition-delay: 0.1s;">
+                <i class='bx bx-time-five text-3xl md:text-4xl mb-4 md:mb-6 block'></i>
+                <h3 class="font-playfair text-xl md:text-2xl mb-2 md:mb-4">Awal Mula</h3>
+                <p class="text-sc-gray leading-relaxed text-sm md:text-base">Bermula dari garasi kecil di Bandung tahun 2026, dua sahabat — Reyy dan Jibb — memiliki visi yang sama: menciptakan streetwear yang memadukan warisan budaya lokal dengan estetika kontemporer yang relevan untuk generasi baru.</p>
+            </div>
+            
+            <div class="philosophy-card relative p-6 md:p-10 border border-white/10 bg-white/[0.02] hover:border-white/30 hover:-translate-y-2 transition-all duration-400 overflow-hidden reveal" style="transition-delay: 0.2s;">
+                <i class='bx bx-map-pin text-3xl md:text-4xl mb-4 md:mb-6 block'></i>
+                <h3 class="font-playfair text-xl md:text-2xl mb-2 md:mb-4">Kedatangan</h3>
+                <p class="text-sc-gray leading-relaxed text-sm md:text-base">Seven Cultures hadir sebagai jawaban atas kebutuhan fashion jalanan yang autentik. Dari gang-gang sempit Braga hingga trotoar Dago, kami menyerap esensi Bandung yang unik dan menuangkannya ke dalam setiap koleksi.</p>
+            </div>
+            
+            <div class="philosophy-card relative p-6 md:p-10 border border-white/10 bg-white/[0.02] hover:border-white/30 hover:-translate-y-2 transition-all duration-400 overflow-hidden reveal" style="transition-delay: 0.3s;">
+                <i class='bx bx-trophy text-3xl md:text-4xl mb-4 md:mb-6 block'></i>
+                <h3 class="font-playfair text-xl md:text-2xl mb-2 md:mb-4">Kemunculan</h3>
+                <p class="text-sc-gray leading-relaxed text-sm md:text-base">Dengan pendekatan "Neo-Heritage Archive", kami menggali arsip visual budaya Bandung dan menghadirkannya dengan sentuhan modern. Setiap piece adalah dialog antara masa lalu dan masa kini.</p>
+            </div>
+            
+            <div class="philosophy-card relative p-6 md:p-10 border border-white/10 bg-white/[0.02] hover:border-white/30 hover:-translate-y-2 transition-all duration-400 overflow-hidden reveal" style="transition-delay: 0.4s;">
+                <i class='bx bx-book-open text-3xl md:text-4xl mb-4 md:mb-6 block'></i>
+                <h3 class="font-playfair text-xl md:text-2xl mb-2 md:mb-4">Sejarah</h3>
+                <p class="text-sc-gray leading-relaxed text-sm md:text-base">Nama "Seven Cultures" terinspirasi dari tujuh komunitas kreatif yang pertama kali mendukung brand ini. Mereka adalah fondasi yang membentuk identitas kami — dari musisi jalanan hingga seniman grafiti Bandung.</p>
+            </div>
+            
+            <div class="philosophy-card relative p-6 md:p-10 border border-white/10 bg-white/[0.02] hover:border-white/30 hover:-translate-y-2 transition-all duration-400 overflow-hidden reveal" style="transition-delay: 0.5s;">
+                <i class='bx bx-question-mark text-3xl md:text-4xl mb-4 md:mb-6 block'></i>
+                <h3 class="font-playfair text-xl md:text-2xl mb-2 md:mb-4">Apa Itu Seven Cultures?</h3>
+                <p class="text-sc-gray leading-relaxed text-sm md:text-base">Lebih dari sekadar clothing brand, Seven Cultures adalah gerakan. Kami adalah suara untuk generasi yang menghargai kualitas, orisinalitas, dan koneksi dengan akar budaya mereka. Ini adalah legacy yang kita bangun bersama.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Branding Grid Section -->
+    <section class="py-16 md:py-32 px-4 md:px-8 bg-sc-black" id="store">
+        <div class="text-center mb-12 md:mb-20 reveal">
+            <p class="text-xs md:text-sm tracking-[0.3rem] md:tracking-[0.4rem] text-sc-gray mb-2 md:mb-4">OUR COLLECTION</p>
+            <h2 class="font-playfair text-3xl md:text-5xl lg:text-6xl font-semibold text-white">7 KATEGORI PRODUK</h2>
+            <p class="text-sc-gray text-xs mt-4 animate-pulse md:hidden">(Tap gambar untuk melihat warna)</p>
+        </div>
+    
+        <div class="grid grid-cols-2 md:grid-cols-4 auto-rows-[180px] md:auto-rows-[240px] gap-2 md:gap-4 max-w-7xl mx-auto">
+            
+            <div tabindex="0" class="group relative col-span-2 row-span-2 overflow-hidden rounded-lg cursor-pointer reveal outline-none">
+                <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?q=80&w=1000&auto=format&fit=crop" 
+                     alt="Kaos" 
+                     class="absolute inset-0 w-full h-full object-cover transition-all duration-700 grayscale brightness-75 group-hover:grayscale-0 group-hover:scale-105 group-hover:brightness-100 group-focus:grayscale-0 group-focus:scale-105 group-focus:brightness-100">
+                
+                <div class="absolute inset-0 bg-black/60 group-hover:bg-black/30 group-focus:bg-black/30 transition-all duration-500"></div>
+                
+                <div class="absolute bottom-0 left-0 w-full p-6 translate-y-2 group-hover:translate-y-0 group-focus:translate-y-0 transition-transform duration-500">
+                    <h4 class="font-bebas text-3xl md:text-4xl tracking-[0.2rem] text-white mb-2 drop-shadow-lg">KAOS</h4>
+                    <div class="max-h-0 overflow-hidden group-hover:max-h-[100px] group-focus:max-h-[100px] transition-all duration-500 ease-in-out">
+                        <p class="text-xs md:text-sm text-gray-200 leading-relaxed drop-shadow-md">Signature oversized tee dengan bahan Cotton Combed 24s.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div tabindex="0" class="group relative col-span-1 row-span-1 overflow-hidden rounded-lg cursor-pointer reveal outline-none" style="transition-delay: 0.1s;">
+                <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?q=80&w=1000&auto=format&fit=crop" alt="Jaket" class="absolute inset-0 w-full h-full object-cover transition-all duration-700 grayscale brightness-75 group-hover:grayscale-0 group-hover:scale-105 group-hover:brightness-100 group-focus:grayscale-0 group-focus:scale-105 group-focus:brightness-100">
+                <div class="absolute inset-0 bg-black/60 group-hover:bg-black/30 group-focus:bg-black/30 transition-all duration-500"></div>
+                <div class="absolute bottom-0 left-0 w-full p-4">
+                    <h4 class="font-bebas text-xl md:text-2xl tracking-[0.2rem] text-white drop-shadow-lg">JAKET</h4>
+                </div>
+            </div>
+    
+            <div tabindex="0" class="group relative col-span-1 row-span-2 overflow-hidden rounded-lg cursor-pointer reveal outline-none" style="transition-delay: 0.2s;">
+                <img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?q=80&w=1000&auto=format&fit=crop" alt="Hoodie" class="absolute inset-0 w-full h-full object-cover transition-all duration-700 grayscale brightness-75 group-hover:grayscale-0 group-hover:scale-105 group-hover:brightness-100 group-focus:grayscale-0 group-focus:scale-105 group-focus:brightness-100">
+                <div class="absolute inset-0 bg-black/60 group-hover:bg-black/30 group-focus:bg-black/30 transition-all duration-500"></div>
+                <div class="absolute bottom-0 left-0 w-full p-4 md:p-6 translate-y-2 group-hover:translate-y-0 group-focus:translate-y-0 transition-transform duration-500">
+                    <h4 class="font-bebas text-2xl md:text-3xl tracking-[0.2rem] text-white mb-1 drop-shadow-lg">HOODIE</h4>
+                    <div class="max-h-0 overflow-hidden group-hover:max-h-[100px] group-focus:max-h-[100px] transition-all duration-500">
+                        <p class="text-xs text-gray-200 drop-shadow-md">Heavyweight fleece 330gsm.</p>
+                    </div>
+                </div>
+            </div>
+    
+            <div tabindex="0" class="group relative col-span-1 row-span-1 overflow-hidden rounded-lg cursor-pointer reveal outline-none" style="transition-delay: 0.3s;">
+                <img src="https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?q=80&w=1000&auto=format&fit=crop" alt="Celana" class="absolute inset-0 w-full h-full object-cover transition-all duration-700 grayscale brightness-75 group-hover:grayscale-0 group-hover:scale-105 group-hover:brightness-100 group-focus:grayscale-0 group-focus:scale-105 group-focus:brightness-100">
+                <div class="absolute inset-0 bg-black/60 group-hover:bg-black/30 group-focus:bg-black/30 transition-all duration-500"></div>
+                <div class="absolute bottom-0 left-0 w-full p-4">
+                    <h4 class="font-bebas text-xl md:text-2xl tracking-[0.2rem] text-white drop-shadow-lg">CELANA</h4>
+                </div>
+            </div>
+    
+            <div tabindex="0" class="group relative col-span-2 row-span-1 overflow-hidden rounded-lg cursor-pointer reveal outline-none" style="transition-delay: 0.4s;">
+                <img src="https://images.unsplash.com/photo-1607522370275-f14206abe5d3?q=80&w=1000&auto=format&fit=crop" alt="Sepatu" class="absolute inset-0 w-full h-full object-cover transition-all duration-700 grayscale brightness-75 group-hover:grayscale-0 group-hover:scale-105 group-hover:brightness-100 group-focus:grayscale-0 group-focus:scale-105 group-focus:brightness-100">
+                <div class="absolute inset-0 bg-black/60 group-hover:bg-black/30 group-focus:bg-black/30 transition-all duration-500"></div>
+                <div class="absolute bottom-0 left-0 w-full p-4 md:p-6 flex flex-col justify-end h-full">
+                    <h4 class="font-bebas text-2xl md:text-3xl tracking-[0.2rem] text-white drop-shadow-lg">SEPATU</h4>
+                    <p class="text-xs text-gray-200 opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity duration-500 delay-100 drop-shadow-md">Vulcanized sneakers handmade in Bandung.</p>
+                </div>
+            </div>
+    
+            <div tabindex="0" class="group relative col-span-1 row-span-1 overflow-hidden rounded-lg cursor-pointer reveal outline-none" style="transition-delay: 0.5s;">
+                <img src="https://images.unsplash.com/photo-1521369909029-2afed882baee?q=80&w=1000&auto=format&fit=crop" alt="Topi" class="absolute inset-0 w-full h-full object-cover transition-all duration-700 grayscale brightness-75 group-hover:grayscale-0 group-hover:scale-105 group-hover:brightness-100 group-focus:grayscale-0 group-focus:scale-105 group-focus:brightness-100">
+                <div class="absolute inset-0 bg-black/60 group-hover:bg-black/30 group-focus:bg-black/30 transition-all duration-500"></div>
+                <div class="absolute bottom-0 left-0 w-full p-4">
+                    <h4 class="font-bebas text-xl md:text-2xl tracking-[0.2rem] text-white drop-shadow-lg">TOPI</h4>
+                </div>
+            </div>
+    
+            <div tabindex="0" class="group relative col-span-1 row-span-1 overflow-hidden rounded-lg cursor-pointer reveal outline-none" style="transition-delay: 0.6s;">
+                <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?q=80&w=1000&auto=format&fit=crop" alt="Aksesoris" class="absolute inset-0 w-full h-full object-cover transition-all duration-700 grayscale brightness-75 group-hover:grayscale-0 group-hover:scale-105 group-hover:brightness-100 group-focus:grayscale-0 group-focus:scale-105 group-focus:brightness-100">
+                <div class="absolute inset-0 bg-black/60 group-hover:bg-black/30 group-focus:bg-black/30 transition-all duration-500"></div>
+                <div class="absolute bottom-0 left-0 w-full p-4">
+                    <h4 class="font-bebas text-xl md:text-2xl tracking-[0.2rem] text-white drop-shadow-lg">AKSESORIS</h4>
+                </div>
+            </div>
+    
+        </div>
+    </section>
+
+    <!-- Photo Slider Section -->
+    <section class="py-12 md:py-24 bg-sc-dark relative">
+        <div class="text-center mb-8 md:mb-12 reveal px-4">
+            <p class="text-xs md:text-sm tracking-[0.3rem] md:tracking-[0.4rem] text-sc-gray mb-2 md:mb-4">BEHIND THE SCENES</p>
+            <h2 class="font-playfair text-3xl md:text-5xl lg:text-6xl font-semibold text-white">GALERI SEVEN CULTURES</h2>
+        </div>
+    
+        <div class="flex gap-4 md:gap-6 overflow-x-auto px-6 md:px-12 scroll-pl-6 md:scroll-pl-12 py-4 md:py-8 snap-x snap-mandatory hide-scrollbar scroll-smooth w-full" id="photoSlider">
+            
+            <div class="group flex-shrink-0 w-[280px] md:w-[400px] h-[350px] md:h-[500px] border border-white/10 rounded-xl snap-start relative overflow-hidden cursor-pointer shadow-lg active:scale-95 transition-all duration-300">
+                <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=1000&auto=format&fit=crop" 
+                     alt="Flagship Store" 
+                     class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300"></div>
+                <div class="absolute bottom-0 left-0 w-full p-6 md:p-8 translate-y-2 group-hover:translate-y-0 transition-transform duration-500 z-10">
+                    <h4 class="font-playfair text-xl md:text-2xl text-white drop-shadow-md">Flagship Store</h4>
+                    <p class="text-xs md:text-sm text-gray-200 mt-2 font-light drop-shadow-sm">Toko utama kami di jantung kota Bandung, Jl. Braga.</p>
+                </div>
+            </div>
+    
+            <div class="group flex-shrink-0 w-[280px] md:w-[400px] h-[350px] md:h-[500px] border border-white/10 rounded-xl snap-start relative overflow-hidden cursor-pointer shadow-lg active:scale-95 transition-all duration-300">
+                <img src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?q=80&w=1000&auto=format&fit=crop" 
+                     alt="Product Display" 
+                     class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300"></div>
+                <div class="absolute bottom-0 left-0 w-full p-6 md:p-8 translate-y-2 group-hover:translate-y-0 transition-transform duration-500 z-10">
+                    <h4 class="font-playfair text-xl md:text-2xl text-white drop-shadow-md">Curated Display</h4>
+                    <p class="text-xs md:text-sm text-gray-200 mt-2 font-light drop-shadow-sm">Penataan koleksi visual yang estetik dan rapi.</p>
+                </div>
+            </div>
+    
+            <div class="group flex-shrink-0 w-[280px] md:w-[400px] h-[350px] md:h-[500px] border border-white/10 rounded-xl snap-start relative overflow-hidden cursor-pointer shadow-lg active:scale-95 transition-all duration-300">
+                <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?q=80&w=1000&auto=format&fit=crop" 
+                     alt="Community" 
+                     class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300"></div>
+                <div class="absolute bottom-0 left-0 w-full p-6 md:p-8 translate-y-2 group-hover:translate-y-0 transition-transform duration-500 z-10">
+                    <h4 class="font-playfair text-xl md:text-2xl text-white drop-shadow-md">Community Meet</h4>
+                    <p class="text-xs md:text-sm text-gray-200 mt-2 font-light drop-shadow-sm">Gathering rutin bersama komunitas streetwear lokal.</p>
+                </div>
+            </div>
+    
+            <div class="group flex-shrink-0 w-[280px] md:w-[400px] h-[350px] md:h-[500px] border border-white/10 rounded-xl snap-start relative overflow-hidden cursor-pointer shadow-lg active:scale-95 transition-all duration-300">
+                <img src="https://images.unsplash.com/photo-1524253482453-3fed8d2fe12b?q=80&w=1000&auto=format&fit=crop" 
+                     alt="Production" 
+                     class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300"></div>
+                <div class="absolute bottom-0 left-0 w-full p-6 md:p-8 translate-y-2 group-hover:translate-y-0 transition-transform duration-500 z-10">
+                    <h4 class="font-playfair text-xl md:text-2xl text-white drop-shadow-md">Local Production</h4>
+                    <p class="text-xs md:text-sm text-gray-200 mt-2 font-light drop-shadow-sm">Dibuat oleh tangan ahli pengrajin lokal Bandung.</p>
+                </div>
+            </div>
+    
+            <div class="group flex-shrink-0 w-[280px] md:w-[400px] h-[350px] md:h-[500px] border border-white/10 rounded-xl snap-start relative overflow-hidden cursor-pointer shadow-lg active:scale-95 transition-all duration-300">
+                <img src="https://images.unsplash.com/photo-1502136969935-8d8eef54d77b?q=80&w=1000&auto=format&fit=crop" 
+                     alt="Photoshoot" 
+                     class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300"></div>
+                <div class="absolute bottom-0 left-0 w-full p-6 md:p-8 translate-y-2 group-hover:translate-y-0 transition-transform duration-500 z-10">
+                    <h4 class="font-playfair text-xl md:text-2xl text-white drop-shadow-md">Studio Session</h4>
+                    <p class="text-xs md:text-sm text-gray-200 mt-2 font-light drop-shadow-sm">Proses kreatif di balik katalog Vol. 01.</p>
+                </div>
+            </div>
+    
+            <div class="group flex-shrink-0 w-[280px] md:w-[400px] h-[350px] md:h-[500px] border border-white/10 rounded-xl snap-start relative overflow-hidden cursor-pointer shadow-lg active:scale-95 transition-all duration-300">
+                <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=1000&auto=format&fit=crop" 
+                     alt="Shipping" 
+                     class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300"></div>
+                <div class="absolute bottom-0 left-0 w-full p-6 md:p-8 translate-y-2 group-hover:translate-y-0 transition-transform duration-500 z-10">
+                    <h4 class="font-playfair text-xl md:text-2xl text-white drop-shadow-md">Global Shipping</h4>
+                    <p class="text-xs md:text-sm text-gray-200 mt-2 font-light drop-shadow-sm">Melayani pengiriman ke seluruh Indonesia & Asia.</p>
+                </div>
+            </div>
+    
+        </div>
+    
+        <div class="flex justify-center gap-3 md:gap-4 mt-8 md:mt-12">
+            <button id="slideLeftBtn" class="w-12 h-12 md:w-14 md:h-14 border border-white/20 bg-black/30 backdrop-blur-sm text-white rounded-full cursor-pointer hover:bg-white hover:text-black hover:border-white transition-all duration-300 flex items-center justify-center group shadow-lg z-20">
+                <i class='bx bx-left-arrow-alt text-2xl group-hover:-translate-x-1 transition-transform'></i>
+            </button>
+            <button id="slideRightBtn" class="w-12 h-12 md:w-14 md:h-14 border border-white/20 bg-black/30 backdrop-blur-sm text-white rounded-full cursor-pointer hover:bg-white hover:text-black hover:border-white transition-all duration-300 flex items-center justify-center group shadow-lg z-20">
+                <i class='bx bx-right-arrow-alt text-2xl group-hover:translate-x-1 transition-transform'></i>
+            </button>
+        </div>
+    </section>
+
+    <!-- Product Cards Section -->
+    <section class="py-20 md:py-32 px-0 bg-gradient-to-b from-sc-black via-[#0f0f0f] to-sc-black overflow-hidden">
+        
+        <div class="text-center mb-8 md:mb-12 px-4 reveal">
+            <p class="text-xs md:text-sm tracking-[0.3rem] text-sc-gray mb-3 border border-white/5 inline-block px-4 py-1 rounded-full">FULL CATALOG</p>
+            <h2 class="font-playfair text-3xl md:text-5xl font-semibold text-white">SPESIFIKASI PRODUK</h2>
+        </div>
+    
+        <div class="w-full overflow-x-auto hide-scrollbar pb-12 pt-12 px-4 md:px-8">
+            <div class="flex gap-6 md:gap-8 w-max mx-auto">
+                
+                <div class="group relative w-[320px] md:w-[360px] bg-white/5 backdrop-blur-md border border-white/10 p-8 rounded-3xl transition-all duration-500 hover:-translate-y-4 hover:shadow-2xl hover:shadow-white/10 hover:bg-white/[0.08] overflow-hidden flex-shrink-0">
+                    <i class='bx bxs-t-shirt absolute -right-8 -top-8 text-[10rem] text-white/[0.03] group-hover:text-white/[0.05] group-hover:rotate-12 transition-all duration-700 pointer-events-none z-0'></i>
+                    <div class="relative z-10">
+                        <div class="flex items-center gap-5 mb-8 border-b border-white/10 pb-6">
+                            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-white/10 to-transparent border border-white/10 flex items-center justify-center shadow-inner">
+                                <i class='bx bxs-t-shirt text-2xl text-white drop-shadow-md'></i>
+                            </div>
+                            <div>
+                                <h3 class="font-playfair text-3xl font-bold text-white">Kaos</h3>
+                                <p class="text-sc-gray text-xs tracking-widest mt-1 uppercase">Signature Tee</p>
+                            </div>
+                        </div>
+                        <ul class="space-y-5">
+                            <li class="flex items-start gap-4">
+                                <i class='bx bx-leaf text-xl text-white/70 mt-1'></i>
+                                <div>
+                                    <span class="block text-white text-[10px] font-bold tracking-wider uppercase opacity-60">Material</span>
+                                    <span class="text-white text-base font-medium">Cotton Combed 24s</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-4">
+                                <i class='bx bx-palette text-xl text-white/70 mt-1'></i>
+                                <div>
+                                    <span class="block text-white text-[10px] font-bold tracking-wider uppercase opacity-60">Warna</span>
+                                    <span class="text-white text-base font-medium">Reactive Dye (Awet)</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-4">
+                                <i class='bx bxs-layer text-xl text-white/70 mt-1'></i>
+                                <div>
+                                    <span class="block text-white text-[10px] font-bold tracking-wider uppercase opacity-60">Sablon</span>
+                                    <span class="text-white text-base font-medium">Plastisol Ink Premium</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-4">
+                                <i class='bx bx-wind text-xl text-white/70 mt-1'></i>
+                                <div>
+                                    <span class="block text-white text-[10px] font-bold tracking-wider uppercase opacity-60">Fitur</span>
+                                    <span class="text-white text-base font-medium">Anti-Shrink & Adem</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+    
+                <div class="group relative w-[320px] md:w-[360px] bg-white/5 backdrop-blur-md border border-white/10 p-8 rounded-3xl transition-all duration-500 hover:-translate-y-4 hover:shadow-2xl hover:shadow-white/10 hover:bg-white/[0.08] overflow-hidden flex-shrink-0">
+                    <i class='bx bx-wind absolute -right-8 -top-8 text-[10rem] text-white/[0.03] group-hover:text-white/[0.05] group-hover:rotate-12 transition-all duration-700 pointer-events-none z-0'></i>
+                    <div class="relative z-10">
+                        <div class="flex items-center gap-5 mb-8 border-b border-white/10 pb-6">
+                            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-white/10 to-transparent border border-white/10 flex items-center justify-center shadow-inner">
+                                <i class='bx bx-wind text-2xl text-white drop-shadow-md'></i>
+                            </div>
+                            <div>
+                                <h3 class="font-playfair text-3xl font-bold text-white">Jaket</h3>
+                                <p class="text-sc-gray text-xs tracking-widest mt-1 uppercase">Coach & Tracktop</p>
+                            </div>
+                        </div>
+                        <ul class="space-y-5">
+                            <li class="flex items-start gap-4">
+                                <i class='bx bx-shield-alt-2 text-xl text-white/70 mt-1'></i>
+                                <div>
+                                    <span class="block text-white text-[10px] font-bold tracking-wider uppercase opacity-60">Material</span>
+                                    <span class="text-white text-base font-medium">Parasut Taslan Jaya</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-4">
+                                <i class='bx bx-water text-xl text-white/70 mt-1'></i>
+                                <div>
+                                    <span class="block text-white text-[10px] font-bold tracking-wider uppercase opacity-60">Proteksi</span>
+                                    <span class="text-white text-base font-medium">Water Resistant (Daun Talas)</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-4">
+                                <i class='bx bx-body text-xl text-white/70 mt-1'></i>
+                                <div>
+                                    <span class="block text-white text-[10px] font-bold tracking-wider uppercase opacity-60">Lining</span>
+                                    <span class="text-white text-base font-medium">Fleece (Lembut di Kulit)</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-4">
+                                <i class='bx bx-slider-alt text-xl text-white/70 mt-1'></i>
+                                <div>
+                                    <span class="block text-white text-[10px] font-bold tracking-wider uppercase opacity-60">Detail</span>
+                                    <span class="text-white text-base font-medium">YKK Original Zipper</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+    
+                <div class="group relative w-[320px] md:w-[360px] bg-white/5 backdrop-blur-md border border-white/10 p-8 rounded-3xl transition-all duration-500 hover:-translate-y-4 hover:shadow-2xl hover:shadow-white/10 hover:bg-white/[0.08] overflow-hidden flex-shrink-0">
+                    <i class='bx bxs-hot absolute -right-8 -top-8 text-[10rem] text-white/[0.03] group-hover:text-white/[0.05] group-hover:rotate-12 transition-all duration-700 pointer-events-none z-0'></i>
+                    <div class="relative z-10">
+                        <div class="flex items-center gap-5 mb-8 border-b border-white/10 pb-6">
+                            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-white/10 to-transparent border border-white/10 flex items-center justify-center shadow-inner">
+                                <i class='bx bxs-hot text-2xl text-white drop-shadow-md'></i>
+                            </div>
+                            <div>
+                                <h3 class="font-playfair text-3xl font-bold text-white">Hoodie</h3>
+                                <p class="text-sc-gray text-xs tracking-widest mt-1 uppercase">Heavyweight</p>
+                            </div>
+                        </div>
+                        <ul class="space-y-5">
+                            <li class="flex items-start gap-4">
+                                <i class='bx bx-cube-alt text-xl text-white/70 mt-1'></i>
+                                <div>
+                                    <span class="block text-white text-[10px] font-bold tracking-wider uppercase opacity-60">Material</span>
+                                    <span class="text-white text-base font-medium">Cotton Fleece 330gsm</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-4">
+                                <i class='bx bx-expand text-xl text-white/70 mt-1'></i>
+                                <div>
+                                    <span class="block text-white text-[10px] font-bold tracking-wider uppercase opacity-60">Cutting</span>
+                                    <span class="text-white text-base font-medium">Boxy / Oversized Fit</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-4">
+                                <i class='bx bx-shopping-bag text-xl text-white/70 mt-1'></i>
+                                <div>
+                                    <span class="block text-white text-[10px] font-bold tracking-wider uppercase opacity-60">Fitur</span>
+                                    <span class="text-white text-base font-medium">Kangaroo Pocket Luas</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-4">
+                                <i class='bx bx-check-shield text-xl text-white/70 mt-1'></i>
+                                <div>
+                                    <span class="block text-white text-[10px] font-bold tracking-wider uppercase opacity-60">Quality</span>
+                                    <span class="text-white text-base font-medium">Double Stitching</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+    
+                <div class="group relative w-[320px] md:w-[360px] bg-white/5 backdrop-blur-md border border-white/10 p-8 rounded-3xl transition-all duration-500 hover:-translate-y-4 hover:shadow-2xl hover:shadow-white/10 hover:bg-white/[0.08] overflow-hidden flex-shrink-0">
+                    
+                    <i class='bx bx-male absolute -right-8 -top-8 text-[10rem] text-white/[0.03] group-hover:text-white/[0.05] group-hover:rotate-12 transition-all duration-700 pointer-events-none z-0'></i>
+                    
+                    <div class="relative z-10">
+                        <div class="flex items-center gap-5 mb-8 border-b border-white/10 pb-6">
+                            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-white/10 to-transparent border border-white/10 flex items-center justify-center shadow-inner">
+                                <i class='bx bx-male text-2xl text-white drop-shadow-md'></i>
+                            </div>
+                            <div>
+                                <h3 class="font-playfair text-3xl font-bold text-white">Celana</h3>
+                                <p class="text-sc-gray text-xs tracking-widest mt-1 uppercase">Cargo & Denim</p>
+                            </div>
+                        </div>
+                        <ul class="space-y-5">
+                            <li class="flex items-start gap-4">
+                                <i class='bx bx-grid-alt text-xl text-white/70 mt-1'></i>
+                                <div>
+                                    <span class="block text-white text-[10px] font-bold tracking-wider uppercase opacity-60">Material</span>
+                                    <span class="text-white text-base font-medium">Twill & Ripstop Cotton</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-4">
+                                <i class='bx bx-shape-square text-xl text-white/70 mt-1'></i>
+                                <div>
+                                    <span class="block text-white text-[10px] font-bold tracking-wider uppercase opacity-60">Style</span>
+                                    <span class="text-white text-base font-medium">Relaxed & Baggy Fit</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-4">
+                                <i class='bx bx-cog text-xl text-white/70 mt-1'></i>
+                                <div>
+                                    <span class="block text-white text-[10px] font-bold tracking-wider uppercase opacity-60">Konstruksi</span>
+                                    <span class="text-white text-base font-medium">Reinforced Bar-tack</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-4">
+                                <i class='bx bx-move text-xl text-white/70 mt-1'></i>
+                                <div>
+                                    <span class="block text-white text-[10px] font-bold tracking-wider uppercase opacity-60">Fitur</span>
+                                    <span class="text-white text-base font-medium">Adjustable Waist Strap</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="group relative w-[320px] md:w-[360px] bg-white/5 backdrop-blur-md border border-white/10 p-8 rounded-3xl transition-all duration-500 hover:-translate-y-4 hover:shadow-2xl hover:shadow-white/10 hover:bg-white/[0.08] overflow-hidden flex-shrink-0">
+                    
+                    <i class='bx bx-run absolute -right-8 -top-8 text-[10rem] text-white/[0.03] group-hover:text-white/[0.05] group-hover:rotate-12 transition-all duration-700 pointer-events-none z-0'></i>
+                    
+                    <div class="relative z-10">
+                        <div class="flex items-center gap-5 mb-8 border-b border-white/10 pb-6">
+                            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-white/10 to-transparent border border-white/10 flex items-center justify-center shadow-inner">
+                                <i class='bx bx-run text-2xl text-white drop-shadow-md'></i>
+                            </div>
+                            <div>
+                                <h3 class="font-playfair text-3xl font-bold text-white">Sepatu</h3>
+                                <p class="text-sc-gray text-xs tracking-widest mt-1 uppercase">Sneakers</p>
+                            </div>
+                        </div>
+                        <ul class="space-y-5">
+                            <li class="flex items-start gap-4">
+                                <i class='bx bx-cube text-xl text-white/70 mt-1'></i>
+                                <div>
+                                    <span class="block text-white text-[10px] font-bold tracking-wider uppercase opacity-60">Upper</span>
+                                    <span class="text-white text-base font-medium">12oz Durable Canvas</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-4">
+                                <i class='bx bx-run text-xl text-white/70 mt-1'></i>
+                                <div>
+                                    <span class="block text-white text-[10px] font-bold tracking-wider uppercase opacity-60">Sole</span>
+                                    <span class="text-white text-base font-medium">Vulcanized Rubber</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-4">
+                                <i class='bx bx-plus-medical text-xl text-white/70 mt-1'></i>
+                                <div>
+                                    <span class="block text-white text-[10px] font-bold tracking-wider uppercase opacity-60">Comfort</span>
+                                    <span class="text-white text-base font-medium">EVA Foam Insole</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-4">
+                                <i class='bx bx-star text-xl text-white/70 mt-1'></i>
+                                <div>
+                                    <span class="block text-white text-[10px] font-bold tracking-wider uppercase opacity-60">Edisi</span>
+                                    <span class="text-white text-base font-medium">Handcrafted & Limited</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="group relative w-[320px] md:w-[360px] bg-white/5 backdrop-blur-md border border-white/10 p-8 rounded-3xl transition-all duration-500 hover:-translate-y-4 hover:shadow-2xl hover:shadow-white/10 hover:bg-white/[0.08] overflow-hidden flex-shrink-0">
+                    <i class='bx bxs-crown absolute -right-8 -top-8 text-[10rem] text-white/[0.03] group-hover:text-white/[0.05] group-hover:rotate-12 transition-all duration-700 pointer-events-none z-0'></i>
+                    <div class="relative z-10">
+                        <div class="flex items-center gap-5 mb-8 border-b border-white/10 pb-6">
+                            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-white/10 to-transparent border border-white/10 flex items-center justify-center shadow-inner">
+                                <i class='bx bxs-crown text-2xl text-white drop-shadow-md'></i>
+                            </div>
+                            <div>
+                                <h3 class="font-playfair text-3xl font-bold text-white">Topi</h3>
+                                <p class="text-sc-gray text-xs tracking-widest mt-1 uppercase">Headwear</p>
+                            </div>
+                        </div>
+                        <ul class="space-y-5">
+                            <li class="flex items-start gap-4">
+                                <i class='bx bx-radio-circle-marked text-xl text-white/70 mt-1'></i>
+                                <div>
+                                    <span class="block text-white text-[10px] font-bold tracking-wider uppercase opacity-60">Model</span>
+                                    <span class="text-white text-base font-medium">Trucker & Dad Hat</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-4">
+                                <i class='bx bx-text text-xl text-white/70 mt-1'></i>
+                                <div>
+                                    <span class="block text-white text-[10px] font-bold tracking-wider uppercase opacity-60">Detail</span>
+                                    <span class="text-white text-base font-medium">3D High Density Embroidery</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-4">
+                                <i class='bx bx-slider text-xl text-white/70 mt-1'></i>
+                                <div>
+                                    <span class="block text-white text-[10px] font-bold tracking-wider uppercase opacity-60">Adjuster</span>
+                                    <span class="text-white text-base font-medium">Metal Buckle / Snap</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-4">
+                                <i class='bx bx-check-circle text-xl text-white/70 mt-1'></i>
+                                <div>
+                                    <span class="block text-white text-[10px] font-bold tracking-wider uppercase opacity-60">Durabilitas</span>
+                                    <span class="text-white text-base font-medium">Anti-Fade Fabric</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+    
+                <div class="group relative w-[320px] md:w-[360px] bg-white/5 backdrop-blur-md border border-white/10 p-8 rounded-3xl transition-all duration-500 hover:-translate-y-4 hover:shadow-2xl hover:shadow-white/10 hover:bg-white/[0.08] overflow-hidden flex-shrink-0">
+                    <i class='bx bxs-joystick absolute -right-8 -top-8 text-[10rem] text-white/[0.03] group-hover:text-white/[0.05] group-hover:rotate-12 transition-all duration-700 pointer-events-none z-0'></i>
+                    <div class="relative z-10">
+                        <div class="flex items-center gap-5 mb-8 border-b border-white/10 pb-6">
+                            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-white/10 to-transparent border border-white/10 flex items-center justify-center shadow-inner">
+                                <i class='bx bxs-game text-2xl text-white drop-shadow-md'></i>
+                            </div>
+                            <div>
+                                <h3 class="font-playfair text-3xl font-bold text-white">Aksesoris</h3>
+                                <p class="text-sc-gray text-xs tracking-widest mt-1 uppercase">Daily Essentials</p>
+                            </div>
+                        </div>
+                        <ul class="space-y-5">
+                            <li class="flex items-start gap-4">
+                                <i class='bx bx-id-card text-xl text-white/70 mt-1'></i>
+                                <div>
+                                    <span class="block text-white text-[10px] font-bold tracking-wider uppercase opacity-60">Lanyard</span>
+                                    <span class="text-white text-base font-medium">Lanyard Pods & ID Card</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-4">
+                                <i class='bx bxs-key text-xl text-white/70 mt-1'></i>
+                                <div>
+                                    <span class="block text-white text-[10px] font-bold tracking-wider uppercase opacity-60">Gantungan</span>
+                                    <span class="text-white text-base font-medium">Acrylic Keychain</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-4">
+                                <i class='bx bx-diamond text-xl text-white/70 mt-1'></i>
+                                <div>
+                                    <span class="block text-white text-[10px] font-bold tracking-wider uppercase opacity-60">Jewelry</span>
+                                    <span class="text-white text-base font-medium">Cincin & Gelang Prusik</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-4">
+                                <i class='bx bxs-sticker text-xl text-white/70 mt-1'></i>
+                                <div>
+                                    <span class="block text-white text-[10px] font-bold tracking-wider uppercase opacity-60">Collectibles</span>
+                                    <span class="text-white text-base font-medium">Sticker Pack & Pins</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+    
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-16 md:py-32 px-4 md:px-8 bg-gradient-to-b from-sc-black to-sc-dark" id="help">
+        <div class="text-center mb-12 md:mb-16 reveal">
+            <p class="text-xs md:text-sm tracking-[0.3rem] text-sc-gray mb-2">BANTUAN</p>
+            <h2 class="font-playfair text-3xl md:text-5xl font-semibold text-sc-white">PERTANYAAN UMUM</h2>
+        </div>
+    
+        <div class="max-w-4xl mx-auto border-t border-white/10">
+            
+            <div class="faq-item border-b border-white/10 group">
+                <button class="faq-question w-full flex justify-between items-center py-5 text-left focus:outline-none">
+                    <h4 class="font-playfair text-base md:text-lg text-sc-gray group-hover:text-sc-white transition-colors duration-300">Bagaimana cara memesan produk?</h4>
+                    <i class='bx bx-chevron-down faq-icon text-xl text-sc-gray transition-transform duration-300'></i>
+                </button>
+                <div class="faq-answer max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
+                    <p class="pb-6 text-sc-gray/70 font-light text-sm leading-relaxed">
+                        Pemesanan bisa dilakukan via website ini, Tokopedia, atau Shopee Official Seven Cultures. Untuk order manual atau konsultasi size, bisa chat WhatsApp admin kami.
+                    </p>
+                </div>
+            </div>
+    
+            <div class="faq-item border-b border-white/10 group">
+                <button class="faq-question w-full flex justify-between items-center py-5 text-left focus:outline-none">
+                    <h4 class="font-playfair text-base md:text-lg text-sc-gray group-hover:text-sc-white transition-colors duration-300">Apakah ada panduan ukuran (Size Chart)?</h4>
+                    <i class='bx bx-chevron-down faq-icon text-xl text-sc-gray transition-transform duration-300'></i>
+                </button>
+                <div class="faq-answer max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
+                    <p class="pb-6 text-sc-gray/70 font-light text-sm leading-relaxed">
+                        Tentu. Size chart tersedia di halaman deskripsi setiap produk. Kami menggunakan fitting "Oversized" untuk kaos dan "Regular Fit" untuk hoodie, sesuai standar streetwear internasional.
+                    </p>
+                </div>
+            </div>
+    
+            <div class="faq-item border-b border-white/10 group">
+                <button class="faq-question w-full flex justify-between items-center py-5 text-left focus:outline-none">
+                    <h4 class="font-playfair text-base md:text-lg text-sc-gray group-hover:text-sc-white transition-colors duration-300">Metode pembayaran apa saja yang tersedia?</h4>
+                    <i class='bx bx-chevron-down faq-icon text-xl text-sc-gray transition-transform duration-300'></i>
+                </button>
+                <div class="faq-answer max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
+                    <p class="pb-6 text-sc-gray/70 font-light text-sm leading-relaxed">
+                        Kami menerima Transfer Bank (BCA, Mandiri), E-Wallet (GoPay, OVO, Dana), QRIS, dan Kartu Kredit. Tersedia juga opsi cicilan via Kredivo/Akulaku.
+                    </p>
+                </div>
+            </div>
+    
+            <div class="faq-item border-b border-white/10 group">
+                <button class="faq-question w-full flex justify-between items-center py-5 text-left focus:outline-none">
+                    <h4 class="font-playfair text-base md:text-lg text-sc-gray group-hover:text-sc-white transition-colors duration-300">Berapa lama pengiriman sampai?</h4>
+                    <i class='bx bx-chevron-down faq-icon text-xl text-sc-gray transition-transform duration-300'></i>
+                </button>
+                <div class="faq-answer max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
+                    <p class="pb-6 text-sc-gray/70 font-light text-sm leading-relaxed">
+                        Bandung & Jabodetabek: 1-2 hari kerja. Pulau Jawa: 2-3 hari kerja. Luar Jawa: 4-7 hari kerja tergantung ekspedisi. Pengiriman dilakukan setiap hari Senin - Sabtu jam 17.00 WIB.
+                    </p>
+                </div>
+            </div>
+    
+            <div class="faq-item border-b border-white/10 group">
+                <button class="faq-question w-full flex justify-between items-center py-5 text-left focus:outline-none">
+                    <h4 class="font-playfair text-base md:text-lg text-sc-gray group-hover:text-sc-white transition-colors duration-300">Bagaimana cara melacak pesanan (Resi)?</h4>
+                    <i class='bx bx-chevron-down faq-icon text-xl text-sc-gray transition-transform duration-300'></i>
+                </button>
+                <div class="faq-answer max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
+                    <p class="pb-6 text-sc-gray/70 font-light text-sm leading-relaxed">
+                        Nomor resi akan dikirim otomatis ke email/WhatsApp kamu H+1 setelah pengiriman. Kamu bisa cek langsung di menu "Track Order" pada website ini.
+                    </p>
+                </div>
+            </div>
+    
+            <div class="faq-item border-b border-white/10 group">
+                <button class="faq-question w-full flex justify-between items-center py-5 text-left focus:outline-none">
+                    <h4 class="font-playfair text-base md:text-lg text-sc-gray group-hover:text-sc-white transition-colors duration-300">Apakah bisa tukar size (Return)?</h4>
+                    <i class='bx bx-chevron-down faq-icon text-xl text-sc-gray transition-transform duration-300'></i>
+                </button>
+                <div class="faq-answer max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
+                    <p class="pb-6 text-sc-gray/70 font-light text-sm leading-relaxed">
+                        Ya, garansi tukar size berlaku 3 hari setelah barang diterima. Syarat: Produk belum dicuci, tag masih terpasang, dan bukan item sale. Ongkir ditanggung pembeli kecuali kesalahan dari kami.
+                    </p>
+                </div>
+            </div>
+    
+            <div class="faq-item border-b border-white/10 group">
+                <button class="faq-question w-full flex justify-between items-center py-5 text-left focus:outline-none">
+                    <h4 class="font-playfair text-base md:text-lg text-sc-gray group-hover:text-sc-white transition-colors duration-300">Bagaimana kebijakan pengembalian dana (Refund)?</h4>
+                    <i class='bx bx-chevron-down faq-icon text-xl text-sc-gray transition-transform duration-300'></i>
+                </button>
+                <div class="faq-answer max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
+                    <p class="pb-6 text-sc-gray/70 font-light text-sm leading-relaxed">
+                        Refund hanya berlaku jika stok produk pengganti kosong atau terdapat cacat produksi parah. Proses refund memakan waktu 1-3 hari kerja.
+                    </p>
+                </div>
+            </div>
+    
+            <div class="faq-item border-b border-white/10 group">
+                <button class="faq-question w-full flex justify-between items-center py-5 text-left focus:outline-none">
+                    <h4 class="font-playfair text-base md:text-lg text-sc-gray group-hover:text-sc-white transition-colors duration-300">Di mana lokasi toko Offline Seven Cultures?</h4>
+                    <i class='bx bx-chevron-down faq-icon text-xl text-sc-gray transition-transform duration-300'></i>
+                </button>
+                <div class="faq-answer max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
+                    <p class="pb-6 text-sc-gray/70 font-light text-sm leading-relaxed">
+                        Flagship store kami berlokasi di Jl. Braga No. XX, Bandung (Seberang Art Cafe). Buka setiap hari pukul 10.00 - 21.00 WIB.
+                    </p>
+                </div>
+            </div>
+    
+            <div class="faq-item border-b border-white/10 group">
+                <button class="faq-question w-full flex justify-between items-center py-5 text-left focus:outline-none">
+                    <h4 class="font-playfair text-base md:text-lg text-sc-gray group-hover:text-sc-white transition-colors duration-300">Apakah produk Seven Cultures Original?</h4>
+                    <i class='bx bx-chevron-down faq-icon text-xl text-sc-gray transition-transform duration-300'></i>
+                </button>
+                <div class="faq-answer max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
+                    <p class="pb-6 text-sc-gray/70 font-light text-sm leading-relaxed">
+                        100% Authentic. Semua produk didesain dan diproduksi secara in-house di Bandung. Setiap produk memiliki hologram tag dan QR Code unik untuk verifikasi keaslian.
+                    </p>
+                </div>
+            </div>
+    
+            <div class="faq-item border-b border-white/10 group">
+                <button class="faq-question w-full flex justify-between items-center py-5 text-left focus:outline-none">
+                    <h4 class="font-playfair text-base md:text-lg text-sc-gray group-hover:text-sc-white transition-colors duration-300">Cara merawat kaos/sablon agar awet?</h4>
+                    <i class='bx bx-chevron-down faq-icon text-xl text-sc-gray transition-transform duration-300'></i>
+                </button>
+                <div class="faq-answer max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
+                    <p class="pb-6 text-sc-gray/70 font-light text-sm leading-relaxed">
+                        Cuci dengan air dingin, jangan direndam terlalu lama, hindari mesin pengering, dan setrika bagian sablon dari dalam (dibalik). Jangan gunakan pemutih.
+                    </p>
+                </div>
+            </div>
+    
+            <div class="faq-item border-b border-white/10 group">
+                <button class="faq-question w-full flex justify-between items-center py-5 text-left focus:outline-none">
+                    <h4 class="font-playfair text-base md:text-lg text-sc-gray group-hover:text-sc-white transition-colors duration-300">Menerima pesanan Custom untuk Komunitas?</h4>
+                    <i class='bx bx-chevron-down faq-icon text-xl text-sc-gray transition-transform duration-300'></i>
+                </button>
+                <div class="faq-answer max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
+                    <p class="pb-6 text-sc-gray/70 font-light text-sm leading-relaxed">
+                        Ya, kami menerima custom order untuk komunitas, kantor, atau event dengan standar kualitas Seven Cultures. Min order 24 pcs. Hubungi WA admin untuk proposal.
+                    </p>
+                </div>
+            </div>
+    
+            <div class="faq-item border-b border-white/10 group">
+                <button class="faq-question w-full flex justify-between items-center py-5 text-left focus:outline-none">
+                    <h4 class="font-playfair text-base md:text-lg text-sc-gray group-hover:text-sc-white transition-colors duration-300">Apakah open Reseller atau Dropship?</h4>
+                    <i class='bx bx-chevron-down faq-icon text-xl text-sc-gray transition-transform duration-300'></i>
+                </button>
+                <div class="faq-answer max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
+                    <p class="pb-6 text-sc-gray/70 font-light text-sm leading-relaxed">
+                        Saat ini kami hanya membuka program Official Reseller dengan sistem stok (bukan dropship). Info kemitraan bisa dicek di halaman "Partnership".
+                    </p>
+                </div>
+            </div>
+    
+            <div class="faq-item border-b border-white/10 group">
+                <button class="faq-question w-full flex justify-between items-center py-5 text-left focus:outline-none">
+                    <h4 class="font-playfair text-base md:text-lg text-sc-gray group-hover:text-sc-white transition-colors duration-300">Apakah bisa kirim ke Luar Negeri?</h4>
+                    <i class='bx bx-chevron-down faq-icon text-xl text-sc-gray transition-transform duration-300'></i>
+                </button>
+                <div class="faq-answer max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
+                    <p class="pb-6 text-sc-gray/70 font-light text-sm leading-relaxed">
+                        Bisa. Kami melayani pengiriman ke Malaysia, Singapura, dan negara Asia Tenggara lainnya menggunakan jasa ekspedisi RaySpeed atau DHL.
+                    </p>
+                </div>
+            </div>
+    
+            <div class="faq-item border-b border-white/10 group">
+                <button class="faq-question w-full flex justify-between items-center py-5 text-left focus:outline-none">
+                    <h4 class="font-playfair text-base md:text-lg text-sc-gray group-hover:text-sc-white transition-colors duration-300">Ingin mengajukan Kolaborasi Brand/Artis?</h4>
+                    <i class='bx bx-chevron-down faq-icon text-xl text-sc-gray transition-transform duration-300'></i>
+                </button>
+                <div class="faq-answer max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
+                    <p class="pb-6 text-sc-gray/70 font-light text-sm leading-relaxed">
+                        Kami sangat terbuka untuk kolaborasi dengan seniman, musisi, atau brand lokal lainnya. Kirimkan portofolio/proposal kamu ke email collab@sevencultures.com.
+                    </p>
+                </div>
+            </div>
+    
+            <div class="faq-item border-b border-white/10 group">
+                <button class="faq-question w-full flex justify-between items-center py-5 text-left focus:outline-none">
+                    <h4 class="font-playfair text-base md:text-lg text-sc-gray group-hover:text-sc-white transition-colors duration-300">Apakah produk yang sold out akan restock?</h4>
+                    <i class='bx bx-chevron-down faq-icon text-xl text-sc-gray transition-transform duration-300'></i>
+                </button>
+                <div class="faq-answer max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
+                    <p class="pb-6 text-sc-gray/70 font-light text-sm leading-relaxed">
+                        Sebagian besar koleksi kami adalah "Limited Run" (tidak diproduksi ulang) untuk menjaga eksklusivitas. Namun untuk artikel "Core Collection" (Logo Tee, Basic Hoodie) akan direstock berkala.
+                    </p>
+                </div>
+            </div>
+    
+             <div class="faq-item border-b border-white/10 group">
+                <button class="faq-question w-full flex justify-between items-center py-5 text-left focus:outline-none">
+                    <h4 class="font-playfair text-base md:text-lg text-sc-gray group-hover:text-sc-white transition-colors duration-300">Barang yang diterima salah/cacat?</h4>
+                    <i class='bx bx-chevron-down faq-icon text-xl text-sc-gray transition-transform duration-300'></i>
+                </button>
+                <div class="faq-answer max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
+                    <p class="pb-6 text-sc-gray/70 font-light text-sm leading-relaxed">
+                        Mohon maaf atas ketidaknyamanannya. Segera hubungi CS kami dengan menyertakan Video Unboxing. Kami akan mengirimkan produk pengganti segera + Free Sticker Pack sebagai kompensasi.
+                    </p>
+                </div>
+            </div>
+    
+        </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer class="py-12 md:py-24 px-4 md:px-8 bg-sc-black border-t border-white/10">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-16 max-w-7xl mx-auto">
+            <div class="sm:col-span-2 lg:col-span-1">
+                <h3 class="font-playfair text-2xl md:text-3xl mb-3 md:mb-4">SEVEN CULTURES</h3>
+                <p class="text-sc-gray text-sm md:text-base leading-relaxed">Bandung Neo-Heritage Archive. Streetwear yang lahir dari kultur jalanan Bandung dengan sentuhan modern dan kualitas premium.</p>
+                <div class="flex gap-3 mt-6 md:mt-8">
+                    <a href="#" class="w-10 h-10 md:w-12 md:h-12 border border-white/20 flex items-center justify-center text-sc-white hover:bg-sc-white hover:text-sc-black transition-all">
+                        <i class='bx bxl-instagram text-lg md:text-xl'></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 md:w-12 md:h-12 border border-white/20 flex items-center justify-center text-sc-white hover:bg-sc-white hover:text-sc-black transition-all">
+                        <i class='bx bxl-tiktok text-lg md:text-xl'></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 md:w-12 md:h-12 border border-white/20 flex items-center justify-center text-sc-white hover:bg-sc-white hover:text-sc-black transition-all">
+                        <i class='bx bxl-twitter text-lg md:text-xl'></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 md:w-12 md:h-12 border border-white/20 flex items-center justify-center text-sc-white hover:bg-sc-white hover:text-sc-black transition-all">
+                        <i class='bx bxl-whatsapp text-lg md:text-xl'></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div>
+                <h4 class="font-bebas text-lg md:text-xl tracking-[0.2rem] mb-4 md:mb-6">NAVIGASI</h4>
+                <ul class="list-none space-y-2 md:space-y-3">
+                    <li><a href="#home" class="text-sc-gray no-underline text-sm md:text-base hover:text-sc-white transition-colors">Home</a></li>
+                    <li><a href="#store" class="text-sc-gray no-underline text-sm md:text-base hover:text-sc-white transition-colors">Store</a></li>
+                    <li><a href="#about" class="text-sc-gray no-underline text-sm md:text-base hover:text-sc-white transition-colors">About</a></li>
+                    <li><a href="#help" class="text-sc-gray no-underline text-sm md:text-base hover:text-sc-white transition-colors">Bantuan</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h4 class="font-bebas text-lg md:text-xl tracking-[0.2rem] mb-4 md:mb-6">PRODUK</h4>
+                <ul class="list-none space-y-2 md:space-y-3">
+                    <li><a href="#" class="text-sc-gray no-underline text-sm md:text-base hover:text-sc-white transition-colors">Kaos</a></li>
+                    <li><a href="#" class="text-sc-gray no-underline text-sm md:text-base hover:text-sc-white transition-colors">Jaket</a></li>
+                    <li><a href="#" class="text-sc-gray no-underline text-sm md:text-base hover:text-sc-white transition-colors">Hoodie</a></li>
+                    <li><a href="#" class="text-sc-gray no-underline text-sm md:text-base hover:text-sc-white transition-colors">Celana</a></li>
+                    <li><a href="#" class="text-sc-gray no-underline text-sm md:text-base hover:text-sc-white transition-colors">Aksesoris</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h4 class="font-bebas text-lg md:text-xl tracking-[0.2rem] mb-4 md:mb-6">KONTAK</h4>
+                <ul class="list-none space-y-2 md:space-y-3">
+                    <li><a href="#" class="text-sc-gray no-underline text-sm md:text-base hover:text-sc-white transition-colors flex items-center gap-2"><i class='bx bx-map'></i> Jl. Braga, Bandung</a></li>
+                    <li><a href="#" class="text-sc-gray no-underline text-sm md:text-base hover:text-sc-white transition-colors flex items-center gap-2"><i class='bx bx-phone'></i> +62 812 3456 7890</a></li>
+                    <li><a href="#" class="text-sc-gray no-underline text-sm md:text-base hover:text-sc-white transition-colors flex items-center gap-2"><i class='bx bx-envelope'></i> hello@sevencultures.id</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto mt-12 md:mt-16 pt-6 md:pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p class="text-sc-gray text-xs md:text-sm text-center md:text-left">© 2026 Seven Cultures. All rights reserved. VOL 01</p>
+            <div class="flex items-center gap-2 text-sc-gray text-xs md:text-sm">
+                <span>Founded by</span>
+                <strong class="text-sc-white">Reyy</strong>
+                <span>&</span>
+                <strong class="text-sc-white">Jibb</strong>
+                <i class='bx bxs-heart text-sc-gray'></i>
+            </div>
+        </div>
+    </footer>
+
+     <script>
+        // 1. Loader
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('loader');
+            if (loader) {
+                setTimeout(() => {
+                    loader.style.opacity = '0';
+                    loader.style.visibility = 'hidden';
+                }, 2000);
+            }
+        });
+    
+        // 2. Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (navbar) {
+                if (window.scrollY > 100) {
+                    navbar.classList.add('bg-sc-black/98', 'backdrop-blur-xl', 'py-3', 'md:py-4', 'border-b', 'border-white/5');
+                    navbar.classList.remove('py-4', 'md:py-6');
+                } else {
+                    navbar.classList.remove('bg-sc-black/98', 'backdrop-blur-xl', 'py-3', 'md:py-4', 'border-b', 'border-white/5');
+                    navbar.classList.add('py-4', 'md:py-6');
+                }
+            }
+        });
+    
+        // 3. Mobile Menu
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+    
+        if (menuToggle && mobileMenu) {
+            menuToggle.addEventListener('click', () => {
+                mobileMenu.classList.toggle('translate-x-full');
+                mobileMenu.classList.toggle('translate-x-0');
+            });
+        }
+    
+        function closeMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            if (mobileMenu) {
+                mobileMenu.classList.add('translate-x-full');
+                mobileMenu.classList.remove('translate-x-0');
+            }
+        }
+    
+        // 4. FAQ Accordion & Photo Slider Logic (DOMContentLoaded)
         document.addEventListener('DOMContentLoaded', () => {
             
-            /**
-             * 1. CLOCK FIX
-             * Dipastikan jalan karena di dalam event DOMContentLoaded
-             */
-            function startClock() {
-                const clockElement = document.getElementById('digital-clock');
-                
-                function update() {
-                    const now = new Date();
-                    // Format waktu HH:MM:SS
-                    const timeString = now.toLocaleTimeString('en-GB', { 
-                        hour12: false,
-                        hour: '2-digit',
-                        minute: '2-digit',
-                        second: '2-digit'
+            // --- FAQ Logic ---
+            const faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                const answer = item.querySelector('.faq-answer');
+                const icon = item.querySelector('.faq-icon');
+                const title = item.querySelector('h4');
+    
+                if (question && answer) {
+                    question.addEventListener('click', () => {
+                        const isOpen = answer.style.maxHeight;
+    
+                        // Tutup item lain
+                        faqItems.forEach(otherItem => {
+                            const otherAnswer = otherItem.querySelector('.faq-answer');
+                            const otherIcon = otherItem.querySelector('.faq-icon');
+                            const otherTitle = otherItem.querySelector('h4');
+    
+                            if(otherAnswer) otherAnswer.style.maxHeight = null;
+                            if(otherIcon) otherIcon.style.transform = 'rotate(0deg)';
+                            if(otherTitle) {
+                                otherTitle.classList.remove('text-sc-white');
+                                otherTitle.classList.add('text-sc-gray');
+                            }
+                        });
+    
+                        // Toggle item aktif
+                        if (isOpen) {
+                            answer.style.maxHeight = null;
+                            if(icon) icon.style.transform = 'rotate(0deg)';
+                            if(title) {
+                                title.classList.remove('text-sc-white');
+                                title.classList.add('text-sc-gray');
+                            }
+                        } else {
+                            answer.style.maxHeight = answer.scrollHeight + "px";
+                            if(icon) icon.style.transform = 'rotate(180deg)';
+                            if(title) {
+                                title.classList.remove('text-sc-gray');
+                                title.classList.add('text-sc-white');
+                            }
+                        }
                     });
-                    
-                    if(clockElement) {
-                        clockElement.textContent = timeString;
-                    }
                 }
-                
-                update(); // Jalankan langsung sekali
-                setInterval(update, 1000); // Lalu loop setiap detik
+            });
+    
+            // --- Photo Slider Logic (BARU DITAMBAHKAN) ---
+            const slider = document.getElementById('photoSlider');
+            const leftBtn = document.getElementById('slideLeftBtn');
+            const rightBtn = document.getElementById('slideRightBtn');
+    
+            if (slider && leftBtn && rightBtn) {
+                // Jarak scroll: Lebar Card (400px) + Gap (24px) = ~424px
+                // Kita pakai deteksi layar biar smooth di HP juga
+                const scrollAmount = window.innerWidth < 768 ? 300 : 424;
+    
+                leftBtn.addEventListener('click', () => {
+                    slider.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+                });
+    
+                rightBtn.addEventListener('click', () => {
+                    slider.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+                });
             }
-            startClock();
-
-
-            /**
-             * 2. SCROLL PROGRESS FIX
-             */
-            window.addEventListener('scroll', () => {
-                const scrollTop = window.scrollY;
-                const docHeight = document.body.scrollHeight - window.innerHeight;
-                
-                // Mencegah pembagian nol
-                const scrolled = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-                
-                const line = document.getElementById('scroll-progress-line');
-                const percentText = document.getElementById('scroll-percent');
-                
-                if(line) line.style.width = scrolled + "%";
-                if(percentText) percentText.textContent = Math.round(scrolled).toString().padStart(2, '0') + "%";
-            });
-
-
-            /**
-             * 3. INIT OTHER LIBS
-             */
-            AOS.init();
-            
-            const lenis = new Lenis({
-                duration: 1.2,
-                smoothWheel: true
-            });
-            function raf(time) {
-                lenis.raf(time);
-                requestAnimationFrame(raf);
-            }
-            requestAnimationFrame(raf);
-            
-            
-            /**
-             * 4. ANIMASI AWAL (Entrance)
-             */
-            gsap.from("nav .nav-block", {
-                y: -20,
-                opacity: 0,
-                duration: 1,
-                stagger: 0.1,
-                ease: "power2.out",
-                delay: 0.5
-            });
-
-            console.log("Seven Cultures: Systems Online");
         });
-            // ANIMASI HERO SECTION
-            const tl = gsap.timeline({ delay: 0.5 });
-            
-            // 1. Munculkan teks kecil atas
-            tl.to(".hero-text-small", { 
-                opacity: 1, 
-                y: 0, 
-                duration: 1, 
-                ease: "power2.out" 
-            })
-            // 2. Munculkan Judul Utama (Seven Cultures) dengan efek naik
-            .from(".hero-word", { 
-                y: 100, 
-                opacity: 0, 
-                duration: 1.5, 
-                stagger: 0.2, // Jeda antara kata "Seven" dan "Cultures"
-                ease: "power4.out" 
-            }, "-=0.5")
-            // 3. Munculkan Deskripsi & Hiasan
-            .to([".hero-desc", ".hero-btn", ".hero-decor"], { 
-                opacity: 1, 
-                y: 0, 
-                duration: 1, 
-                stagger: 0.1, 
-                ease: "power2.out" 
-            }, "-=1");
-            
-                /**
-             * LOOKBOOK SLIDER LOGIC
-             */
-            const lookbookSwiper = new Swiper(".lookbookSwiper", {
-                loop: true,               // Looping tanpa henti
-                speed: 1000,              // Kecepatan geser (1 detik)
-                autoplay: {
-                    delay: 5000,          // Auto geser 5 detik
-                    disableOnInteraction: false, // Tetap auto walau disentuh
-                },
-                effect: 'slide',          // Efek geser (bukan fade)
-                navigation: {
-                    nextEl: ".camp-next", // Connect ke tombol panah kanan
-                    prevEl: ".camp-prev", // Connect ke tombol panah kiri
-                },
-                pagination: {
-                    el: ".swiper-pagination-lookbook",
-                    type: "progressbar",  // Garis progress di bawah
+    
+    
+        // 5. Scroll Reveal Animation
+        const reveals = document.querySelectorAll('.reveal');
+        const revealOnScroll = () => {
+            reveals.forEach(el => {
+                const windowHeight = window.innerHeight;
+                const elementTop = el.getBoundingClientRect().top;
+                const revealPoint = 150;
+                if (elementTop < windowHeight - revealPoint) {
+                    el.classList.add('active');
                 }
             });
+        };
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll();
+    
+        // 6. Smooth Scroll for Navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    
+        // 7. Product Cards Horizontal Scroll (Mouse Wheel)
+        const productCardsWrapper = document.getElementById('productCardsWrapper');
+        if (productCardsWrapper) {
+            productCardsWrapper.addEventListener('wheel', (e) => {
+                if (window.innerWidth > 768) { 
+                    e.preventDefault();
+                    productCardsWrapper.scrollLeft += e.deltaY;
+                }
+            });
+        }
+    
+        // 8. Parallax
+        window.addEventListener('scroll', () => {
+            const hero = document.querySelector('#home');
+            if (hero) {
+                const scrolled = window.scrollY;
+                if (scrolled < window.innerHeight) {
+                    hero.style.transform = `translateY(${scrolled * 0.3}px)`;
+                }
+            }
+        });
         
-                    
-
+        // Mencegah klik kanan (opsional)
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        
+        // Mencegah drag (opsional)
+        document.addEventListener('dragstart', event => event.preventDefault());
+    
     </script>
+
+
 </body>
 </html>
