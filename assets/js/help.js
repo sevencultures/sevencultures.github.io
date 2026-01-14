@@ -69,6 +69,76 @@
             });
         });
    
+        // FUNGSI UNTUK ACCORDION
+        function toggleFaq(id) {
+            const content = document.getElementById(`faq-content-${id}`);
+            const icon = document.getElementById(`faq-icon-${id}`);
+            
+            // Tutup semua faq lainnya agar rapi
+            const allContents = document.querySelectorAll('[id^="faq-content-"]');
+            const allIcons = document.querySelectorAll('[id^="faq-icon-"]');
+            
+            allContents.forEach((c, idx) => {
+                if (c.id !== `faq-content-${id}`) {
+                    c.style.maxHeight = null;
+                    allIcons[idx].classList.remove('rotate-180');
+                }
+            });
+    
+            // Toggle item yang diklik
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+                icon.classList.remove('rotate-180');
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+                icon.classList.add('rotate-180');
+            }
+        }
+    
+        // FUNGSI UNTUK FILTER PENCARIAN
+        function filterFaq() {
+            let input = document.getElementById('faqSearch').value.toLowerCase();
+            let items = document.getElementsByClassName('faq-item');
+    
+            for (let i = 0; i < items.length; i++) {
+                let searchContent = items[i].getAttribute('data-search');
+                if (searchContent.includes(input)) {
+                    items[i].style.display = "";
+                } else {
+                    items[i].style.display = "none";
+                }
+            }
+        }
+   
+        function toggleAccordion(id) {
+            const content = document.getElementById(`content-${id}`);
+            const icon = document.getElementById(`icon-${id}`);
+            
+            // Tutup semua accordion lain (optional)
+            const allContents = document.querySelectorAll('[id^="content-"]');
+            const allIcons = document.querySelectorAll('[id^="icon-"]');
+            
+            allContents.forEach((c, idx) => {
+                if (c.id !== `content-${id}`) {
+                    c.style.maxHeight = null;
+                    allIcons[idx].classList.remove('rotate-45');
+                    allIcons[idx].classList.replace('bx-minus', 'bx-plus');
+                }
+            });
+    
+            // Toggle current
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+                icon.classList.remove('rotate-45');
+                icon.classList.replace('bx-minus', 'bx-plus');
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+                icon.classList.add('rotate-45');
+                icon.classList.replace('bx-plus', 'bx-minus');
+            }
+        }
+
+   
         
         // Mencegah klik kanan (opsional)
         document.addEventListener('contextmenu', event => event.preventDefault());
