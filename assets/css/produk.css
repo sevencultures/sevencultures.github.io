@@ -1,0 +1,172 @@
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+            
+            -webkit-user-select: none; /* Chrome/Safari/Opera */
+            -moz-user-select: none;    /* Firefox */
+            -ms-user-select: none;     /* IE/Edge */
+            user-select: none;         /* Standar */
+            
+            -webkit-touch-callout: none; /* Matikan menu pop-up (Copy/Paste) saat tekan lama di HP */
+            -webkit-tap-highlight-color: transparent; /* Matikan warna biru saat tombol/link ditekan di Android */
+        }
+        
+        /* Pengecualian: Biarkan input dan textarea tetap bisa diketik */
+        input, textarea {
+            -webkit-user-select: text !important;
+            -moz-user-select: text !important;
+            -ms-user-select: text !important;
+            user-select: text !important;
+        }
+
+        /* Mencegah seleksi teks */
+        .no-select {
+            -webkit-user-select: none; /* Safari */
+            -ms-user-select: none; /* IE 10 and IE 11 */
+            user-select: none; /* Standard syntax */
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        /* Loader Animation */
+        @keyframes loaderPulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+        .loader-pulse {
+            animation: loaderPulse 1.5s ease-in-out infinite;
+        }
+
+        /* Strip Animations */
+        @keyframes stripMove {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+        @keyframes stripMoveReverse {
+            from { transform: translateX(-50%); }
+            to { transform: translateX(0); }
+        }
+        .animate-strip { animation: stripMove 30s linear infinite; }
+        .animate-strip-reverse { animation: stripMoveReverse 30s linear infinite; }
+
+        /* Fade In Up Animation */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in-up {
+            animation: fadeInUp 1s ease forwards;
+            opacity: 0;
+        }
+        .delay-500 { animation-delay: 0.5s; }
+        .delay-700 { animation-delay: 0.7s; }
+        .delay-900 { animation-delay: 0.9s; }
+
+        /* Hide Scrollbar for Chrome, Safari and Opera */
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    
+        /* Masking Opacity di pinggir (Transparansi Gradual) */
+        .category-mask {
+            -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+            mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+        }
+    
+        /* Active State */
+        .active-cat {
+            background-color: #f5f5f5 !important;
+            border-color: #f5f5f5 !important;
+        }
+        .active-cat i, .active-cat span {
+            color: #0a0a0a !important;
+        }
+
+        /* Animasi Transformasi Slide */
+        .carousel-item.active {
+            transform: translateX(0) scale(1);
+            z-index: 40;
+            opacity: 1;
+            filter: blur(0);
+        }
+    
+        /* Slide di kanan (terpotong layar) */
+        .carousel-item.next {
+            transform: translateX(85%) scale(0.85);
+            z-index: 20;
+            opacity: 0.3;
+            filter: blur(4px);
+        }
+    
+        /* Slide di kiri (terpotong layar) */
+        .carousel-item.prev {
+            transform: translateX(-85%) scale(0.85);
+            z-index: 20;
+            opacity: 0.3;
+            filter: blur(4px);
+        }
+    
+        /* Sembunyikan slide lainnya */
+        .carousel-item.hidden-slide {
+            transform: translateX(0) scale(0.5);
+            z-index: 10;
+            opacity: 0;
+        }
+    
+        /* Responsif untuk Mobile */
+        @media (max-width: 768px) {
+            .carousel-item.next { transform: translateX(90%) scale(0.8); }
+            .carousel-item.prev { transform: translateX(-90%) scale(0.8); }
+            #product-slider { padding-top: 6rem; }
+        }
+  
+        /* Active State untuk Filter Harga */
+        .active-price {
+            background-color: white !important;
+            border-color: white !important;
+        }
+        .active-price span { color: black !important; }
+    
+        /* Custom Animations */
+        .modal-visible #modalBackdrop { opacity: 1; }
+        .modal-visible #modalContent { transform: translateY(0); }
+        
+        /* Status Aktif untuk Multi-Select */
+        .active-acc-btn {
+            background-color: #f5f5f5 !important;
+            border-color: #f5f5f5 !important;
+        }
+        
+        .active-acc-btn i, 
+        .active-acc-btn span {
+            color: #0a0a0a !important;
+        }
+        
+        .active-acc-btn .acc-check {
+            opacity: 1 !important;
+            color: #0a0a0a !important;
+        }
+        /* Animasi Geter (Shake) */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-4px); }
+            50% { transform: translateX(4px); }
+            75% { transform: translateX(-4px); }
+        }
+        
+        .animate-shake {
+            animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+            border-color: #ff4444 !important; /* Opsional: warna merah tipis saat error */
+        }
+        
+        /* Munculkan Toast */
+        .toast-visible {
+            top: 40px !important;
+        }
+    
+ 

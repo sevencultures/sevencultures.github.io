@@ -59,7 +59,7 @@
     </div>
 
 
-    <!-- Navigation -->
+  <!-- Navigation -->
     <nav class="fixed top-0 left-0 w-full px-4 md:px-12 py-4 md:py-6 flex justify-between items-center z-[1000] bg-gradient-to-b from-sc-black/95 to-transparent transition-all duration-300" id="navbar">
         <div class="flex items-center gap-3 md:gap-4">
             <div class="w-10 h-10 md:w-12 md:h-12 border-2 border-sc-white flex items-center justify-center font-playfair font-bold text-base md:text-xl">7C</div>
@@ -67,10 +67,11 @@
         </div>
         
         <ul class="hidden lg:flex gap-8 xl:gap-12 list-none">
-            <li><a href="#home" class="text-sc-white no-underline text-xs xl:text-sm tracking-[0.15rem] uppercase relative hover:text-sc-gray transition-colors after:content-[''] after:absolute after:bottom-[-5px] after:left-0 after:w-0 after:h-[1px] after:bg-sc-white after:transition-all hover:after:w-full">Home</a></li>
-            <li><a href="#store" class="text-sc-white no-underline text-xs xl:text-sm tracking-[0.15rem] uppercase relative hover:text-sc-gray transition-colors after:content-[''] after:absolute after:bottom-[-5px] after:left-0 after:w-0 after:h-[1px] after:bg-sc-white after:transition-all hover:after:w-full">Store</a></li>
-            <li><a href="#about" class="text-sc-white no-underline text-xs xl:text-sm tracking-[0.15rem] uppercase relative hover:text-sc-gray transition-colors after:content-[''] after:absolute after:bottom-[-5px] after:left-0 after:w-0 after:h-[1px] after:bg-sc-white after:transition-all hover:after:w-full">About</a></li>
-            <li><a href="#help" class="text-sc-white no-underline text-xs xl:text-sm tracking-[0.15rem] uppercase relative hover:text-sc-gray transition-colors after:content-[''] after:absolute after:bottom-[-5px] after:left-0 after:w-0 after:h-[1px] after:bg-sc-white after:transition-all hover:after:w-full">Bantuan</a></li>
+            <li><a href="./index.html" class="text-sc-white no-underline text-xs xl:text-sm tracking-[0.15rem] uppercase relative hover:text-sc-gray transition-colors after:content-[''] after:absolute after:bottom-[-5px] after:left-0 after:w-0 after:h-[1px] after:bg-sc-white after:transition-all hover:after:w-full">Home</a></li>
+            <li><a href="./pages/home.html" class="text-sc-white no-underline text-xs xl:text-sm tracking-[0.15rem] uppercase relative hover:text-sc-gray transition-colors after:content-[''] after:absolute after:bottom-[-5px] after:left-0 after:w-0 after:h-[1px] after:bg-sc-white after:transition-all hover:after:w-full">Menu Utama</a></li>
+            <li><a href="./pages/produk.html" class="text-sc-white no-underline text-xs xl:text-sm tracking-[0.15rem] uppercase relative hover:text-sc-gray transition-colors after:content-[''] after:absolute after:bottom-[-5px] after:left-0 after:w-0 after:h-[1px] after:bg-sc-white after:transition-all hover:after:w-full">Store</a></li>
+            <li><a href="./pages/about.html" class="text-sc-white no-underline text-xs xl:text-sm tracking-[0.15rem] uppercase relative hover:text-sc-gray transition-colors after:content-[''] after:absolute after:bottom-[-5px] after:left-0 after:w-0 after:h-[1px] after:bg-sc-white after:transition-all hover:after:w-full">About</a></li>
+            <li><a href="./pages/help.html" class="text-sc-white no-underline text-xs xl:text-sm tracking-[0.15rem] uppercase relative hover:text-sc-gray transition-colors after:content-[''] after:absolute after:bottom-[-5px] after:left-0 after:w-0 after:h-[1px] after:bg-sc-white after:transition-all hover:after:w-full">Help</a></li>
         </ul>
 
         <div class="flex lg:hidden flex-col gap-1.5 cursor-pointer z-[1001]" id="menuToggle">
@@ -82,17 +83,18 @@
 
     <!-- Mobile Menu -->
     <div class="fixed inset-0 bg-sc-black z-[999] flex flex-col items-center justify-center gap-8 transition-all duration-500 translate-x-full" id="mobileMenu">
-        <a href="#home" onclick="closeMobileMenu()" class="text-sc-white no-underline font-playfair text-3xl tracking-[0.3rem] hover:text-sc-gray transition-colors">Home</a>
-        <a href="#store" onclick="closeMobileMenu()" class="text-sc-white no-underline font-playfair text-3xl tracking-[0.3rem] hover:text-sc-gray transition-colors">Store</a>
-        <a href="#about" onclick="closeMobileMenu()" class="text-sc-white no-underline font-playfair text-3xl tracking-[0.3rem] hover:text-sc-gray transition-colors">About</a>
-        <a href="#help" onclick="closeMobileMenu()" class="text-sc-white no-underline font-playfair text-3xl tracking-[0.3rem] hover:text-sc-gray transition-colors">Bantuan</a>
+        <a href="./index.html" onclick="closeMobileMenu()" class="text-sc-white no-underline font-playfair text-3xl tracking-[0.3rem] hover:text-sc-gray transition-colors">Home</a>
+        <a href="./pages/home.html" onclick="closeMobileMenu()" class="text-sc-white no-underline font-playfair text-3xl tracking-[0.3rem] hover:text-sc-gray transition-colors">Menu Utama</a>
+        <a href="./pages/produk.html" onclick="closeMobileMenu()" class="text-sc-white no-underline font-playfair text-3xl tracking-[0.3rem] hover:text-sc-gray transition-colors">Store</a>
+        <a href="./pages/about.html" onclick="closeMobileMenu()" class="text-sc-white no-underline font-playfair text-3xl tracking-[0.3rem] hover:text-sc-gray transition-colors">About</a>
+        <a href="./pages/help.html" onclick="closeMobileMenu()" class="text-sc-white no-underline font-playfair text-3xl tracking-[0.3rem] hover:text-sc-gray transition-colors">Help</a>
         <div class="flex items-center gap-6 mt-8">
             <i class='bx bx-search text-2xl cursor-pointer'></i>
             <i class='bx bx-shopping-bag text-2xl cursor-pointer'></i>
             <i class='bx bx-user text-2xl cursor-pointer'></i>
         </div>
     </div>
-
+    
     <!-- Hero Section -->
     <section class="h-[100dvh] w-full flex flex-col items-center justify-center relative overflow-hidden p-4 md:p-8 bg-sc-black" id="home">
         
@@ -988,5 +990,6 @@
 
 
 <script src="./assets/js/index.js"></script>
+<script src="./assets/js/demo.js"></script>
 </body>
 </html>
