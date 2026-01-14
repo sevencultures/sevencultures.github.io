@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seven Cultures | Bandung Neo-Heritage Archive</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="./../assets/css/help.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'sc-black': '#0a0a0a',
+                        'sc-white': '#f5f5f5',
+                        'sc-gray': '#888888',
+                        'sc-dark': '#1a1a1a',
+                    },
+                    fontFamily: {
+                        'bebas': ['Bebas Neue', 'sans-serif'],
+                        'space': ['Space Grotesk', 'sans-serif'],
+                        'playfair': ['Playfair Display', 'serif'],
+                        'cormorant': ['Cormorant Garamond', 'serif'],
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 1.5s ease-in-out infinite',
+                        'strip-move': 'stripMove 30s linear infinite',
+                        'strip-move-reverse': 'stripMoveReverse 30s linear infinite',
+                    },
+                    keyframes: {
+                        stripMove: {
+                            'from': { transform: 'translateX(0)' },
+                            'to': { transform: 'translateX(-50%)' },
+                        },
+                        stripMoveReverse: {
+                            'from': { transform: 'translateX(-50%)' },
+                            'to': { transform: 'translateX(0)' },
+                        },
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-sc-black text-sc-white overflow-x-hidden font-space">
+    <!-- Loader -->
+    <div class="fixed inset-0 bg-sc-black flex flex-col gap-4 items-center justify-center z-[10000] transition-all duration-800" id="loader">
+        <div class="font-playfair text-4xl md:text-5xl font-bold tracking-[0.3rem] md:tracking-[0.5rem] text-white loader-pulse">
+            SEVEN CULTURES
+        </div>
+        
+        <div class="text-[0.65rem] md:text-xs font-sans font-light tracking-[0.3em] md:tracking-[0.5em] text-sc-gray uppercase animate-pulse">
+            BANDUNG NEO-HERITAGE ARCHIVE
+        </div>
+    </div>
+
+  <!-- Navigation -->
+    <nav class="fixed top-0 left-0 w-full px-4 md:px-12 py-4 md:py-6 flex justify-between items-center z-[1000] bg-gradient-to-b from-sc-black/95 to-transparent transition-all duration-300" id="navbar">
+        <div class="flex items-center gap-3 md:gap-4">
+            <div class="w-10 h-10 md:w-12 md:h-12 border-2 border-sc-white flex items-center justify-center font-playfair font-bold text-base md:text-xl">7C</div>
+            <span class="font-playfair text-base md:text-xl font-semibold tracking-[0.15rem] md:tracking-[0.2rem]">SEVEN CULTURES</span>
+        </div>
+        
+        <ul class="hidden lg:flex gap-8 xl:gap-12 list-none">
+            <li><a href="./../index.html" class="text-sc-white no-underline text-xs xl:text-sm tracking-[0.15rem] uppercase relative hover:text-sc-gray transition-colors after:content-[''] after:absolute after:bottom-[-5px] after:left-0 after:w-0 after:h-[1px] after:bg-sc-white after:transition-all hover:after:w-full">Home</a></li>
+            <li><a href="./home.html" class="text-sc-white no-underline text-xs xl:text-sm tracking-[0.15rem] uppercase relative hover:text-sc-gray transition-colors after:content-[''] after:absolute after:bottom-[-5px] after:left-0 after:w-0 after:h-[1px] after:bg-sc-white after:transition-all hover:after:w-full">Menu Utama</a></li>
+            <li><a href="./produk.html" class="text-sc-white no-underline text-xs xl:text-sm tracking-[0.15rem] uppercase relative hover:text-sc-gray transition-colors after:content-[''] after:absolute after:bottom-[-5px] after:left-0 after:w-0 after:h-[1px] after:bg-sc-white after:transition-all hover:after:w-full">Store</a></li>
+            <li><a href="./about.html" class="text-sc-white no-underline text-xs xl:text-sm tracking-[0.15rem] uppercase relative hover:text-sc-gray transition-colors after:content-[''] after:absolute after:bottom-[-5px] after:left-0 after:w-0 after:h-[1px] after:bg-sc-white after:transition-all hover:after:w-full">About</a></li>
+            <li><a href="./help.html" class="text-sc-white no-underline text-xs xl:text-sm tracking-[0.15rem] uppercase relative hover:text-sc-gray transition-colors after:content-[''] after:absolute after:bottom-[-5px] after:left-0 after:w-0 after:h-[1px] after:bg-sc-white after:transition-all hover:after:w-full">Help</a></li>
+        </ul>
+
+        <div class="flex lg:hidden flex-col gap-1.5 cursor-pointer z-[1001]" id="menuToggle">
+            <span class="w-6 h-0.5 bg-sc-white transition-all"></span>
+            <span class="w-6 h-0.5 bg-sc-white transition-all"></span>
+            <span class="w-6 h-0.5 bg-sc-white transition-all"></span>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="fixed inset-0 bg-sc-black z-[999] flex flex-col items-center justify-center gap-8 transition-all duration-500 translate-x-full" id="mobileMenu">
+        <a href="./../index.html" onclick="closeMobileMenu()" class="text-sc-white no-underline font-playfair text-3xl tracking-[0.3rem] hover:text-sc-gray transition-colors">Home</a>
+        <a href="./home.html" onclick="closeMobileMenu()" class="text-sc-white no-underline font-playfair text-3xl tracking-[0.3rem] hover:text-sc-gray transition-colors">Menu Utama</a>
+        <a href="./produk.html" onclick="closeMobileMenu()" class="text-sc-white no-underline font-playfair text-3xl tracking-[0.3rem] hover:text-sc-gray transition-colors">Store</a>
+        <a href="./about.html" onclick="closeMobileMenu()" class="text-sc-white no-underline font-playfair text-3xl tracking-[0.3rem] hover:text-sc-gray transition-colors">About</a>
+        <a href="./help.html" onclick="closeMobileMenu()" class="text-sc-white no-underline font-playfair text-3xl tracking-[0.3rem] hover:text-sc-gray transition-colors">Help</a>
+        <div class="flex items-center gap-6 mt-8">
+            <i class='bx bx-search text-2xl cursor-pointer'></i>
+            <i class='bx bx-shopping-bag text-2xl cursor-pointer'></i>
+            <i class='bx bx-user text-2xl cursor-pointer'></i>
+        </div>
+    </div>
+    <section class="relative pt-32 pb-20 overflow-hidden bg-sc-black">
+    <div class="absolute inset-0 opacity-[0.03] pointer-events-none select-none flex justify-center items-center">
+        <i class='bx bx-support text-[40vw] md:text-[20vw]'></i>
+    </div>
+
+    <div class="container mx-auto px-6 md:px-12 relative z-10">
+        <div class="max-w-3xl mx-auto text-center">
+            <div class="mb-6 reveal">
+                <span class="inline-block py-1 px-4 border border-white/10 rounded-full text-[10px] tracking-[0.3em] text-sc-gray uppercase font-light backdrop-blur-sm">
+                    Customer Care & Support
+                </span>
+            </div>
+
+            <h1 class="font-playfair text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight reveal">
+                BAGAIMANA KAMI <br>
+                <span class="italic font-light text-sc-gray">BISA MEMBANTU?</span>
+            </h1>
+
+            <p class="font-lora text-sc-gray text-xs md:text-sm leading-relaxed max-w-xl mx-auto tracking-wide mb-12 reveal">
+                Selamat datang di pusat layanan Seven Cultures. Kami siap membantu menjawab pertanyaan Anda seputar pesanan, panduan produk, hingga kebijakan pengembalian arsip kami.
+            </div>
+
+            <div class="max-w-2xl mx-auto relative reveal">
+                <input type="text" 
+                       placeholder="Cari topik bantuan (misal: pengiriman, ukuran...)" 
+                       class="w-full bg-sc-dark/50 border border-white/10 rounded-sm py-4 px-6 pl-14 text-xs md:text-sm text-white placeholder:text-sc-gray/50 focus:outline-none focus:border-white/30 transition-all backdrop-blur-md">
+                <i class='bx bx-search absolute left-6 top-1/2 -translate-y-1/2 text-xl text-sc-gray'></i>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="container mx-auto px-4 md:px-12 pb-20">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        
+        <a href="#" class="group p-8 border border-white/5 bg-sc-dark/20 hover:bg-sc-white hover:border-sc-white transition-all duration-500">
+            <i class='bx bx-package text-3xl text-sc-gray group-hover:text-sc-black mb-6 transition-colors'></i>
+            <h3 class="font-playfair text-lg text-white group-hover:text-sc-black italic mb-2 transition-colors">Pesanan</h3>
+            <p class="text-[10px] tracking-widest text-sc-gray group-hover:text-sc-black/60 uppercase transition-colors leading-relaxed">
+                Lacak status pengiriman dan manajemen order.
+            </p>
+        </a>
+
+        <a href="#" class="group p-8 border border-white/5 bg-sc-dark/20 hover:bg-sc-white hover:border-sc-white transition-all duration-500">
+            <i class='bx bx-ruler text-3xl text-sc-gray group-hover:text-sc-black mb-6 transition-colors'></i>
+            <h3 class="font-playfair text-lg text-white group-hover:text-sc-black italic mb-2 transition-colors">Ukuran</h3>
+            <p class="text-[10px] tracking-widest text-sc-gray group-hover:text-sc-black/60 uppercase transition-colors leading-relaxed">
+                Temukan fitting yang tepat untuk setiap produk.
+            </p>
+        </a>
+
+        <a href="#" class="group p-8 border border-white/5 bg-sc-dark/20 hover:bg-sc-white hover:border-sc-white transition-all duration-500">
+            <i class='bx bx-refresh text-3xl text-sc-gray group-hover:text-sc-black mb-6 transition-colors'></i>
+            <h3 class="font-playfair text-lg text-white group-hover:text-sc-black italic mb-2 transition-colors">Retur</h3>
+            <p class="text-[10px] tracking-widest text-sc-gray group-hover:text-sc-black/60 uppercase transition-colors leading-relaxed">
+                Prosedur penukaran atau pengembalian barang.
+            </p>
+        </a>
+
+        <a href="#" class="group p-8 border border-white/5 bg-sc-dark/20 hover:bg-sc-white hover:border-sc-white transition-all duration-500">
+            <i class='bx bx-shield-quarter text-3xl text-sc-gray group-hover:text-sc-black mb-6 transition-colors'></i>
+            <h3 class="font-playfair text-lg text-white group-hover:text-sc-black italic mb-2 transition-colors">Perawatan</h3>
+            <p class="text-[10px] tracking-widest text-sc-gray group-hover:text-sc-black/60 uppercase transition-colors leading-relaxed">
+                Tips agar pakaian dan aksesori tetap awet.
+            </p>
+        </a>
+
+    </div>
+</div>
+
+<section class="py-20 bg-sc-black" id="shipping-info">
+    <div class="container mx-auto px-6 md:px-12">
+        
+        <div class="mb-16 reveal">
+            <div class="flex items-center gap-4 mb-4">
+                <span class="text-[10px] tracking-[0.4em] text-white uppercase font-bold">01.</span>
+                <div class="h-px w-12 bg-white/20"></div>
+            </div>
+            <h2 class="font-playfair text-3xl md:text-5xl text-white italic">Logistik & <br> <span class="text-sc-gray not-italic uppercase tracking-tighter">Distribusi Arsip</span></h2>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+            
+            <div class="lg:col-span-5 space-y-12 reveal">
+                <div class="relative pl-10 border-l border-white/10">
+                    <div class="relative mb-12">
+                        <div class="absolute -left-[45px] top-0 w-2 h-2 rounded-full bg-white shadow-[0_0_10px_rgba(255,255,255,0.8)]"></div>
+                        <h4 class="font-space text-[10px] tracking-[0.3em] text-white uppercase mb-2">Verifikasi Data</h4>
+                        <p class="text-sc-gray text-[11px] leading-relaxed uppercase tracking-widest">Setiap pesanan akan diproses dalam 1x24 jam untuk verifikasi pembayaran dan pengecekan kualitas arsip.</p>
+                    </div>
+
+                    <div class="relative mb-12">
+                        <div class="absolute -left-[45px] top-0 w-2 h-2 rounded-full bg-sc-gray opacity-30"></div>
+                        <h4 class="font-space text-[10px] tracking-[0.3em] text-white uppercase mb-2">Pengemasan Khusus</h4>
+                        <p class="text-sc-gray text-[11px] leading-relaxed uppercase tracking-widest">Produk dikemas dalam *Signature Archive Box* kami untuk memastikan keamanan selama perjalanan.</p>
+                    </div>
+
+                    <div class="relative">
+                        <div class="absolute -left-[45px] top-0 w-2 h-2 rounded-full bg-sc-gray opacity-30"></div>
+                        <h4 class="font-space text-[10px] tracking-[0.3em] text-white uppercase mb-2">Keberangkatan</h4>
+                        <p class="text-sc-gray text-[11px] leading-relaxed uppercase tracking-widest">Penyerahan ke pihak ekspedisi dilakukan setiap sore pukul 17:00 WIB dari Warehouse Bandung.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-7 reveal">
+                <div class="space-y-4">
+                    
+                    <div class="border border-white/10 rounded-sm overflow-hidden">
+                        <button onclick="toggleAccordion(1)" class="w-full p-6 flex justify-between items-center bg-sc-dark/20 hover:bg-sc-dark/40 transition-all text-left group">
+                            <span class="text-[10px] md:text-xs tracking-[0.2em] text-white uppercase font-medium">Lama Waktu Pengiriman</span>
+                            <i id="icon-1" class='bx bx-plus text-sc-gray group-hover:text-white transition-transform duration-500'></i>
+                        </button>
+                        <div id="content-1" class="max-h-0 overflow-hidden transition-all duration-500 ease-in-out bg-sc-dark/10">
+                            <div class="p-6 text-[11px] text-sc-gray leading-relaxed uppercase tracking-[0.1em]">
+                                Estimasi pengiriman untuk Pulau Jawa adalah 1-3 hari kerja, sedangkan luar Pulau Jawa berkisar antara 3-7 hari kerja tergantung pada layanan ekspedisi yang Anda pilih.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border border-white/10 rounded-sm overflow-hidden">
+                        <button onclick="toggleAccordion(2)" class="w-full p-6 flex justify-between items-center bg-sc-dark/20 hover:bg-sc-dark/40 transition-all text-left group">
+                            <span class="text-[10px] md:text-xs tracking-[0.2em] text-white uppercase font-medium">Metode Pelacakan Pesanan</span>
+                            <i id="icon-2" class='bx bx-plus text-sc-gray group-hover:text-white transition-transform duration-500'></i>
+                        </button>
+                        <div id="content-2" class="max-h-0 overflow-hidden transition-all duration-500 ease-in-out bg-sc-dark/10">
+                            <div class="p-6 text-[11px] text-sc-gray leading-relaxed uppercase tracking-[0.1em]">
+                                Setelah pesanan dikirim, nomor resi otomatis dikirimkan via email/WhatsApp. Anda dapat melacak posisi arsip Anda melalui menu 'Track Order' di website kami atau website resmi ekspedisi.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border border-white/10 rounded-sm overflow-hidden">
+                        <button onclick="toggleAccordion(3)" class="w-full p-6 flex justify-between items-center bg-sc-dark/20 hover:bg-sc-dark/40 transition-all text-left group">
+                            <span class="text-[10px] md:text-xs tracking-[0.2em] text-white uppercase font-medium">Layanan Ekspedisi</span>
+                            <i id="icon-3" class='bx bx-plus text-sc-gray group-hover:text-white transition-transform duration-500'></i>
+                        </button>
+                        <div id="content-3" class="max-h-0 overflow-hidden transition-all duration-500 ease-in-out bg-sc-dark/10">
+                            <div class="p-6 text-[11px] text-sc-gray leading-relaxed uppercase tracking-[0.1em]">
+                                Saat ini kami bekerja sama dengan JNE, J&T, dan SiCepat. Untuk pengiriman instan di wilayah Bandung, tersedia pilihan GoSend/GrabExpress pada jam operasional tertentu.
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    function toggleAccordion(id) {
+        const content = document.getElementById(`content-${id}`);
+        const icon = document.getElementById(`icon-${id}`);
+        
+        // Tutup semua accordion lain (optional)
+        const allContents = document.querySelectorAll('[id^="content-"]');
+        const allIcons = document.querySelectorAll('[id^="icon-"]');
+        
+        allContents.forEach((c, idx) => {
+            if (c.id !== `content-${id}`) {
+                c.style.maxHeight = null;
+                allIcons[idx].classList.remove('rotate-45');
+                allIcons[idx].classList.replace('bx-minus', 'bx-plus');
+            }
+        });
+
+        // Toggle current
+        if (content.style.maxHeight) {
+            content.style.maxHeight = null;
+            icon.classList.remove('rotate-45');
+            icon.classList.replace('bx-minus', 'bx-plus');
+        } else {
+            content.style.maxHeight = content.scrollHeight + "px";
+            icon.classList.add('rotate-45');
+            icon.classList.replace('bx-plus', 'bx-minus');
+        }
+    }
+</script>
+
+<section class="py-20 bg-sc-black border-t border-white/5" id="channels">
+    <div class="container mx-auto px-6 md:px-12">
+        
+        <div class="mb-16 reveal">
+            <div class="flex items-center gap-4 mb-4">
+                <span class="text-[10px] tracking-[0.4em] text-white uppercase font-bold">02.</span>
+                <div class="h-px w-12 bg-white/20"></div>
+            </div>
+            <h2 class="font-playfair text-3xl md:text-5xl text-white italic">Akses & <br> <span class="text-sc-gray not-italic uppercase tracking-tighter">Titik Temu Arsip</span></h2>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <div class="group relative p-8 border border-white/10 rounded-sm bg-sc-dark/20 flex flex-col justify-between transition-all duration-500 hover:border-white/30">
+                <div>
+                    <div class="flex items-center justify-between mb-8">
+                        <i class='bx bx-map-pin text-3xl text-white'></i>
+                        <span class="text-[8px] tracking-[0.3em] text-sc-gray uppercase font-bold px-2 py-1 border border-white/10">Bandung</span>
+                    </div>
+                    <h3 class="font-playfair text-xl text-white italic mb-4 uppercase">Offline Archive</h3>
+                    <p class="text-[11px] text-sc-gray leading-relaxed uppercase tracking-widest mb-6">
+                        Rasakan pengalaman visual secara langsung. Kunjungi ruang fisik kami di jantung kota Bandung untuk melihat detail jahitan dan material setiap koleksi.
+                    </p>
+                    <div class="space-y-2 mb-8">
+                        <p class="text-[10px] text-white font-medium flex items-center gap-2"><i class='bx bx-time-five'></i> 10:00 — 22:00 WIB</p>
+                        <p class="text-[10px] text-sc-gray flex items-center gap-2"><i class='bx bx-buildings'></i> Jl. Braga No. 7, Bandung, Jawa Barat</p>
+                    </div>
+                </div>
+                <a href="https://maps.google.com" target="_blank" class="w-full py-4 border border-white/10 text-center text-[10px] tracking-[0.3em] text-white uppercase hover:bg-white hover:text-black transition-all">Petunjuk Jalan</a>
+            </div>
+
+            <div class="group relative p-8 border border-white/10 rounded-sm bg-sc-dark/20 flex flex-col justify-between transition-all duration-500 hover:border-white/30">
+                <div>
+                    <div class="flex items-center justify-between mb-8">
+                        <i class='bx bxl-whatsapp text-3xl text-white'></i>
+                        <span class="text-[8px] tracking-[0.3em] text-sc-gray uppercase font-bold px-2 py-1 border border-white/10">Personal</span>
+                    </div>
+                    <h3 class="font-playfair text-xl text-white italic mb-4 uppercase">WhatsApp Order</h3>
+                    <p class="text-[11px] text-sc-gray leading-relaxed uppercase tracking-widest mb-6">
+                        Butuh bantuan personal atau pemesanan manual yang lebih cepat? Tim kurator kami siap membantu Anda melalui layanan pesan instan.
+                    </p>
+                    <div class="bg-white/5 p-4 rounded-sm border-l-2 border-white/20 mb-8">
+                        <p class="text-[9px] text-sc-gray italic">"Tanyakan detail ukuran atau ketersediaan stok melalui chat."</p>
+                    </div>
+                </div>
+                <a href="https://wa.me/6281234567890" target="_blank" class="w-full py-4 bg-white text-black text-center text-[10px] tracking-[0.3em] text-black uppercase font-bold hover:bg-sc-gray transition-all">Chat Sekarang</a>
+            </div>
+
+            <div class="group relative p-8 border border-white/10 rounded-sm bg-sc-dark/20 flex flex-col justify-between transition-all duration-500 hover:border-white/30">
+                <div>
+                    <div class="flex items-center justify-between mb-8">
+                        <div class="flex gap-4">
+                            <i class='bx bx-shopping-bag text-3xl text-white'></i>
+                        </div>
+                        <span class="text-[8px] tracking-[0.3em] text-sc-gray uppercase font-bold px-2 py-1 border border-white/10">Official</span>
+                    </div>
+                    <h3 class="font-playfair text-xl text-white italic mb-4 uppercase">Marketplace</h3>
+                    <p class="text-[11px] text-sc-gray leading-relaxed uppercase tracking-widest mb-8">
+                        Dapatkan kemudahan transaksi dan berbagai promo spesial melalui toko resmi kami di platform e-commerce terpercaya.
+                    </p>
+                    
+                    <div class="space-y-4">
+                        <a href="#" class="flex items-center justify-between p-4 border border-white/5 hover:border-white/40 transition-all bg-black/20">
+                            <div class="flex items-center gap-3">
+                                <i class='bx bx-store text-xl text-sc-gray'></i>
+                                <span class="text-[10px] tracking-[0.2em] text-white uppercase font-bold">Tokopedia</span>
+                            </div>
+                            <i class='bx bx-link-external text-sc-gray'></i>
+                        </a>
+                        <a href="#" class="flex items-center justify-between p-4 border border-white/5 hover:border-white/40 transition-all bg-black/20">
+                            <div class="flex items-center gap-3">
+                                <i class='bx bx-cart text-xl text-sc-gray'></i>
+                                <span class="text-[10px] tracking-[0.2em] text-white uppercase font-bold">Shopee</span>
+                            </div>
+                            <i class='bx bx-link-external text-sc-gray'></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-6 p-6 bg-white/[0.02] border border-white/10 rounded-sm">
+    <div class="flex gap-4 items-start">
+        <i class='bx bx-store-alt text-xl text-white'></i>
+        <div>
+            <span class="text-[10px] text-white font-bold uppercase tracking-[0.2em] block mb-2">Rekomendasi Eksplorasi Fisik</span>
+            <p class="text-[10px] text-sc-gray uppercase leading-relaxed tracking-wider italic">
+                Data teknis dan foto mungkin memberikan gambaran, namun kami sangat merekomendasikan Anda untuk <span class="text-white">datang langsung ke Offline Archive</span> kami. Rasakan tekstur material secara nyata, coba berbagai siluet potongan secara presisi, dan temukan koleksi eksklusif lainnya yang hanya tersedia melalui interaksi fisik di galeri kami.
+            </p>
+        </div>
+    </div>
+</div>
+
+            
+        </div>
+    </div>
+</section>
+
+<section class="py-20 bg-sc-black border-t border-white/5" id="size-material">
+    <div class="container mx-auto px-6 md:px-12">
+        
+        <div class="mb-16">
+            <div class="flex items-center gap-4 mb-4">
+                <span class="text-[10px] tracking-[0.4em] text-white uppercase font-bold">03.</span>
+                <div class="h-px w-12 bg-white/20"></div>
+            </div>
+            <h2 class="font-playfair text-3xl md:text-5xl text-white italic">Anatomi & <br> <span class="text-sc-gray not-italic uppercase tracking-tighter">Materialitas Produk</span></h2>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+            
+            <div class="lg:col-span-5">
+                <div class="flex items-center gap-3 mb-8 opacity-60">
+                    <i class='bx bx-shape-square text-xl text-white'></i>
+                    <span class="text-[10px] tracking-[0.3em] text-white uppercase font-space">Fit Character System</span>
+                </div>
+
+                <div class="border border-white/10 rounded-sm divide-y divide-white/10 overflow-hidden">
+                    
+                    <div class="p-8 bg-sc-dark/10 hover:bg-white/[0.02] transition-colors group">
+                        <div class="flex justify-between items-start mb-4">
+                            <h4 class="font-playfair text-xl text-white italic">Oversize / Boxy Fit</h4>
+                            <span class="text-[8px] border border-white/20 px-2 py-1 text-sc-gray group-hover:text-white transition-colors">TYPE 01</span>
+                        </div>
+                        <p class="text-[11px] text-sc-gray leading-relaxed uppercase tracking-widest">
+                            Potongan lebar dengan bahu jatuh (*dropped shoulder*). Fokus pada volume dada yang luas namun panjang baju yang sedikit dipangkas (*cropped*) untuk siluet yang kuat.
+                        </p>
+                    </div>
+
+                    <div class="p-8 bg-sc-dark/10 hover:bg-white/[0.02] transition-colors group">
+                        <div class="flex justify-between items-start mb-4">
+                            <h4 class="font-playfair text-xl text-white italic">Regular / Classic Fit</h4>
+                            <span class="text-[8px] border border-white/20 px-2 py-1 text-sc-gray group-hover:text-white transition-colors">TYPE 02</span>
+                        </div>
+                        <p class="text-[11px] text-sc-gray leading-relaxed uppercase tracking-widest">
+                            Siluet standar Seven Cultures yang mengikuti kontur tubuh secara natural. Memberikan keseimbangan antara ruang gerak dan tampilan formal-casual yang rapi.
+                        </p>
+                    </div>
+
+                    <div class="p-8 bg-sc-dark/10 hover:bg-white/[0.02] transition-colors group">
+                        <div class="flex justify-between items-start mb-4">
+                            <h4 class="font-playfair text-xl text-white italic">Slim / Contoured</h4>
+                            <span class="text-[8px] border border-white/20 px-2 py-1 text-sc-gray group-hover:text-white transition-colors">TYPE 03</span>
+                        </div>
+                        <p class="text-[11px] text-sc-gray leading-relaxed uppercase tracking-widest">
+                            Potongan yang pas di tubuh, dirancang untuk lapisan dasar (*base layer*) atau pakaian atletik. Menggunakan material elastis untuk mempertahankan mobilitas maksimal.
+                        </p>
+                    </div>
+
+                </div>
+
+<div class="mt-8 p-6 bg-white/[0.02] border border-white/10 rounded-sm">
+    <div class="flex gap-4 items-start">
+        <i class='bx bx-info-square text-xl text-white'></i>
+        <div>
+            <span class="text-[10px] text-white font-bold uppercase tracking-[0.2em] block mb-2">Technical Production Note</span>
+            <p class="text-[10px] text-sc-gray uppercase leading-relaxed tracking-wider italic">
+                Produk kami mengombinasikan presisi mesin modern untuk koleksi standar dan teknik penjahitan manual (Hand-Finished) khusus untuk seri <span class="text-white">VIP & Limited Archive</span>. Mengingat karakter produksi yang unik ini, terdapat toleransi perbedaan ukuran sebesar 1-2 cm pada setiap produk.
+            </p>
+        </div>
+    </div>
+</div>
+            </div>
+
+
+<div class="lg:col-span-12 py-10">
+    <div class="flex items-center gap-3 mb-10 opacity-60">
+        <i class='bx bx-microchip text-xl text-white'></i>
+        <span class="text-[10px] tracking-[0.4em] text-white uppercase font-space">Technical Material Library</span>
+    </div>
+
+    <div class="overflow-x-auto no-scrollbar cursor-grab active:cursor-grabbing border-t border-white/10" id="materialTableWrapper">
+        <table class="w-full border-collapse min-w-[1200px]"> 
+            <thead>
+                <tr class="border-b border-white/20 text-left bg-white/[0.02]">
+                    <th class="py-7 px-12 text-[9px] tracking-[0.4em] text-white uppercase font-space">Kategori</th>
+                    <th class="py-7 px-12 text-[9px] tracking-[0.4em] text-white uppercase font-space">Spesifikasi Material</th>
+                    <th class="py-7 px-12 text-[9px] tracking-[0.4em] text-white uppercase font-space">Berat / Ukuran</th>
+                    <th class="py-7 px-12 text-[9px] tracking-[0.4em] text-white uppercase font-space">Karakteristik Teknis</th>
+                </tr>
+            </thead>
+            <tbody class="text-[10px] text-sc-gray uppercase tracking-[0.2em]">
+                
+                <tr class="border-b border-white/5 hover:bg-white/[0.03] transition-colors">
+                    <td class="py-9 px-12 font-bold text-white">Graphic Tees</td>
+                    <td class="py-9 px-12 text-white">Cotton Combed 16s Open-End</td>
+                    <td class="py-9 px-12 font-mono text-[9px]">235 - 250 GSM</td>
+                    <td class="py-9 px-12 leading-relaxed max-w-[400px]">Serat kasar, konstruksi kaku, memberikan siluet boxy yang stabil dan tahan lama.</td>
+                </tr>
+
+                <tr class="border-b border-white/5 hover:bg-white/[0.03] transition-colors">
+                    <td class="py-9 px-12 font-bold text-white">Basic Essentials</td>
+                    <td class="py-9 px-12 text-white">Premium Supima Cotton 24s</td>
+                    <td class="py-9 px-12 font-mono text-[9px]">180 - 190 GSM</td>
+                    <td class="py-9 px-12 leading-relaxed max-w-[400px]">Serat kapas ekstra panjang, permukaan halus, kilau alami, daya tahan warna premium.</td>
+                </tr>
+
+                <tr class="border-b border-white/5 hover:bg-white/[0.03] transition-colors">
+                    <td class="py-9 px-12 font-bold text-white">Outerwear (Fleece)</td>
+                    <td class="py-9 px-12 text-white">Heavy Cotton Fleece (Brushed)</td>
+                    <td class="py-9 px-12 font-mono text-[9px]">330 - 350 GSM</td>
+                    <td class="py-9 px-12 leading-relaxed max-w-[400px]">Interior lembut berbulu untuk retensi panas, eksterior rapat untuk ketahanan angin maksimal.</td>
+                </tr>
+
+                <tr class="border-b border-white/5 hover:bg-white/[0.03] transition-colors">
+                    <td class="py-9 px-12 font-bold text-white">Mid-Weight Sweats</td>
+                    <td class="py-9 px-12 text-white">Cotton French Terry</td>
+                    <td class="py-9 px-12 font-mono text-[9px]">280 - 300 GSM</td>
+                    <td class="py-9 px-12 leading-relaxed max-w-[400px]">Bagian dalam bertekstur loop (handuk), sirkulasi udara baik, cocok untuk iklim tropis.</td>
+                </tr>
+
+                <tr class="border-b border-white/5 hover:bg-white/[0.03] transition-colors">
+                    <td class="py-9 px-12 font-bold text-white">Bottoms (Denim)</td>
+                    <td class="py-9 px-12 text-white">Raw Indigo / Black Denim</td>
+                    <td class="py-9 px-12 font-mono text-[9px]">14 - 15 OZ</td>
+                    <td class="py-9 px-12 leading-relaxed max-w-[400px]">Kepadatan tinggi (heavyweight), membentuk karakteristik unik (fading) seiring pemakaian.</td>
+                </tr>
+
+                <tr class="border-b border-white/5 hover:bg-white/[0.03] transition-colors">
+                    <td class="py-9 px-12 font-bold text-white">Technical Jacket</td>
+                    <td class="py-9 px-12 text-white">Nylon Ripstop 40D</td>
+                    <td class="py-9 px-12 font-mono text-[9px]">DWR Coated</td>
+                    <td class="py-9 px-12 leading-relaxed max-w-[400px]">Pola grid penguat (anti-sobek), lapisan penolak air, sangat ringan namun kuat.</td>
+                </tr>
+
+                <tr class="border-b border-white/5 hover:bg-white/[0.03] transition-colors">
+                    <td class="py-9 px-12 font-bold text-white">Headwear / Cargo</td>
+                    <td class="py-9 px-12 text-white">Premium Corduroy (Cotton)</td>
+                    <td class="py-9 px-12 font-mono text-[9px]">14 Wale Count</td>
+                    <td class="py-9 px-12 leading-relaxed max-w-[400px]">Tekstur garis rapat (fine wale), material lembut dengan tampilan vintage klasik.</td>
+                </tr>
+
+                <tr class="border-b border-white/5 hover:bg-white/[0.03] transition-colors">
+                    <td class="py-9 px-12 font-bold text-white">Knitted Items</td>
+                    <td class="py-9 px-12 text-white">Acrylic & Wool Blend</td>
+                    <td class="py-9 px-12 font-mono text-[9px]">7 - 12 Gauge</td>
+                    <td class="py-9 px-12 leading-relaxed max-w-[400px]">Rajutan rapat, tidak gatal di kulit, elastisitas tinggi tanpa cepat melar.</td>
+                </tr>
+
+                <tr class="border-b border-white/5 hover:bg-white/[0.03] transition-colors">
+                    <td class="py-9 px-12 font-bold text-white">Print Methods</td>
+                    <td class="py-9 px-12 text-white">High-Density Plastisol</td>
+                    <td class="py-9 px-12 font-mono text-[9px]">Eco-Friendly Ink</td>
+                    <td class="py-9 px-12 leading-relaxed max-w-[400px]">Detail tajam, tekstur timbul (3D effect), daya tahan cuci ekstrem.</td>
+                </tr>
+
+                <tr class="border-b border-white/5 hover:bg-white/[0.03] transition-colors">
+                    <td class="py-9 px-12 font-bold text-white">Zippers & Buttons</td>
+                    <td class="py-9 px-12 text-white">YKK Metal / Cobrax Snaps</td>
+                    <td class="py-9 px-12 font-mono text-[9px]">Industrial Grade</td>
+                    <td class="py-9 px-12 leading-relaxed max-w-[400px]">Mekanisme halus, material anti-macet, finishing anti-karat (Gunmetal).</td>
+                </tr>
+
+                <tr class="border-b border-white/5 hover:bg-white/[0.03] transition-colors">
+                    <td class="py-9 px-12 font-bold text-white">Utility Bags</td>
+                    <td class="py-9 px-12 text-white">Cordura Nylon 1000D</td>
+                    <td class="py-9 px-12 font-mono text-[9px]">High Denier</td>
+                    <td class="py-9 px-12 leading-relaxed max-w-[400px]">Ketahanan abrasi ekstrem, tahan air, didesain untuk beban berat.</td>
+                </tr>
+
+                <tr class="border-b border-white/5 hover:bg-white/[0.03] transition-colors">
+                    <td class="py-9 px-12 font-bold text-white">Jewelry / Link</td>
+                    <td class="py-9 px-12 text-white">Stainless Steel 316L</td>
+                    <td class="py-9 px-12 font-mono text-[9px]">Surgical Grade</td>
+                    <td class="py-9 px-12 leading-relaxed max-w-[400px]">Anti-karat, hipoalergenik, tidak berubah warna meskipun terkena keringat.</td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="mt-8 flex items-center justify-center gap-3 lg:hidden opacity-40">
+        <i class='bx bx-left-arrow-alt animate-pulse'></i>
+        <span class="text-[9px] tracking-[0.4em] uppercase font-space">Geser horizontal untuk detail</span>
+        <i class='bx bx-right-arrow-alt animate-pulse'></i>
+    </div>
+</div>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section class="py-20 bg-sc-black border-t border-white/5" id="returns-archive">
+    <div class="container mx-auto px-6 md:px-12">
+        
+        <div class="mb-16 reveal">
+            <div class="flex items-center gap-4 mb-4">
+                <span class="text-[10px] tracking-[0.4em] text-white uppercase font-bold">04.</span>
+                <div class="h-px w-12 bg-white/20"></div>
+            </div>
+            <h2 class="font-playfair text-3xl md:text-5xl text-white italic">Penukaran & <br> <span class="text-sc-gray not-italic uppercase tracking-tighter">Restorasi Arsip</span></h2>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+            
+            <div class="lg:col-span-5">
+                <div class="flex items-center gap-3 mb-8 opacity-60">
+                    <i class='bx bx-check-shield text-xl text-white'></i>
+                    <span class="text-[10px] tracking-[0.3em] text-white uppercase font-space">Syarat & Ketentuan</span>
+                </div>
+
+                <ul class="space-y-6">
+                    <li class="flex gap-4 items-start group">
+                        <span class="text-[10px] font-mono text-white opacity-40 mt-1">01/</span>
+                        <p class="text-[11px] text-sc-gray leading-relaxed uppercase tracking-widest group-hover:text-white transition-colors">
+                            Batas waktu penukaran adalah <span class="text-white">3 hari (72 jam)</span> setelah produk diterima berdasarkan data resi ekspedisi.
+                        </p>
+                    </li>
+                    <li class="flex gap-4 items-start group">
+                        <span class="text-[10px] font-mono text-white opacity-40 mt-1">02/</span>
+                        <p class="text-[11px] text-sc-gray leading-relaxed uppercase tracking-widest group-hover:text-white transition-colors">
+                            Wajib menyertakan <span class="text-white">Video Unboxing</span> tanpa terpotong sebagai bukti otentik kondisi barang saat diterima.
+                        </p>
+                    </li>
+                    <li class="flex gap-4 items-start group">
+                        <span class="text-[10px] font-mono text-white opacity-40 mt-1">03/</span>
+                        <p class="text-[11px] text-sc-gray leading-relaxed uppercase tracking-widest group-hover:text-white transition-colors">
+                            Kondisi produk harus <span class="text-white">seperti baru</span>: Tag harga masih terpasang, belum dicuci, dan tidak ada aroma parfum/bau badan.
+                        </p>
+                    </li>
+                    <li class="flex gap-4 items-start group">
+                        <span class="text-[10px] font-mono text-white opacity-40 mt-1">04/</span>
+                        <p class="text-[11px] text-sc-gray leading-relaxed uppercase tracking-widest group-hover:text-white transition-colors">
+                            Penukaran ukuran (*Size Exchange*) diperbolehkan selama stok tersedia. Ongkos kirim bolak-balik sepenuhnya ditanggung pembeli, kecuali kesalahan dari pihak kami.
+                        </p>
+                    </li>
+                </ul>
+
+                <div class="mt-12 p-6 bg-white/[0.02] border border-white/10 rounded-sm">
+                    <p class="text-[10px] text-sc-gray uppercase leading-relaxed tracking-wider italic">
+                        <span class="text-white font-bold not-italic">CATATAN:</span> Produk yang dibeli dalam masa promo "Final Sale" atau "Clearance Archive" tidak dapat ditukar atau dikembalikan dengan alasan apa pun.
+                    </p>
+                </div>
+            </div>
+
+            <div class="lg:col-span-7">
+                <div class="flex items-center gap-3 mb-8 opacity-60">
+                    <i class='bx bx-git-commit text-xl text-white'></i>
+                    <span class="text-[10px] tracking-[0.3em] text-white uppercase font-space">Alur Restorasi (Step-by-Step)</span>
+                </div>
+
+                <div class="relative space-y-4">
+                    <div class="p-6 border border-white/5 bg-sc-dark/20 hover:border-white/20 transition-all">
+                        <div class="flex justify-between items-center mb-3">
+                            <h4 class="font-playfair text-white text-lg italic">1. Pengajuan Klaim</h4>
+                            <i class='bx bxl-whatsapp text-xl text-sc-gray'></i>
+                        </div>
+                        <p class="text-[10px] text-sc-gray uppercase tracking-[0.15em] leading-relaxed">
+                            Hubungi layanan Customer Care kami via WhatsApp. Kirimkan nomor pesanan, alasan penukaran, dan lampirkan video unboxing serta foto detail produk.
+                        </p>
+                    </div>
+
+                    <div class="p-6 border border-white/5 bg-sc-dark/20 hover:border-white/20 transition-all">
+                        <div class="flex justify-between items-center mb-3">
+                            <h4 class="font-playfair text-white text-lg italic">2. Verifikasi Tim Ahli</h4>
+                            <i class='bx bx-search-alt text-xl text-sc-gray'></i>
+                        </div>
+                        <p class="text-[10px] text-sc-gray uppercase tracking-[0.15em] leading-relaxed">
+                            Tim kurator kami akan melakukan verifikasi data dalam waktu maksimal 1x24 jam (hari kerja). Anda akan menerima konfirmasi persetujuan retur.
+                        </p>
+                    </div>
+
+                    <div class="p-6 border border-white/5 bg-sc-dark/20 hover:border-white/20 transition-all">
+                        <div class="flex justify-between items-center mb-3">
+                            <h4 class="font-playfair text-white text-lg italic">3. Pengiriman Kembali</h4>
+                            <i class='bx bx-transfer text-xl text-sc-gray'></i>
+                        </div>
+                        <p class="text-[10px] text-sc-gray uppercase tracking-[0.15em] leading-relaxed">
+                            Kirimkan produk kembali ke Warehouse Bandung menggunakan ekspedisi pilihan Anda. Pastikan produk dikemas dengan aman menggunakan box aslinya.
+                        </p>
+                    </div>
+
+                    <div class="p-6 border border-white/5 bg-sc-dark/20 hover:border-white/20 transition-all border-l-2 border-l-white">
+                        <div class="flex justify-between items-center mb-3">
+                            <h4 class="font-playfair text-white text-lg italic">4. Pengiriman Produk Baru</h4>
+                            <i class='bx bx-package text-xl text-white'></i>
+                        </div>
+                        <p class="text-[10px] text-sc-gray uppercase tracking-[0.15em] leading-relaxed">
+                            Setelah barang retur kami terima dan lolos inspeksi fisik, kami akan segera mengirimkan produk pengganti ke alamat Anda.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-20 bg-sc-black border-t border-white/5" id="preservation-guide">
+    <div class="container mx-auto px-6 md:px-12">
+        
+        <div class="mb-16 reveal">
+            <div class="flex items-center gap-4 mb-4">
+                <span class="text-[10px] tracking-[0.4em] text-white uppercase font-bold">05.</span>
+                <div class="h-px w-12 bg-white/20"></div>
+            </div>
+            <h2 class="font-playfair text-3xl md:text-5xl text-white italic text-center md:text-left">
+                Panduan Preservasi & <br> 
+                <span class="text-sc-gray not-italic uppercase tracking-tighter">Etika Pemakaian</span>
+            </h2>
+            <p class="mt-6 text-[11px] text-sc-gray uppercase tracking-[0.2em] max-w-2xl leading-relaxed italic">
+                "Harga mungkin memiliki angka, namun kelangkaan adalah nilai yang tak tergantikan. Jangan biarkan kecerobohan memudarkan sejarah yang Anda kenakan."
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-1px bg-white/10 border border-white/10 overflow-hidden">
+            
+            <div class="bg-sc-black p-10 hover:bg-white/[0.02] transition-all group">
+                <div class="flex items-center justify-between mb-8">
+                    <i class='bx bx-water text-3xl text-sc-gray group-hover:text-white transition-colors'></i>
+                    <span class="font-mono text-[10px] text-sc-gray">PROTOCOL A</span>
+                </div>
+                <h3 class="font-playfair text-xl text-white italic mb-4">Pembersihan Terukur</h3>
+                <p class="text-[10px] text-sc-gray uppercase tracking-widest leading-loose">
+                    Hindari pencucian terlalu sering. Gunakan air dingin (suhu di bawah $30^{\circ}\text{C}$). Balik pakaian sebelum dicuci untuk menjaga integritas grafis. Sangat disarankan menggunakan metode <span class="text-white">Hand-Wash</span> daripada mesin untuk meminimalisir stres pada serat kain.
+                </p>
+            </div>
+
+            <div class="bg-sc-black p-10 hover:bg-white/[0.02] transition-all group border-y lg:border-y-0 lg:border-x border-white/10">
+                <div class="flex items-center justify-between mb-8">
+                    <i class='bx bx-sun text-3xl text-sc-gray group-hover:text-white transition-colors'></i>
+                    <span class="font-mono text-[10px] text-sc-gray">PROTOCOL B</span>
+                </div>
+                <h3 class="font-playfair text-xl text-white italic mb-4">Pengeringan Alami</h3>
+                <p class="text-[10px] text-sc-gray uppercase tracking-widest leading-loose">
+                    Jangan pernah gunakan mesin pengering (*Dryer*). Panas berlebih akan merusak struktur molekul kain. Jemur di area teduh tanpa sinar matahari langsung. Untuk setrika, gunakan <span class="text-white">Steamer</span> atau setrika uap dengan posisi terbalik.
+                </p>
+            </div>
+
+            <div class="bg-sc-black p-10 hover:bg-white/[0.02] transition-all group">
+                <div class="flex items-center justify-between mb-8">
+                    <i class='bx bx-closet text-3xl text-sc-gray group-hover:text-white transition-colors'></i>
+                    <span class="font-mono text-[10px] text-sc-gray">PROTOCOL C</span>
+                </div>
+                <h3 class="font-playfair text-xl text-white italic mb-4">Manajemen Penyimpanan</h3>
+                <p class="text-[10px] text-sc-gray uppercase tracking-widest leading-loose">
+                    Gunakan hanger kayu yang lebar untuk jaket/outer guna menjaga siluet bahu. Untuk kaos berat atau rajutan (*knitwear*), <span class="text-white">Lipat dengan Rapi</span> daripada digantung untuk menghindari peregangan kain akibat gravitasi.
+                </p>
+            </div>
+
+        </div>
+
+        <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            <div class="p-8 border border-white/5 bg-white/[0.01]">
+                <h4 class="text-[11px] tracking-[0.4em] text-white uppercase font-bold mb-6 flex items-center gap-3">
+                    <i class='bx bx-list-ul'></i> Tindakan Preventif
+                </h4>
+                <div class="space-y-4 text-[10px] text-sc-gray uppercase tracking-widest leading-relaxed">
+                    <div class="flex justify-between border-b border-white/5 pb-2">
+                        <span>Rotasi Pemakaian</span>
+                        <span class="text-white">Min. 2 Hari Jeda</span>
+                    </div>
+                    <div class="flex justify-between border-b border-white/5 pb-2">
+                        <span>Noda Cairan</span>
+                        <span class="text-white">Totol (Bukan Gosok)</span>
+                    </div>
+                    <div class="flex justify-between border-b border-white/5 pb-2">
+                        <span>Aksesori Stainless</span>
+                        <span class="text-white">Lap Microfiber</span>
+                    </div>
+                    <div class="flex justify-between border-b border-white/5 pb-2">
+                        <span>Kacamata/Acetate</span>
+                        <span class="text-white">Simpan dalam Case</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-8 border border-white/5 bg-white/[0.01]">
+                <h4 class="text-[11px] tracking-[0.4em] text-white uppercase font-bold mb-6 flex items-center gap-3">
+                    <i class='bx bx-user-voice'></i> Etika Penggunaan
+                </h4>
+                <p class="text-[10px] text-sc-gray uppercase tracking-widest leading-loose italic">
+                    "Produk Seven Cultures adalah manifestasi seni. Gunakan dengan penuh kesadaran. Hindari aktivitas dengan intensitas gesekan tinggi saat mengenakan material premium kami. Ingatlah bahwa setiap bekas pemakaian adalah bagian dari sejarah, namun kerusakan akibat kecerobohan adalah kerugian bagi nilai arsip itu sendiri."
+                </p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section class="py-24 bg-sc-black border-t border-white/5" id="faq-section">
+    <div class="container mx-auto px-6 md:px-12">
+        
+        <div class="max-w-3xl mb-16">
+            <div class="flex items-center gap-4 mb-4">
+                <span class="text-[10px] tracking-[0.4em] text-white uppercase font-bold">06.</span>
+                <div class="h-px w-12 bg-white/20"></div>
+            </div>
+            <h2 class="font-playfair text-3xl md:text-5xl text-white italic mb-8">Data Arsip <br> <span class="text-sc-gray not-italic uppercase tracking-tighter">Pertanyaan Umum</span></h2>
+            
+            <div class="relative max-w-md">
+                <input type="text" id="faqSearch" onkeyup="filterFaq()" placeholder="Cari kata kunci (misal: cuci, retur, size)..." 
+                       class="w-full bg-sc-dark/30 border border-white/10 py-3 px-10 text-[10px] uppercase tracking-widest text-white focus:outline-none focus:border-white/30 transition-all">
+                <i class='bx bx-search absolute left-3 top-1/2 -translate-y-1/2 text-sc-gray'></i>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-2" id="faqContainer">
+            <div class="faq-item mb-2" data-search="apa itu seven cultures filosofi arsip vip">
+                <button onclick="toggleFaq(1)" class="w-full p-5 flex justify-between items-center bg-sc-dark/10 border border-white/5 hover:border-white/20 transition-all text-left group">
+                    <span class="text-[9px] md:text-[10px] tracking-[0.2em] text-white uppercase font-medium">01. Apa itu Seven Cultures?</span>
+                    <i id="faq-icon-1" class='bx bx-chevron-down text-sc-gray group-hover:text-white transition-transform'></i>
+                </button>
+                <div id="faq-content-1" class="max-h-0 overflow-hidden transition-all duration-300 bg-white/[0.02]">
+                    <div class="p-6 text-[10px] text-sc-gray leading-relaxed uppercase tracking-widest">
+                        Sebuah wadah preservasi budaya urban yang mengkurasi produk tekstil berkualitas tinggi dengan sentuhan Neo-Heritage.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item mb-2" data-search="mengapa disebut arsip sejarah durabilitas">
+                <button onclick="toggleFaq(2)" class="w-full p-5 flex justify-between items-center bg-sc-dark/10 border border-white/5 hover:border-white/20 transition-all text-left group">
+                    <span class="text-[9px] md:text-[10px] tracking-[0.2em] text-white uppercase font-medium">02. Mengapa produk disebut sebagai "Arsip"?</span>
+                    <i id="faq-icon-2" class='bx bx-chevron-down text-sc-gray group-hover:text-white transition-transform'></i>
+                </button>
+                <div id="faq-content-2" class="max-h-0 overflow-hidden transition-all duration-300 bg-white/[0.02]">
+                    <div class="p-6 text-[10px] text-sc-gray leading-relaxed uppercase tracking-widest">
+                        Karena setiap koleksi kami dirancang untuk memiliki nilai sejarah dan durabilitas panjang, bukan sekadar pakaian fast-fashion.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item mb-2" data-search="produksi massal limited limited edition">
+                <button onclick="toggleFaq(3)" class="w-full p-5 flex justify-between items-center bg-sc-dark/10 border border-white/5 hover:border-white/20 transition-all text-left group">
+                    <span class="text-[9px] md:text-[10px] tracking-[0.2em] text-white uppercase font-medium">03. Apakah produk diproduksi massal?</span>
+                    <i id="faq-icon-3" class='bx bx-chevron-down text-sc-gray group-hover:text-white transition-transform'></i>
+                </button>
+                <div id="faq-content-3" class="max-h-0 overflow-hidden transition-all duration-300 bg-white/[0.02]">
+                    <div class="p-6 text-[10px] text-sc-gray leading-relaxed uppercase tracking-widest">
+                        Tidak. Sebagian besar koleksi kami diproduksi dalam jumlah terbatas (Limited Archive) untuk menjaga eksklusivitas.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item mb-2" data-search="perbedaan vip standar manual hand-finished">
+                <button onclick="toggleFaq(4)" class="w-full p-5 flex justify-between items-center bg-sc-dark/10 border border-white/5 hover:border-white/20 transition-all text-left group">
+                    <span class="text-[9px] md:text-[10px] tracking-[0.2em] text-white uppercase font-medium">04. Apa perbedaan Standar & Seri VIP?</span>
+                    <i id="faq-icon-4" class='bx bx-chevron-down text-sc-gray group-hover:text-white transition-transform'></i>
+                </button>
+                <div id="faq-content-4" class="max-h-0 overflow-hidden transition-all duration-300 bg-white/[0.02]">
+                    <div class="p-6 text-[10px] text-sc-gray leading-relaxed uppercase tracking-widest">
+                        Seri VIP menggunakan material langka, teknik penjahitan manual (hand-finished), dan memiliki detail yang lebih kompleks.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item mb-2" data-search="restock habis produksi ulang">
+                <button onclick="toggleFaq(5)" class="w-full p-5 flex justify-between items-center bg-sc-dark/10 border border-white/5 hover:border-white/20 transition-all text-left group">
+                    <span class="text-[9px] md:text-[10px] tracking-[0.2em] text-white uppercase font-medium">05. Apakah produk akan Restock?</span>
+                    <i id="faq-icon-5" class='bx bx-chevron-down text-sc-gray group-hover:text-white transition-transform'></i>
+                </button>
+                <div id="faq-content-5" class="max-h-0 overflow-hidden transition-all duration-300 bg-white/[0.02]">
+                    <div class="p-6 text-[10px] text-sc-gray leading-relaxed uppercase tracking-widest">
+                        Umumnya tidak. Kami lebih memilih merilis fragmen atau desain baru untuk menjaga nilai kelangkaan arsip.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item mb-2" data-search="cara tentukan ukuran size chart">
+                <button onclick="toggleFaq(6)" class="w-full p-5 flex justify-between items-center bg-sc-dark/10 border border-white/5 hover:border-white/20 transition-all text-left group">
+                    <span class="text-[9px] md:text-[10px] tracking-[0.2em] text-white uppercase font-medium">06. Bagaimana cara menentukan ukuran?</span>
+                    <i id="faq-icon-6" class='bx bx-chevron-down text-sc-gray group-hover:text-white transition-transform'></i>
+                </button>
+                <div id="faq-content-6" class="max-h-0 overflow-hidden transition-all duration-300 bg-white/[0.02]">
+                    <div class="p-6 text-[10px] text-sc-gray leading-relaxed uppercase tracking-widest">
+                        Silakan merujuk pada "Size Chart" di setiap halaman produk atau baca bagian Anatomi Produk di halaman Help.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item mb-2" data-search="boxy fit oversize lebar dada">
+                <button onclick="toggleFaq(7)" class="w-full p-5 flex justify-between items-center bg-sc-dark/10 border border-white/5 hover:border-white/20 transition-all text-left group">
+                    <span class="text-[9px] md:text-[10px] tracking-[0.2em] text-white uppercase font-medium">07. Apa itu potongan "Boxy Fit"?</span>
+                    <i id="faq-icon-7" class='bx bx-chevron-down text-sc-gray group-hover:text-white transition-transform'></i>
+                </button>
+                <div id="faq-content-7" class="max-h-0 overflow-hidden transition-all duration-300 bg-white/[0.02]">
+                    <div class="p-6 text-[10px] text-sc-gray leading-relaxed uppercase tracking-widest">
+                        Potongan lebar di bagian dada dengan panjang baju yang lebih pendek untuk siluet modern.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item mb-2" data-search="standar ukuran lokal internasional">
+                <button onclick="toggleFaq(8)" class="w-full p-5 flex justify-between items-center bg-sc-dark/10 border border-white/5 hover:border-white/20 transition-all text-left group">
+                    <span class="text-[9px] md:text-[10px] tracking-[0.2em] text-white uppercase font-medium">08. Standar ukuran Lokal atau Luar?</span>
+                    <i id="faq-icon-8" class='bx bx-chevron-down text-sc-gray group-hover:text-white transition-transform'></i>
+                </button>
+                <div id="faq-content-8" class="max-h-0 overflow-hidden transition-all duration-300 bg-white/[0.02]">
+                    <div class="p-6 text-[10px] text-sc-gray leading-relaxed uppercase tracking-widest">
+                        Kami menggunakan standar International Fit yang cenderung lebih besar dari ukuran lokal biasa.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item mb-2" data-search="toleransi ukuran jahitan tangan manual">
+                <button onclick="toggleFaq(9)" class="w-full p-5 flex justify-between items-center bg-sc-dark/10 border border-white/5 hover:border-white/20 transition-all text-left group">
+                    <span class="text-[9px] md:text-[10px] tracking-[0.2em] text-white uppercase font-medium">09. Mengapa ada toleransi ukuran 1-2 cm?</span>
+                    <i id="faq-icon-9" class='bx bx-chevron-down text-sc-gray group-hover:text-white transition-transform'></i>
+                </button>
+                <div id="faq-content-9" class="max-h-0 overflow-hidden transition-all duration-300 bg-white/[0.02]">
+                    <div class="p-6 text-[10px] text-sc-gray leading-relaxed uppercase tracking-widest">
+                        Karena sebagian proses kami menggunakan tangan manusia untuk memastikan detail terbaik.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item mb-2" data-search="konsultasi ukuran chat kurator">
+                <button onclick="toggleFaq(10)" class="w-full p-5 flex justify-between items-center bg-sc-dark/10 border border-white/5 hover:border-white/20 transition-all text-left group">
+                    <span class="text-[9px] md:text-[10px] tracking-[0.2em] text-white uppercase font-medium">10. Dapatkah saya konsultasi ukuran?</span>
+                    <i id="faq-icon-10" class='bx bx-chevron-down text-sc-gray group-hover:text-white transition-transform'></i>
+                </button>
+                <div id="faq-content-10" class="max-h-0 overflow-hidden transition-all duration-300 bg-white/[0.02]">
+                    <div class="p-6 text-[10px] text-sc-gray leading-relaxed uppercase tracking-widest">
+                        Tentu. Hubungi kurator kami via WhatsApp dengan memberikan info tinggi dan berat badan Anda.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item mb-2" data-search="gsm kain tebal berat">
+                <button onclick="toggleFaq(11)" class="w-full p-5 flex justify-between items-center bg-sc-dark/10 border border-white/5 hover:border-white/20 transition-all text-left group">
+                    <span class="text-[9px] md:text-[10px] tracking-[0.2em] text-white uppercase font-medium">11. Apa itu GSM pada kain?</span>
+                    <i id="faq-icon-11" class='bx bx-chevron-down text-sc-gray group-hover:text-white transition-transform'></i>
+                </button>
+                <div id="faq-content-11" class="max-h-0 overflow-hidden transition-all duration-300 bg-white/[0.02]">
+                    <div class="p-6 text-[10px] text-sc-gray leading-relaxed uppercase tracking-widest">
+                        GSM menunjukkan berat kain. Semakin tinggi angkanya, semakin tebal dan berat material tersebut.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item mb-2" data-search="lazada tidak tersedia">
+                <button onclick="toggleFaq(20)" class="w-full p-5 flex justify-between items-center bg-sc-dark/10 border border-white/5 hover:border-white/20 transition-all text-left group">
+                    <span class="text-[9px] md:text-[10px] tracking-[0.2em] text-white uppercase font-medium">20. Apakah tersedia di Lazada?</span>
+                    <i id="faq-icon-20" class='bx bx-chevron-down text-sc-gray group-hover:text-white transition-transform'></i>
+                </button>
+                <div id="faq-content-20" class="max-h-0 overflow-hidden transition-all duration-300 bg-white/[0.02]">
+                    <div class="p-6 text-[10px] text-sc-gray leading-relaxed uppercase tracking-widest italic">
+                        Untuk saat ini, layanan resmi Seven Cultures tidak tersedia di platform Lazada.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item mb-2" data-search="lama pengemasan proses kirim">
+                <button onclick="toggleFaq(21)" class="w-full p-5 flex justify-between items-center bg-sc-dark/10 border border-white/5 hover:border-white/20 transition-all text-left group">
+                    <span class="text-[9px] md:text-[10px] tracking-[0.2em] text-white uppercase font-medium">21. Berapa lama proses pengemasan?</span>
+                    <i id="faq-icon-21" class='bx bx-chevron-down text-sc-gray group-hover:text-white transition-transform'></i>
+                </button>
+                <div id="faq-content-21" class="max-h-0 overflow-hidden transition-all duration-300 bg-white/[0.02]">
+                    <div class="p-6 text-[10px] text-sc-gray leading-relaxed uppercase tracking-widest">
+                        Maksimal 1x24 jam setelah pembayaran diverifikasi, tidak termasuk hari libur nasional dan Minggu.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item mb-2" data-search="same day hari yang sama gosend grab">
+                <button onclick="toggleFaq(22)" class="w-full p-5 flex justify-between items-center bg-sc-dark/10 border border-white/5 hover:border-white/20 transition-all text-left group">
+                    <span class="text-[9px] md:text-[10px] tracking-[0.2em] text-white uppercase font-medium">22. Bisa kirim di hari yang sama?</span>
+                    <i id="faq-icon-22" class='bx bx-chevron-down text-sc-gray group-hover:text-white transition-transform'></i>
+                </button>
+                <div id="faq-content-22" class="max-h-0 overflow-hidden transition-all duration-300 bg-white/[0.02]">
+                    <div class="p-6 text-[10px] text-sc-gray leading-relaxed uppercase tracking-widest">
+                        Ya, khusus wilayah Bandung via WhatsApp sebelum pukul 14:00 WIB untuk layanan pengiriman instan.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item mb-2" data-search="tukar ukuran size exchange stok">
+                <button onclick="toggleFaq(23)" class="w-full p-5 flex justify-between items-center bg-sc-dark/10 border border-white/5 hover:border-white/20 transition-all text-left group">
+                    <span class="text-[9px] md:text-[10px] tracking-[0.2em] text-white uppercase font-medium">23. Bisa tukar ukuran jika tidak muat?</span>
+                    <i id="faq-icon-23" class='bx bx-chevron-down text-sc-gray group-hover:text-white transition-transform'></i>
+                </button>
+                <div id="faq-content-23" class="max-h-0 overflow-hidden transition-all duration-300 bg-white/[0.02]">
+                    <div class="p-6 text-[10px] text-sc-gray leading-relaxed uppercase tracking-widest">
+                        Bisa, selama stok pengganti tersedia dan memenuhi syarat kondisi produk asli (belum dicuci & tag utuh).
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item mb-2" data-search="ongkos kirim retur penukaran tanggung">
+                <button onclick="toggleFaq(24)" class="w-full p-5 flex justify-between items-center bg-sc-dark/10 border border-white/5 hover:border-white/20 transition-all text-left group">
+                    <span class="text-[9px] md:text-[10px] tracking-[0.2em] text-white uppercase font-medium">24. Siapa penanggung ongkir retur?</span>
+                    <i id="faq-icon-24" class='bx bx-chevron-down text-sc-gray group-hover:text-white transition-transform'></i>
+                </button>
+                <div id="faq-content-24" class="max-h-0 overflow-hidden transition-all duration-300 bg-white/[0.02]">
+                    <div class="p-6 text-[10px] text-sc-gray leading-relaxed uppercase tracking-widest">
+                        Ongkos kirim bolak-balik ditanggung pembeli, kecuali kesalahan pengiriman atau cacat produksi dari pihak kami.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item mb-2" data-search="video unboxing wajib klaim asuransi">
+                <button onclick="toggleFaq(25)" class="w-full p-5 flex justify-between items-center bg-sc-dark/10 border border-white/5 hover:border-white/20 transition-all text-left group">
+                    <span class="text-[9px] md:text-[10px] tracking-[0.2em] text-white uppercase font-medium">25. Mengapa video unboxing wajib?</span>
+                    <i id="faq-icon-25" class='bx bx-chevron-down text-sc-gray group-hover:text-white transition-transform'></i>
+                </button>
+                <div id="faq-content-25" class="max-h-0 overflow-hidden transition-all duration-300 bg-white/[0.02]">
+                    <div class="p-6 text-[10px] text-sc-gray leading-relaxed uppercase tracking-widest">
+                        Sebagai bukti valid untuk klaim asuransi dan verifikasi kondisi barang demi keamanan bersama.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item mb-2" data-search="mesin tangan manual rasio produksi proses">
+                <button onclick="toggleFaq(26)" class="w-full p-5 flex justify-between items-center bg-sc-dark/10 border border-white/5 hover:border-white/20 transition-all text-left group">
+                    <span class="text-[9px] md:text-[10px] tracking-[0.2em] text-white uppercase font-medium">26. Apakah produk dibuat murni oleh mesin?</span>
+                    <i id="faq-icon-26" class='bx bx-chevron-down text-sc-gray group-hover:text-white transition-transform'></i>
+                </button>
+                <div id="faq-content-26" class="max-h-0 overflow-hidden transition-all duration-300 bg-white/[0.02]">
+                    <div class="p-6 text-[10px] text-sc-gray leading-relaxed uppercase tracking-widest">
+                        Tidak ada produk kami yang 100% murni mesin. Kami menerapkan rasio pengerjaan (50% mesin : 50% tangan) untuk menjaga detail artistik yang tidak bisa dicapai mesin sepenuhnya.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item mb-2" data-search="desain cetak sablon manual tangan rasio">
+                <button onclick="toggleFaq(27)" class="w-full p-5 flex justify-between items-center bg-sc-dark/10 border border-white/5 hover:border-white/20 transition-all text-left group">
+                    <span class="text-[9px] md:text-[10px] tracking-[0.2em] text-white uppercase font-medium">27. Bagaimana proses desain dan cetak?</span>
+                    <i id="faq-icon-27" class='bx bx-chevron-down text-sc-gray group-hover:text-white transition-transform'></i>
+                </button>
+                <div id="faq-content-27" class="max-h-0 overflow-hidden transition-all duration-300 bg-white/[0.02]">
+                    <div class="p-6 text-[10px] text-sc-gray leading-relaxed uppercase tracking-widest">
+                        Pada bagian visual, kami menggunakan rasio <span class="text-white">25% mesin dan 75% pengerjaan tangan</span> untuk memastikan presisi warna dan tekstur sablon yang otentik.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item mb-2" data-search="hand-made 100% tangan vip archive">
+                <button onclick="toggleFaq(28)" class="w-full p-5 flex justify-between items-center bg-sc-dark/10 border border-white/5 hover:border-white/20 transition-all text-left group">
+                    <span class="text-[9px] md:text-[10px] tracking-[0.2em] text-white uppercase font-medium">28. Apakah ada produk yang 100% buatan tangan?</span>
+                    <i id="faq-icon-28" class='bx bx-chevron-down text-sc-gray group-hover:text-white transition-transform'></i>
+                </button>
+                <div id="faq-content-28" class="max-h-0 overflow-hidden transition-all duration-300 bg-white/[0.02]">
+                    <div class="p-6 text-[10px] text-sc-gray leading-relaxed uppercase tracking-widest">
+                        Ya. Seri VIP dan Paket Terbatas tertentu dikerjakan <span class="text-white">100% secara manual (Hand-Made)</span> mulai dari pemotongan pola hingga detail akhir, menjadikannya artefak yang unik.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item mb-2" data-search="kualitas kontrol inspeksi manual">
+                <button onclick="toggleFaq(29)" class="w-full p-5 flex justify-between items-center bg-sc-dark/10 border border-white/5 hover:border-white/20 transition-all text-left group">
+                    <span class="text-[9px] md:text-[10px] tracking-[0.2em] text-white uppercase font-medium">29. Bagaimana kualitas kontrol dilakukan?</span>
+                    <i id="faq-icon-29" class='bx bx-chevron-down text-sc-gray group-hover:text-white transition-transform'></i>
+                </button>
+                <div id="faq-content-29" class="max-h-0 overflow-hidden transition-all duration-300 bg-white/[0.02]">
+                    <div class="p-6 text-[10px] text-sc-gray leading-relaxed uppercase tracking-widest">
+                        Setiap unit melewati 3 tahap inspeksi manual oleh tim ahli kami sebelum akhirnya diberi segel Archive dan dikirim ke Anda.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item mb-2" data-search="durabilitas mesin vs tangan kuat">
+                <button onclick="toggleFaq(30)" class="w-full p-5 flex justify-between items-center bg-sc-dark/10 border border-white/5 hover:border-white/20 transition-all text-left group">
+                    <span class="text-[9px] md:text-[10px] tracking-[0.2em] text-white uppercase font-medium">30. Apakah jahitan tangan sekuat mesin?</span>
+                    <i id="faq-icon-30" class='bx bx-chevron-down text-sc-gray group-hover:text-white transition-transform'></i>
+                </button>
+                <div id="faq-content-30" class="max-h-0 overflow-hidden transition-all duration-300 bg-white/[0.02]">
+                    <div class="p-6 text-[10px] text-sc-gray leading-relaxed uppercase tracking-widest">
+                        Tentu. Teknik penjahitan manual kami (Lock-Stitch) dirancang untuk memberikan kekuatan ekstra pada titik beban produk, seringkali melampaui standar jahitan mesin massal.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item mb-2" data-search="alamat toko bandung braga offline">
+                <button onclick="toggleFaq(31)" class="w-full p-5 flex justify-between items-center bg-sc-dark/10 border border-white/5 hover:border-white/20 transition-all text-left group">
+                    <span class="text-[9px] md:text-[10px] tracking-[0.2em] text-white uppercase font-medium">31. Di mana lokasi Offline Archive?</span>
+                    <i id="faq-icon-31" class='bx bx-chevron-down text-sc-gray group-hover:text-white transition-transform'></i>
+                </button>
+                <div id="faq-content-31" class="max-h-0 overflow-hidden transition-all duration-300 bg-white/[0.02]">
+                    <div class="p-6 text-[10px] text-sc-gray leading-relaxed uppercase tracking-widest">
+                        Kami berlokasi di area historis Jl. Braga No. 7, Bandung, Jawa Barat.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item mb-2" data-search="harga online offline sama beda">
+                <button onclick="toggleFaq(32)" class="w-full p-5 flex justify-between items-center bg-sc-dark/10 border border-white/5 hover:border-white/20 transition-all text-left group">
+                    <span class="text-[9px] md:text-[10px] tracking-[0.2em] text-white uppercase font-medium">32. Harga online & offline sama?</span>
+                    <i id="faq-icon-32" class='bx bx-chevron-down text-sc-gray group-hover:text-white transition-transform'></i>
+                </button>
+                <div id="faq-content-32" class="max-h-0 overflow-hidden transition-all duration-300 bg-white/[0.02]">
+                    <div class="p-6 text-[10px] text-sc-gray leading-relaxed uppercase tracking-widest">
+                        Ya, semua harga disinkronkan secara otomatis untuk memastikan keadilan bagi seluruh pelanggan kami.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item mb-2" data-search="pick up ambil toko pesanan web">
+                <button onclick="toggleFaq(33)" class="w-full p-5 flex justify-between items-center bg-sc-dark/10 border border-white/5 hover:border-white/20 transition-all text-left group">
+                    <span class="text-[9px] md:text-[10px] tracking-[0.2em] text-white uppercase font-medium">33. Bisa ambil pesanan web di toko?</span>
+                    <i id="faq-icon-33" class='bx bx-chevron-down text-sc-gray group-hover:text-white transition-transform'></i>
+                </button>
+                <div id="faq-content-33" class="max-h-0 overflow-hidden transition-all duration-300 bg-white/[0.02]">
+                    <div class="p-6 text-[10px] text-sc-gray leading-relaxed uppercase tracking-widest">
+                        Bisa. Pilih metode "Pick-up in Store" saat proses checkout di website kami.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item mb-2" data-search="vip concierge layanan khusus bantuan">
+                <button onclick="toggleFaq(34)" class="w-full p-5 flex justify-between items-center bg-sc-dark/10 border border-white/5 hover:border-white/20 transition-all text-left group">
+                    <span class="text-[9px] md:text-[10px] tracking-[0.2em] text-white uppercase font-medium">34. Apa itu layanan VIP Concierge?</span>
+                    <i id="faq-icon-34" class='bx bx-chevron-down text-sc-gray group-hover:text-white transition-transform'></i>
+                </button>
+                <div id="faq-content-34" class="max-h-0 overflow-hidden transition-all duration-300 bg-white/[0.02]">
+                    <div class="p-6 text-[10px] text-sc-gray leading-relaxed uppercase tracking-widest">
+                        Layanan bantuan personal prioritas untuk kolektor Seri VIP, mencakup konsultasi ukuran khusus dan pengiriman kilat.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item mb-2" data-search="kolaborasi kerjasama branding marketing">
+                <button onclick="toggleFaq(35)" class="w-full p-5 flex justify-between items-center bg-sc-dark/10 border border-white/5 hover:border-white/20 transition-all text-left group">
+                    <span class="text-[9px] md:text-[10px] tracking-[0.2em] text-white uppercase font-medium">35. Menerima kerjasama kolaborasi?</span>
+                    <i id="faq-icon-35" class='bx bx-chevron-down text-sc-gray group-hover:text-white transition-transform'></i>
+                </button>
+                <div id="faq-content-35" class="max-h-0 overflow-hidden transition-all duration-300 bg-white/[0.02]">
+                    <div class="p-6 text-[10px] text-sc-gray leading-relaxed uppercase tracking-widest">
+                        Kami terbuka untuk kolaborasi yang memiliki keselarasan visi budaya. Hubungi tim marketing kami via email.
+                    </div>
+                </div>
+            </div>
+
+
+            </div>
+
+        <div class="mt-12 text-center">
+            <p class="text-[8px] tracking-[0.4em] text-sc-gray uppercase italic">Menampilkan seluruh data FAQ yang tersinkronisasi.</p>
+        </div>
+
+    </div>
+</section>
+
+<script>
+    // FUNGSI UNTUK ACCORDION
+    function toggleFaq(id) {
+        const content = document.getElementById(`faq-content-${id}`);
+        const icon = document.getElementById(`faq-icon-${id}`);
+        
+        // Tutup semua faq lainnya agar rapi
+        const allContents = document.querySelectorAll('[id^="faq-content-"]');
+        const allIcons = document.querySelectorAll('[id^="faq-icon-"]');
+        
+        allContents.forEach((c, idx) => {
+            if (c.id !== `faq-content-${id}`) {
+                c.style.maxHeight = null;
+                allIcons[idx].classList.remove('rotate-180');
+            }
+        });
+
+        // Toggle item yang diklik
+        if (content.style.maxHeight) {
+            content.style.maxHeight = null;
+            icon.classList.remove('rotate-180');
+        } else {
+            content.style.maxHeight = content.scrollHeight + "px";
+            icon.classList.add('rotate-180');
+        }
+    }
+
+    // FUNGSI UNTUK FILTER PENCARIAN
+    function filterFaq() {
+        let input = document.getElementById('faqSearch').value.toLowerCase();
+        let items = document.getElementsByClassName('faq-item');
+
+        for (let i = 0; i < items.length; i++) {
+            let searchContent = items[i].getAttribute('data-search');
+            if (searchContent.includes(input)) {
+                items[i].style.display = "";
+            } else {
+                items[i].style.display = "none";
+            }
+        }
+    }
+</script>
+
+
+<section class="py-24 bg-sc-black border-t border-white/5">
+    <div class="container mx-auto px-6 md:px-12">
+        <div class="max-w-4xl mx-auto bg-sc-dark/20 border border-white/5 p-12 md:p-20 relative overflow-hidden">
+            <div class="absolute -top-10 -right-10 opacity-[0.02] pointer-events-none">
+                <i class='bx bx-envelope text-[15rem]'></i>
+            </div>
+
+            <div class="relative z-10 text-center">
+                <h3 class="font-playfair text-3xl md:text-5xl text-white italic mb-8">
+                    Masih Membutuhkan <br> <span class="text-sc-gray not-italic uppercase tracking-tighter">Bantuan Kurator?</span>
+                </h3>
+                <p class="font-space text-[10px] md:text-xs text-sc-gray tracking-[0.3em] uppercase leading-relaxed mb-12 max-w-lg mx-auto">
+                    Tim kami tersedia setiap hari pukul 09:00 — 21:00 WIB untuk menjawab pertanyaan mendalam Anda.
+                </p>
+
+                <div class="flex flex-col md:flex-row items-center justify-center gap-6">
+                    <a href="mailto:support@sevencultures.com" class="group flex items-center gap-3 px-8 py-4 border border-white/10 hover:border-white transition-all duration-500">
+                        <i class='bx bx-envelope text-xl text-white'></i>
+                        <span class="text-[10px] tracking-[0.3em] text-white uppercase font-bold">Email Support</span>
+                    </a>
+                    <a href="#" class="group flex items-center gap-3 px-8 py-4 bg-white hover:bg-sc-gray transition-all duration-500">
+                        <i class='bx bx-message-square-detail text-xl text-black'></i>
+                        <span class="text-[10px] tracking-[0.3em] text-black uppercase font-bold">Live Chat</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+    <!-- Footer -->
+    <footer class="py-12 md:py-24 px-4 md:px-8 bg-sc-black border-t border-white/10">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-16 max-w-7xl mx-auto">
+            <div class="sm:col-span-2 lg:col-span-1">
+                <h3 class="font-playfair text-2xl md:text-3xl mb-3 md:mb-4">SEVEN CULTURES</h3>
+                <p class="text-sc-gray text-sm md:text-base leading-relaxed">Bandung Neo-Heritage Archive. Streetwear yang lahir dari kultur jalanan Bandung dengan sentuhan modern dan kualitas premium.</p>
+                <div class="flex gap-3 mt-6 md:mt-8">
+                    <a href="#" class="w-10 h-10 md:w-12 md:h-12 border border-white/20 flex items-center justify-center text-sc-white hover:bg-sc-white hover:text-sc-black transition-all">
+                        <i class='bx bxl-instagram text-lg md:text-xl'></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 md:w-12 md:h-12 border border-white/20 flex items-center justify-center text-sc-white hover:bg-sc-white hover:text-sc-black transition-all">
+                        <i class='bx bxl-tiktok text-lg md:text-xl'></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 md:w-12 md:h-12 border border-white/20 flex items-center justify-center text-sc-white hover:bg-sc-white hover:text-sc-black transition-all">
+                        <i class='bx bxl-twitter text-lg md:text-xl'></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 md:w-12 md:h-12 border border-white/20 flex items-center justify-center text-sc-white hover:bg-sc-white hover:text-sc-black transition-all">
+                        <i class='bx bxl-whatsapp text-lg md:text-xl'></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div>
+                <h4 class="font-bebas text-lg md:text-xl tracking-[0.2rem] mb-4 md:mb-6">NAVIGASI</h4>
+                <ul class="list-none space-y-2 md:space-y-3">
+                    <li><a href="#home" class="text-sc-gray no-underline text-sm md:text-base hover:text-sc-white transition-colors">Home</a></li>
+                    <li><a href="#store" class="text-sc-gray no-underline text-sm md:text-base hover:text-sc-white transition-colors">Store</a></li>
+                    <li><a href="#about" class="text-sc-gray no-underline text-sm md:text-base hover:text-sc-white transition-colors">About</a></li>
+                    <li><a href="#help" class="text-sc-gray no-underline text-sm md:text-base hover:text-sc-white transition-colors">Bantuan</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h4 class="font-bebas text-lg md:text-xl tracking-[0.2rem] mb-4 md:mb-6">PRODUK</h4>
+                <ul class="list-none space-y-2 md:space-y-3">
+                    <li><a href="#" class="text-sc-gray no-underline text-sm md:text-base hover:text-sc-white transition-colors">Kaos</a></li>
+                    <li><a href="#" class="text-sc-gray no-underline text-sm md:text-base hover:text-sc-white transition-colors">Jaket</a></li>
+                    <li><a href="#" class="text-sc-gray no-underline text-sm md:text-base hover:text-sc-white transition-colors">Hoodie</a></li>
+                    <li><a href="#" class="text-sc-gray no-underline text-sm md:text-base hover:text-sc-white transition-colors">Celana</a></li>
+                    <li><a href="#" class="text-sc-gray no-underline text-sm md:text-base hover:text-sc-white transition-colors">Aksesoris</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h4 class="font-bebas text-lg md:text-xl tracking-[0.2rem] mb-4 md:mb-6">KONTAK</h4>
+                <ul class="list-none space-y-2 md:space-y-3">
+                    <li><a href="#" class="text-sc-gray no-underline text-sm md:text-base hover:text-sc-white transition-colors flex items-center gap-2"><i class='bx bx-map'></i> Jl. Braga, Bandung</a></li>
+                    <li><a href="#" class="text-sc-gray no-underline text-sm md:text-base hover:text-sc-white transition-colors flex items-center gap-2"><i class='bx bx-phone'></i> +62 812 3456 7890</a></li>
+                    <li><a href="#" class="text-sc-gray no-underline text-sm md:text-base hover:text-sc-white transition-colors flex items-center gap-2"><i class='bx bx-envelope'></i> hello@sevencultures.id</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto mt-12 md:mt-16 pt-6 md:pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p class="text-sc-gray text-xs md:text-sm text-center md:text-left">© 2026 Seven Cultures. All rights reserved. VOL 01</p>
+            <div class="flex items-center gap-2 text-sc-gray text-xs md:text-sm">
+                <span>Founded by</span>
+                <strong class="text-sc-white">Reyy</strong>
+                <span>&</span>
+                <strong class="text-sc-white">Jibb</strong>
+                <i class='bx bxs-heart text-sc-gray'></i>
+            </div>
+        </div>
+    </footer>
+
+<!-- notif minimal pilih 1 -->
+<div id="filterToast" class="fixed top-[-120px] left-1/2 -translate-x-1/2 z-[10001] w-[90%] md:w-max md:min-w-[450px] bg-sc-dark/60 backdrop-blur-xl border border-white/10 p-5 rounded-sm shadow-[0_20px_50px_rgba(0,0,0,0.5)] transition-all duration-700 ease-in-out flex items-center gap-4 pointer-events-none">
+    <div class="flex-shrink-0 w-10 h-10 flex items-center justify-center border border-white/20 rounded-full">
+        <i class='bx bx-info-circle text-xl text-white'></i>
+    </div>
+    <div class="flex flex-col">
+        <span class="text-[10px] tracking-[0.3em] text-white uppercase font-bold font-space mb-0.5">Sistem Arsip</span>
+        <p class="text-[9px] md:text-[10px] tracking-[0.1em] text-sc-gray leading-relaxed uppercase" id="toastMsg">
+            Maaf, pilih minimal satu kategori agar kami bisa mencarikan produk terbaik untukmu.
+        </p>
+    </div>
+</div>
+
+<script src="./../assets/js/help.js"></script>
+<script src="./../assets/js/demo.js"></script>
+</body>
+</html>
