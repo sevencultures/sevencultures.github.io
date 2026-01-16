@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seven Cultures | Bandung Neo-Heritage Archive</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="./../assets/css/profile.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'sc-black': '#0a0a0a',
+                        'sc-white': '#f5f5f5',
+                        'sc-gray': '#888888',
+                        'sc-dark': '#1a1a1a',
+                    },
+                    fontFamily: {
+                        'bebas': ['Bebas Neue', 'sans-serif'],
+                        'space': ['Space Grotesk', 'sans-serif'],
+                        'playfair': ['Playfair Display', 'serif'],
+                        'cormorant': ['Cormorant Garamond', 'serif'],
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 1.5s ease-in-out infinite',
+                        'strip-move': 'stripMove 30s linear infinite',
+                        'strip-move-reverse': 'stripMoveReverse 30s linear infinite',
+                    },
+                    keyframes: {
+                        stripMove: {
+                            'from': { transform: 'translateX(0)' },
+                            'to': { transform: 'translateX(-50%)' },
+                        },
+                        stripMoveReverse: {
+                            'from': { transform: 'translateX(-50%)' },
+                            'to': { transform: 'translateX(0)' },
+                        },
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-sc-black text-sc-white overflow-x-hidden font-space">
+    <!-- Loader -->
+    <div class="fixed inset-0 bg-sc-black flex flex-col gap-4 items-center justify-center z-[10000] transition-all duration-800" id="loader">
+        <div class="font-playfair text-4xl md:text-5xl font-bold tracking-[0.3rem] md:tracking-[0.5rem] text-white loader-pulse">
+            SEVEN CULTURES
+        </div>
+        
+        <div class="text-[0.65rem] md:text-xs font-sans font-light tracking-[0.3em] md:tracking-[0.5em] text-sc-gray uppercase animate-pulse">
+            BANDUNG NEO-HERITAGE ARCHIVE
+        </div>
+    </div>
+
+  <!-- Navigation -->
+    <nav class="fixed top-0 left-0 w-full px-4 md:px-12 py-4 md:py-6 flex justify-between items-center z-[1000] bg-gradient-to-b from-sc-black/95 to-transparent transition-all duration-300" id="navbar">
+        <div class="flex items-center gap-3 md:gap-4">
+            <div class="w-10 h-10 md:w-12 md:h-12 border-2 border-sc-white flex items-center justify-center font-playfair font-bold text-base md:text-xl">7C</div>
+            <span class="font-playfair text-base md:text-xl font-semibold tracking-[0.15rem] md:tracking-[0.2rem]">SEVEN CULTURES</span>
+        </div>
+        
+        <ul class="hidden lg:flex gap-8 xl:gap-12 list-none">
+            <li><a href="./../index.html" class="text-sc-white no-underline text-xs xl:text-sm tracking-[0.15rem] uppercase relative hover:text-sc-gray transition-colors after:content-[''] after:absolute after:bottom-[-5px] after:left-0 after:w-0 after:h-[1px] after:bg-sc-white after:transition-all hover:after:w-full">Home</a></li>
+            <li><a href="./store.html" class="text-sc-white no-underline text-xs xl:text-sm tracking-[0.15rem] uppercase relative hover:text-sc-gray transition-colors after:content-[''] after:absolute after:bottom-[-5px] after:left-0 after:w-0 after:h-[1px] after:bg-sc-white after:transition-all hover:after:w-full">Store</a></li>
+            <li><a href="./about.html" class="text-sc-white no-underline text-xs xl:text-sm tracking-[0.15rem] uppercase relative hover:text-sc-gray transition-colors after:content-[''] after:absolute after:bottom-[-5px] after:left-0 after:w-0 after:h-[1px] after:bg-sc-white after:transition-all hover:after:w-full">About</a></li>
+            <li><a href="./help.html" class="text-sc-white no-underline text-xs xl:text-sm tracking-[0.15rem] uppercase relative hover:text-sc-gray transition-colors after:content-[''] after:absolute after:bottom-[-5px] after:left-0 after:w-0 after:h-[1px] after:bg-sc-white after:transition-all hover:after:w-full">Help</a></li>
+        </ul>
+
+        <div class="flex lg:hidden flex-col gap-1.5 cursor-pointer z-[1001]" id="menuToggle">
+            <span class="w-6 h-0.5 bg-sc-white transition-all"></span>
+            <span class="w-6 h-0.5 bg-sc-white transition-all"></span>
+            <span class="w-6 h-0.5 bg-sc-white transition-all"></span>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="fixed inset-0 bg-sc-black z-[999] flex flex-col items-center justify-center gap-8 transition-all duration-500 translate-x-full" id="mobileMenu">
+        <a href="./../index.html" onclick="closeMobileMenu()" class="text-sc-white no-underline font-playfair text-3xl tracking-[0.3rem] hover:text-sc-gray transition-colors">Home</a>
+        <a href="./store.html" onclick="closeMobileMenu()" class="text-sc-white no-underline font-playfair text-3xl tracking-[0.3rem] hover:text-sc-gray transition-colors">Store</a>
+        <a href="./about.html" onclick="closeMobileMenu()" class="text-sc-white no-underline font-playfair text-3xl tracking-[0.3rem] hover:text-sc-gray transition-colors">About</a>
+        <a href="./help.html" onclick="closeMobileMenu()" class="text-sc-white no-underline font-playfair text-3xl tracking-[0.3rem] hover:text-sc-gray transition-colors">Help</a>
+        <div class="flex items-center gap-6 mt-8">
+            <a href="./../index.html">                
+            <i class='bx bx-home text-2xl cursor-pointer'></i>
+            </a>
+            <a href="./store.html">
+            <i class='bx bx-shopping-bag text-2xl cursor-pointer'></i>
+            </a>    
+            <a href="./profile.html">
+            <i class='bx bx-user text-2xl cursor-pointer'></i>                
+            </a>                
+        </div>
+    </div>
+
+ <section class="pt-32 pb-24 bg-sc-black min-h-screen">
+    <div class="container mx-auto px-6 md:px-12">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-20 items-end">
+            
+            <div class="lg:col-span-8 flex flex-col md:flex-row items-center md:items-end gap-8">
+                <div class="relative group">
+                    <div class="w-32 h-32 md:w-44 md:h-44 rounded-full border-2 border-white/10 overflow-hidden bg-sc-dark/40">
+                        <img src="https://via.placeholder.com/300" alt="User Profile" class="w-full h-full object-cover">
+                    </div>
+                    <button class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center rounded-full">
+                        <i class='bx bx-camera text-2xl text-white'></i>
+                    </button>
+                </div>
+
+                <div class="text-center md:text-left">
+                    <div class="flex items-center gap-4 mb-2 justify-center md:justify-start">
+                        <span class="text-[9px] tracking-[0.4em] text-sc-gray uppercase font-mono">Archive Member No. 882</span>
+                        <div class="h-px w-8 bg-white/20"></div>
+                    </div>
+                    <h1 class="font-playfair text-4xl md:text-5xl text-white italic mb-2">Nama Lengkap Anda</h1>
+                    <p class="text-[10px] tracking-[0.3em] text-sc-gray uppercase font-space italic">Status: Elite Collector</p>
+                </div>
+            </div>
+
+            <div class="lg:col-span-4 grid grid-cols-2 gap-4">
+                <div class="p-6 border border-white/5 bg-sc-dark/20 text-center">
+                    <span class="block font-bebas text-3xl text-white tracking-widest">12</span>
+                    <span class="text-[8px] tracking-[0.2em] text-sc-gray uppercase">Arsip Diperoleh</span>
+                </div>
+                <div class="p-6 border border-white/5 bg-sc-dark/20 text-center">
+                    <span class="block font-bebas text-3xl text-white tracking-widest">03</span>
+                    <span class="text-[8px] tracking-[0.2em] text-sc-gray uppercase">Pre-Order Aktif</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+            
+            <div class="lg:col-span-5">
+                <div class="flex items-center gap-3 mb-8 opacity-60">
+                    <i class='bx bx-id-card text-xl text-white'></i>
+                    <span class="text-[10px] tracking-[0.3em] text-white uppercase font-space">Data Identitas</span>
+                </div>
+
+                <div class="space-y-10">
+                    <div class="border-b border-white/5 pb-4">
+                        <span class="text-[8px] text-sc-gray uppercase tracking-widest block mb-2 font-mono">E-Mail Address</span>
+                        <span class="text-xs text-white tracking-widest uppercase">user.example@email.com</span>
+                    </div>
+                    
+                    <div class="border-b border-white/5 pb-4">
+                        <span class="text-[8px] text-sc-gray uppercase tracking-widest block mb-2 font-mono">WhatsApp Number</span>
+                        <span class="text-xs text-white tracking-widest uppercase">+62 812 3456 7890</span>
+                    </div>
+
+                    <div class="border-b border-white/5 pb-4">
+                        <span class="text-[8px] text-sc-gray uppercase tracking-widest block mb-2 font-mono">Shipping Address</span>
+                        <p class="text-xs text-white tracking-widest uppercase leading-relaxed">
+                            Jl. Braga No. 123, Sumur Bandung,<br>
+                            Kota Bandung, Jawa Barat, 40111
+                        </p>
+                    </div>
+
+                    <button onclick="openEditModal()" class="w-full py-4 border border-white/10 hover:bg-white hover:text-black transition-all text-[10px] tracking-[0.4em] uppercase font-bold">
+                        Edit Informasi Profil
+                    </button>
+                </div>
+            </div>
+
+            <div class="lg:col-span-7">
+    <div class="flex items-center justify-between mb-8 reveal">
+        <div class="flex items-center gap-3">
+            <i class='bx bx-box text-xl text-white opacity-60'></i>
+            <span class="text-[10px] tracking-[0.3em] text-white uppercase font-space">Koleksi Arsip Anda</span>
+        </div>
+        <a href="history.html" class="text-[8px] tracking-[0.3em] text-sc-gray uppercase border-b border-white/10 pb-1 hover:text-white hover:border-white transition-all italic">
+            Lihat Semua Riwayat
+        </a>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 reveal">
+        
+        <div class="p-4 border border-white/5 bg-sc-dark/10 group">
+            <div class="aspect-square bg-sc-dark/40 mb-4 overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-700">
+                <img src="./../assets/img/d1.jpg" alt="Product" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 group-hover:scale-105 transition-all">
+            </div>
+            <div class="flex justify-between items-start">
+                <div>
+                    <span class="text-[8px] text-sc-gray font-mono block mb-1">REF: SC-HT-001</span>
+                    <h4 class="text-[10px] text-white uppercase tracking-widest">Heavy Tees - Black Archive</h4>
+                </div>
+                <span class="text-[8px] border border-white/20 px-2 py-1 text-sc-gray uppercase">Acquired</span>
+            </div>
+        </div>
+
+        <div class="p-4 border border-white/5 bg-sc-dark/10 group">
+            <div class="aspect-square bg-sc-dark/40 mb-4 overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-700">
+                <img src="./../assets/img/g2.jpg" alt="Product" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 group-hover:scale-105 transition-all">
+            </div>
+            <div class="flex justify-between items-start">
+                <div>
+                    <span class="text-[8px] text-sc-gray font-mono block mb-1">REF: SC-PJ-009</span>
+                    <h4 class="text-[10px] text-white uppercase tracking-widest">Utility Ripstop Jacket</h4>
+                </div>
+                <span class="text-[8px] border border-white/20 px-2 py-1 text-sc-gray uppercase">Acquired</span>
+            </div>
+        </div>
+
+        <a href="store.html" class="group p-4 border border-dashed border-white/10 hover:border-white/30 hover:bg-white/[0.02] flex flex-col items-center justify-center aspect-square transition-all">
+            <div class="flex flex-col items-center opacity-30 group-hover:opacity-100 transition-opacity">
+                <i class='bx bx-plus-circle text-2xl mb-3'></i>
+                <span class="text-[8px] tracking-[0.4em] uppercase text-center leading-relaxed">
+                    Empty Slot<br>
+                    <span class="text-sc-gray italic">Acquire New Entry</span>
+                </span>
+            </div>
+        </a>
+
+    </div>
+
+    <div class="mt-8 md:hidden">
+        <a href="history.html" class="block w-full py-4 border border-white/5 text-center text-[9px] tracking-[0.4em] text-sc-gray uppercase font-bold">
+            View Full Transaction History
+        </a>
+    </div>
+</div>
+
+
+        </div>
+    </div>
+</section>
+
+    
+    <!-- Footer -->
+    <footer class="py-12 md:py-24 px-4 md:px-8 bg-sc-black border-t border-white/10">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-16 max-w-7xl mx-auto">
+            <div class="sm:col-span-2 lg:col-span-1">
+                <h3 class="font-playfair text-2xl md:text-3xl mb-3 md:mb-4">SEVEN CULTURES</h3>
+                <p class="text-sc-gray text-sm md:text-base leading-relaxed">Bandung Neo-Heritage Archive. Streetwear yang lahir dari kultur jalanan Bandung dengan sentuhan modern dan kualitas premium.</p>
+                <div class="flex gap-3 mt-6 md:mt-8">
+                    <a href="#" class="w-10 h-10 md:w-12 md:h-12 border border-white/20 flex items-center justify-center text-sc-white hover:bg-sc-white hover:text-sc-black transition-all">
+                        <i class='bx bxl-instagram text-lg md:text-xl'></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 md:w-12 md:h-12 border border-white/20 flex items-center justify-center text-sc-white hover:bg-sc-white hover:text-sc-black transition-all">
+                        <i class='bx bxl-tiktok text-lg md:text-xl'></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 md:w-12 md:h-12 border border-white/20 flex items-center justify-center text-sc-white hover:bg-sc-white hover:text-sc-black transition-all">
+                        <i class='bx bxl-twitter text-lg md:text-xl'></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 md:w-12 md:h-12 border border-white/20 flex items-center justify-center text-sc-white hover:bg-sc-white hover:text-sc-black transition-all">
+                        <i class='bx bxl-whatsapp text-lg md:text-xl'></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div>
+                <h4 class="font-bebas text-lg md:text-xl tracking-[0.2rem] mb-4 md:mb-6">NAVIGASI</h4>
+                <ul class="list-none space-y-2 md:space-y-3">
+                    <li><a href="#home" class="text-sc-gray no-underline text-sm md:text-base hover:text-sc-white transition-colors">Home</a></li>
+                    <li><a href="#store" class="text-sc-gray no-underline text-sm md:text-base hover:text-sc-white transition-colors">Store</a></li>
+                    <li><a href="#about" class="text-sc-gray no-underline text-sm md:text-base hover:text-sc-white transition-colors">About</a></li>
+                    <li><a href="#help" class="text-sc-gray no-underline text-sm md:text-base hover:text-sc-white transition-colors">Bantuan</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h4 class="font-bebas text-lg md:text-xl tracking-[0.2rem] mb-4 md:mb-6">PRODUK</h4>
+                <ul class="list-none space-y-2 md:space-y-3">
+                    <li><a href="#" class="text-sc-gray no-underline text-sm md:text-base hover:text-sc-white transition-colors">Kaos</a></li>
+                    <li><a href="#" class="text-sc-gray no-underline text-sm md:text-base hover:text-sc-white transition-colors">Jaket</a></li>
+                    <li><a href="#" class="text-sc-gray no-underline text-sm md:text-base hover:text-sc-white transition-colors">Hoodie</a></li>
+                    <li><a href="#" class="text-sc-gray no-underline text-sm md:text-base hover:text-sc-white transition-colors">Celana</a></li>
+                    <li><a href="#" class="text-sc-gray no-underline text-sm md:text-base hover:text-sc-white transition-colors">Aksesoris</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h4 class="font-bebas text-lg md:text-xl tracking-[0.2rem] mb-4 md:mb-6">KONTAK</h4>
+                <ul class="list-none space-y-2 md:space-y-3">
+                    <li><a href="#" class="text-sc-gray no-underline text-sm md:text-base hover:text-sc-white transition-colors flex items-center gap-2"><i class='bx bx-map'></i> Jl. Braga, Bandung</a></li>
+                    <li><a href="#" class="text-sc-gray no-underline text-sm md:text-base hover:text-sc-white transition-colors flex items-center gap-2"><i class='bx bx-phone'></i> +62 812 3456 7890</a></li>
+                    <li><a href="#" class="text-sc-gray no-underline text-sm md:text-base hover:text-sc-white transition-colors flex items-center gap-2"><i class='bx bx-envelope'></i> hello@sevencultures.id</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto mt-12 md:mt-16 pt-6 md:pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p class="text-sc-gray text-xs md:text-sm text-center md:text-left">© 2026 Seven Cultures. All rights reserved. VOL 01</p>
+            <div class="flex items-center gap-2 text-sc-gray text-xs md:text-sm">
+                <span>Founded by</span>
+                <strong class="text-sc-white">Reyy</strong>
+                <span>&</span>
+                <strong class="text-sc-white">Jibb</strong>
+                <i class='bx bxs-heart text-sc-gray'></i>
+            </div>
+        </div>
+    </footer>
+
+<div id="editModal" class="fixed inset-0 hidden items-center justify-center p-4 md:p-6 overflow-y-auto">
+    <div class="fixed inset-0 bg-black/90 backdrop-blur-xl transition-opacity duration-500" onclick="closeEditModal()"></div>
+    
+    <div id="modalBox" class="relative w-full max-w-2xl bg-sc-black border border-white/10 p-8 md:p-14 shadow-[0_0_100px_rgba(0,0,0,0.8)] my-auto">
+        
+        <div class="mb-12 flex justify-between items-start">
+            <div>
+                <div class="flex items-center gap-3 mb-2">
+                    <span class="text-[8px] tracking-[0.5em] text-white opacity-40 uppercase font-mono">Archive Access: 00-User_Edit</span>
+                    <div class="h-px w-10 bg-white/20"></div>
+                </div>
+                <h2 class="font-playfair text-3xl md:text-4xl text-white italic">Perbarui Data <span class="text-sc-gray not-italic uppercase tracking-tighter">Personel</span></h2>
+            </div>
+            <button onclick="closeEditModal()" class="text-sc-gray hover:text-white transition-all p-2 hover:rotate-90">
+                <i class='bx bx-x text-4xl'></i>
+            </button>
+        </div>
+
+        <form id="editProfileForm" class="space-y-8">
+            
+            <div class="space-y-3">
+                <label class="text-[9px] tracking-[0.4em] text-sc-gray uppercase font-mono block">Full Name / Identitas</label>
+                <input type="text" id="editName" value="Nama Lengkap Anda" 
+                       class="w-full bg-white/[0.03] border border-white/5 py-4 px-5 text-xs text-white focus:outline-none focus:border-white/30 transition-all uppercase tracking-[0.2em]">
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="space-y-3">
+                    <label class="text-[9px] tracking-[0.4em] text-sc-gray uppercase font-mono block">E-Mail Address</label>
+                    <input type="email" id="editEmail" value="user.example@email.com" 
+                           class="w-full bg-white/[0.03] border border-white/5 py-4 px-5 text-xs text-white focus:outline-none focus:border-white/30 transition-all uppercase tracking-[0.1em]">
+                </div>
+                <div class="space-y-3">
+                    <label class="text-[9px] tracking-[0.4em] text-sc-gray uppercase font-mono block">WhatsApp Number</label>
+                    <input type="tel" id="editWa" value="+62 812 3456 7890" 
+                           class="w-full bg-white/[0.03] border border-white/5 py-4 px-5 text-xs text-white focus:outline-none focus:border-white/30 transition-all uppercase tracking-[0.2em]">
+                </div>
+            </div>
+
+            <div class="space-y-3">
+                <label class="text-[9px] tracking-[0.4em] text-sc-gray uppercase font-mono block">Shipping Logistics Address</label>
+                <textarea id="editAddress" rows="4" 
+                          class="w-full bg-white/[0.03] border border-white/5 py-4 px-5 text-xs text-white focus:outline-none focus:border-white/30 transition-all uppercase tracking-[0.2em] leading-relaxed no-scrollbar"
+                >Jl. Braga No. 123, Kel. Braga, Kec. Sumur Bandung, Kota Bandung, Jawa Barat, 40111</textarea>
+            </div>
+
+            <div class="pt-10 grid grid-cols-2 gap-6">
+                <button type="button" onclick="closeEditModal()" 
+                        class="py-5 border border-white/10 text-[10px] tracking-[0.5em] uppercase text-sc-gray hover:text-white transition-all font-bold group">
+                    <span class="opacity-50 group-hover:opacity-100">Batalkan</span>
+                </button>
+                <button type="submit" 
+                        class="py-5 bg-white text-black text-[10px] tracking-[0.5em] uppercase hover:bg-sc-gray transition-all font-bold">
+                    Simpan Perubahan
+                </button>
+            </div>
+        </form>
+
+        <div class="mt-12 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 opacity-20">
+            <div class="flex items-center gap-3">
+                <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                <span class="text-[7px] font-mono tracking-[0.3em] uppercase text-white">Encrypted_Session: Active</span>
+            </div>
+            <span class="text-[7px] font-mono tracking-[0.3em] uppercase text-white">System_Ver: SC-ADMIN.26</span>
+        </div>
+    </div>
+</div>
+
+
+<script src="./../assets/js/profile.js"></script>
+<script src="./../assets/js/demo.js"></script>
+</body>
+</html>

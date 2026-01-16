@@ -67,8 +67,7 @@
         
         <ul class="hidden lg:flex gap-8 xl:gap-12 list-none">
             <li><a href="./../index.html" class="text-sc-white no-underline text-xs xl:text-sm tracking-[0.15rem] uppercase relative hover:text-sc-gray transition-colors after:content-[''] after:absolute after:bottom-[-5px] after:left-0 after:w-0 after:h-[1px] after:bg-sc-white after:transition-all hover:after:w-full">Home</a></li>
-            <li><a href="./home.html" class="text-sc-white no-underline text-xs xl:text-sm tracking-[0.15rem] uppercase relative hover:text-sc-gray transition-colors after:content-[''] after:absolute after:bottom-[-5px] after:left-0 after:w-0 after:h-[1px] after:bg-sc-white after:transition-all hover:after:w-full">Menu Utama</a></li>
-            <li><a href="./produk.html" class="text-sc-white no-underline text-xs xl:text-sm tracking-[0.15rem] uppercase relative hover:text-sc-gray transition-colors after:content-[''] after:absolute after:bottom-[-5px] after:left-0 after:w-0 after:h-[1px] after:bg-sc-white after:transition-all hover:after:w-full">Store</a></li>
+            <li><a href="./store.html" class="text-sc-white no-underline text-xs xl:text-sm tracking-[0.15rem] uppercase relative hover:text-sc-gray transition-colors after:content-[''] after:absolute after:bottom-[-5px] after:left-0 after:w-0 after:h-[1px] after:bg-sc-white after:transition-all hover:after:w-full">Store</a></li>
             <li><a href="./about.html" class="text-sc-white no-underline text-xs xl:text-sm tracking-[0.15rem] uppercase relative hover:text-sc-gray transition-colors after:content-[''] after:absolute after:bottom-[-5px] after:left-0 after:w-0 after:h-[1px] after:bg-sc-white after:transition-all hover:after:w-full">About</a></li>
             <li><a href="./help.html" class="text-sc-white no-underline text-xs xl:text-sm tracking-[0.15rem] uppercase relative hover:text-sc-gray transition-colors after:content-[''] after:absolute after:bottom-[-5px] after:left-0 after:w-0 after:h-[1px] after:bg-sc-white after:transition-all hover:after:w-full">Help</a></li>
         </ul>
@@ -83,14 +82,19 @@
     <!-- Mobile Menu -->
     <div class="fixed inset-0 bg-sc-black z-[999] flex flex-col items-center justify-center gap-8 transition-all duration-500 translate-x-full" id="mobileMenu">
         <a href="./../index.html" onclick="closeMobileMenu()" class="text-sc-white no-underline font-playfair text-3xl tracking-[0.3rem] hover:text-sc-gray transition-colors">Home</a>
-        <a href="./home.html" onclick="closeMobileMenu()" class="text-sc-white no-underline font-playfair text-3xl tracking-[0.3rem] hover:text-sc-gray transition-colors">Menu Utama</a>
-        <a href="./produk.html" onclick="closeMobileMenu()" class="text-sc-white no-underline font-playfair text-3xl tracking-[0.3rem] hover:text-sc-gray transition-colors">Store</a>
+        <a href="./store.html" onclick="closeMobileMenu()" class="text-sc-white no-underline font-playfair text-3xl tracking-[0.3rem] hover:text-sc-gray transition-colors">Store</a>
         <a href="./about.html" onclick="closeMobileMenu()" class="text-sc-white no-underline font-playfair text-3xl tracking-[0.3rem] hover:text-sc-gray transition-colors">About</a>
         <a href="./help.html" onclick="closeMobileMenu()" class="text-sc-white no-underline font-playfair text-3xl tracking-[0.3rem] hover:text-sc-gray transition-colors">Help</a>
         <div class="flex items-center gap-6 mt-8">
-            <i class='bx bx-search text-2xl cursor-pointer'></i>
+            <a href="./../index.html">                
+            <i class='bx bx-home text-2xl cursor-pointer'></i>
+            </a>
+            <a href="./store.html">
             <i class='bx bx-shopping-bag text-2xl cursor-pointer'></i>
-            <i class='bx bx-user text-2xl cursor-pointer'></i>
+            </a>    
+            <a href="./profile.html">
+            <i class='bx bx-user text-2xl cursor-pointer'></i>                
+            </a>                
         </div>
     </div>
 
