@@ -71,9 +71,8 @@
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        
-      
-    /* Custom Styling for Dots (Archive Look) */
+    
+        /* Custom Styling for Dots (Archive Look) */
     .swiper-pagination-bullet {
         width: 12px !important;
         height: 2px !important;
@@ -95,39 +94,3 @@
         transform: scale(1.05);
     }
     
-    /* Slide Up Animation */
-    @keyframes slideUp {
-        from { transform: translateY(100%); }
-        to { transform: translateY(0); }
-    }
-
-    .sheet-animate {
-        animation: slideUp 0.5s cubic-bezier(0.32, 0.72, 0, 1) forwards;
-    }
-
-    /* Hide Scrollbar but keep functionality */
-    .no-scrollbar::-webkit-scrollbar {
-        display: none;
-    }
-    .no-scrollbar {
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-    }
-    
-    /* Styling saat metode dipilih (khusus yang verified) */
-    .active-payment {
-        border-color: #fff !important;
-        background: rgba(255, 255, 255, 0.1) !important;
-        transform: translateY(-2px);
-    }
-    
-    
-    /* Styling state aktif via JavaScript */
-    .address-card.selected {
-        border-color: #fff !important;
-        background: rgba(255, 255, 255, 0.05) !important;
-    }
-    
-    .address-card.selected .space-y-4 {
-        opacity: 1 !important;
-    }

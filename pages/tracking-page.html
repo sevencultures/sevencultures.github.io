@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seven Cultures | Bandung Neo-Heritage Archive</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <link rel="stylesheet" href="./../assets/css/tracking-page.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'sc-black': '#0a0a0a',
+                        'sc-white': '#f5f5f5',
+                        'sc-gray': '#888888',
+                        'sc-dark': '#1a1a1a',
+                    },
+                    fontFamily: {
+                        'bebas': ['Bebas Neue', 'sans-serif'],
+                        'space': ['Space Grotesk', 'sans-serif'],
+                        'playfair': ['Playfair Display', 'serif'],
+                        'cormorant': ['Cormorant Garamond', 'serif'],
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 1.5s ease-in-out infinite',
+                        'strip-move': 'stripMove 30s linear infinite',
+                        'strip-move-reverse': 'stripMoveReverse 30s linear infinite',
+                    },
+                    keyframes: {
+                        stripMove: {
+                            'from': { transform: 'translateX(0)' },
+                            'to': { transform: 'translateX(-50%)' },
+                        },
+                        stripMoveReverse: {
+                            'from': { transform: 'translateX(-50%)' },
+                            'to': { transform: 'translateX(0)' },
+                        },
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-sc-black text-sc-white overflow-x-hidden font-space">
+    <!-- Loader -->
+    <div class="fixed inset-0 bg-sc-black flex flex-col gap-4 items-center justify-center z-[10000] transition-all duration-800" id="loader">
+        <div class="font-playfair text-4xl md:text-5xl font-bold tracking-[0.3rem] md:tracking-[0.5rem] text-white loader-pulse">
+            SEVEN CULTURES
+        </div>
+        
+        <div class="text-[0.65rem] md:text-xs font-sans font-light tracking-[0.3em] md:tracking-[0.5em] text-sc-gray uppercase animate-pulse">
+            BANDUNG NEO-HERITAGE ARCHIVE
+        </div>
+    </div>
+
+  <!-- Navigation -->
+<nav class="fixed top-0 left-0 w-full px-6 md:px-12 py-6 flex justify-between items-center z-[1000] bg-gradient-to-b from-sc-black/95 to-transparent transition-all duration-300" id="navbar">
+    
+    <a href="javascript:history.back()" class="group flex items-center gap-4 text-sc-white no-underline">
+        <div class="w-10 h-10 md:w-12 md:h-12 border border-white/10 bg-white/5 flex items-center justify-center transition-all duration-500 group-hover:bg-white group-hover:text-black">
+            <i class='bx bx-left-arrow-alt text-2xl md:text-3xl'></i>
+        </div>
+        <div class="flex flex-col">
+            <span class="text-[9px] tracking-[0.4em] text-sc-gray uppercase font-mono group-hover:text-white transition-colors">Return To</span>
+            <span class="text-[11px] tracking-[0.2em] text-white uppercase font-bold">Home</span>
+        </div>
+    </a>
+
+    <div class="opacity-40 pointer-events-none hidden md:block">
+        <span class="text-[10px] tracking-[0.5em] text-white uppercase font-space">Seven Cultures / Detail_Ref</span>
+    </div>
+
+</nav>
+
+<section class="bg-sc-black pt-20 md:pt-32 pb-12 md:pb-20" id="product-visuals">
+    <div class="container mx-auto px-0 md:px-12 relative group">
+        <div class="swiper productSwiper overflow-hidden">
+            <div class="swiper-wrapper">
+                
+                <div class="swiper-slide aspect-square bg-sc-dark/20 border border-white/5 overflow-hidden">
+                    <img src="./../assets/img/d1.jpg" class="w-full h-full object-cover" alt="Product Angle 1">
+                    <div class="absolute bottom-6 left-6 flex items-center gap-3">
+                        <span class="text-[8px] font-mono text-white/40 tracking-widest uppercase">Angle: Front_01</span>
+                    </div>
+                </div>
+
+                <div class="swiper-slide aspect-square bg-sc-dark/20 border border-white/5 overflow-hidden">
+                    <img src="./../assets/img/d2.jpg" class="w-full h-full object-cover" alt="Product Angle 2">
+                    <div class="absolute bottom-6 left-6 flex items-center gap-3">
+                        <span class="text-[8px] font-mono text-white/40 tracking-widest uppercase">Angle: Side_02</span>
+                    </div>
+                </div>
+
+                <div class="swiper-slide aspect-square bg-sc-dark/20 border border-white/5 overflow-hidden">
+                    <img src="./../assets/img/d3.jpg" class="w-full h-full object-cover" alt="Product Angle 3">
+                    <div class="absolute bottom-6 left-6 flex items-center gap-3">
+                        <span class="text-[8px] font-mono text-white/40 tracking-widest uppercase">Angle: Detail_03</span>
+                    </div>
+                </div>
+
+                <div class="swiper-slide aspect-square bg-sc-dark/20 border border-white/5 overflow-hidden">
+                    <img src="./../assets/img/d4.jpg" class="w-full h-full object-cover" alt="Product Angle 4">
+                    <div class="absolute bottom-6 left-6 flex items-center gap-3">
+                        <span class="text-[8px] font-mono text-white/40 tracking-widest uppercase">Angle: Macro_04</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+<div class="swiper-button-next !w-12 !h-12 border border-white/10 bg-black/40 backdrop-blur-sm opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300 after:hidden !text-white hover:!bg-white hover:!text-black">
+    <i class='bx bx-chevron-right text-2xl'></i>
+</div>
+
+<div class="swiper-button-prev !w-12 !h-12 border border-white/10 bg-black/40 backdrop-blur-sm opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300 after:hidden !text-white hover:!bg-white hover:!text-black">
+    <i class='bx bx-chevron-left text-2xl'></i>
+</div>
+
+
+        <div class="swiper-pagination !-bottom-10"></div>
+    </div>
+</section>
+
+<section class="bg-sc-black py-24 border-t border-white/5">
+    <div class="container mx-auto px-6 md:px-12">
+        <div class="max-w-5xl mx-auto">
+            
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-white/10 pb-8 mb-12 gap-6 reveal">
+                <div>
+                    <span class="text-[9px] tracking-[0.5em] text-sc-gray uppercase font-mono mb-2 block italic">Transaction_Reference:</span>
+                    <h2 class="text-xl md:text-2xl font-mono text-white tracking-[0.2em] font-bold uppercase">SC7-170126-Q8Z2P1</h2>
+                </div>
+                
+                <div class="flex items-center gap-4">
+                    <div class="flex items-center gap-3 px-4 py-2 border border-green-500/30 bg-green-500/5">
+                        <span class="relative flex h-2 w-2">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                        </span>
+                        <span class="text-[10px] font-bold tracking-[0.3em] text-green-500 uppercase">Terkirim</span>
+                    </div>
+
+                    </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+                
+                <div class="space-y-12 reveal">
+                    <div>
+                        <label class="text-[8px] tracking-[0.5em] text-sc-gray uppercase font-mono block mb-6 italic">// Product_Summary</label>
+                        <div class="flex gap-6 p-6 bg-white/[0.02] border border-white/5">
+                            <div class="w-24 h-32 bg-zinc-900 border border-white/10 overflow-hidden flex-shrink-0">
+                                <img src="./../assets/img/d1.jpg" class="w-full h-full object-cover grayscale">
+                            </div>
+                            <div class="flex flex-col justify-center">
+                                <h3 class="text-sm text-white font-bold tracking-[0.2em] uppercase mb-1">Heritage Boxy Tee</h3>
+                                <span class="text-[9px] text-sc-gray uppercase tracking-widest mb-4">Essential Archive / 2026</span>
+                                
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div class="flex flex-col">
+                                        <span class="text-[7px] font-mono text-sc-gray uppercase italic">Size:</span>
+                                        <span class="text-[10px] text-white font-bold uppercase">Large (L)</span>
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <span class="text-[7px] font-mono text-sc-gray uppercase italic">Price:</span>
+                                        <span class="text-[10px] text-white font-bold uppercase">IDR 249.000</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="text-[8px] tracking-[0.5em] text-sc-gray uppercase font-mono block mb-6 italic">// Authentication_Payment</label>
+                        <div class="space-y-4">
+                            <div class="flex justify-between py-3 border-b border-white/5">
+                                <span class="text-[10px] text-sc-gray uppercase tracking-widest">Metode Pembayaran</span>
+                                <span class="text-[10px] text-white font-bold uppercase tracking-widest flex items-center gap-2">
+                                    <i class='bx bx-qr-scan text-sm'></i> QRIS / Digital Wallet
+                                </span>
+                            </div>
+                            <div class="flex justify-between py-3 border-b border-white/5">
+                                <span class="text-[10px] text-sc-gray uppercase tracking-widest">Biaya Layanan</span>
+                                <span class="text-[10px] text-white font-mono uppercase">IDR 2.500</span>
+                            </div>
+                            <div class="flex justify-between py-3">
+                                <span class="text-[10px] text-white font-bold uppercase tracking-widest">Total Bayar</span>
+                                <span class="text-lg text-white font-mono font-bold">IDR 251.500</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-12 reveal">
+                    <div>
+                        <label class="text-[8px] tracking-[0.5em] text-sc-gray uppercase font-mono block mb-6 italic">// Logistics_Coordinates</label>
+                        <div class="p-8 bg-white/[0.02] border border-dashed border-white/10 space-y-6">
+                            <div class="flex flex-col">
+                                <span class="text-[7px] font-mono text-sc-gray uppercase mb-1 italic">Recipient_Name:</span>
+                                <span class="text-[11px] text-white font-bold uppercase tracking-widest">Reyy Seven Cultures</span>
+                            </div>
+                            <div class="flex flex-col">
+                                <span class="text-[7px] font-mono text-sc-gray uppercase mb-1 italic">Destination_Address:</span>
+                                <p class="text-[10px] text-sc-gray leading-relaxed tracking-wider uppercase italic">
+                                    Jl. Braga No. 123, Kel. Braga, Kec. Sumur Bandung, <br>Kota Bandung, Jawa Barat, 40111
+                                </p>
+                            </div>
+                            <div class="grid grid-cols-2 gap-6">
+                                <div class="flex flex-col">
+                                    <span class="text-[7px] font-mono text-sc-gray uppercase mb-1 italic">Courier_Service:</span>
+                                    <span class="text-[10px] text-white font-bold uppercase">J&T Express (Reg)</span>
+                                </div>
+                                <div class="flex flex-col">
+                                    <span class="text-[7px] font-mono text-sc-gray uppercase mb-1 italic">Airway_Bill:</span>
+                                    <span class="text-[10px] text-white font-mono font-bold uppercase tracking-tighter">JT-220993811XX</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="text-[8px] tracking-[0.5em] text-sc-gray uppercase font-mono block mb-6 italic">// Communication_Channel</label>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="flex items-center gap-4 p-4 border border-white/5 bg-white/[0.01]">
+                                <i class='bx bxl-whatsapp text-2xl text-sc-gray'></i>
+                                <div class="flex flex-col">
+                                    <span class="text-[7px] font-mono text-sc-gray uppercase italic">WhatsApp</span>
+                                    <span class="text-[10px] text-white font-mono font-bold">+62 812-3456-7890</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4 p-4 border border-white/5 bg-white/[0.01]">
+                                <i class='bx bx-envelope text-2xl text-sc-gray'></i>
+                                <div class="flex flex-col">
+                                    <span class="text-[7px] font-mono text-sc-gray uppercase italic">Email</span>
+                                    <span class="text-[10px] text-white font-mono font-bold italic">reyy@sevencultures.com</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="bg-sc-black py-24 border-t border-white/5">
+    <div class="container mx-auto px-6 md:px-12">
+        <div class="max-w-3xl mx-auto">
+            
+            <div class="flex items-center gap-3 mb-16 reveal">
+                <span class="text-[9px] tracking-[0.5em] text-white opacity-40 uppercase font-mono">Archive_Movement_Log</span>
+                <div class="h-px w-8 bg-white/20"></div>
+            </div>
+
+            <div class="relative border-l border-white/10 ml-4 md:ml-8 pl-8 md:pl-12 space-y-12">
+                
+                <div class="relative reveal">
+                    <div class="absolute -left-[41px] md:-left-[57px] mt-1.5 h-4 w-4 rounded-full bg-green-500 border-4 border-sc-black z-10 shadow-[0_0_15px_rgba(34,197,94,0.5)]"></div>
+                    
+                    <div class="flex flex-col gap-1">
+                        <span class="text-[8px] font-mono text-green-500 tracking-[0.3em] uppercase italic">17_JAN_2026 | 09:12_WIB</span>
+                        <h4 class="text-[12px] text-white font-bold tracking-[0.2em] uppercase">Telah Diterima</h4>
+                        <p class="text-[10px] text-sc-gray tracking-wider uppercase italic leading-relaxed">
+                            Paket telah diterima oleh [Penerima Langsung]. Dokumentasi digital telah diarsipkan.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="relative reveal opacity-60">
+                    <div class="absolute -left-[37px] md:-left-[53px] mt-1.5 h-2 w-2 rounded-full bg-white border border-sc-black z-10"></div>
+                    <div class="flex flex-col gap-1">
+                        <span class="text-[8px] font-mono text-sc-gray tracking-[0.3em] uppercase italic">17_JAN_2026 | 07:45_WIB</span>
+                        <h4 class="text-[10px] text-white font-bold tracking-[0.2em] uppercase italic">Kurir Sedang Menuju Lokasi</h4>
+                        <p class="text-[9px] text-sc-gray tracking-wider uppercase italic">Unit Logistik [ID-9921] sedang melakukan pengantaran ke alamat tujuan.</p>
+                    </div>
+                </div>
+
+                <div class="relative reveal opacity-60">
+                    <div class="absolute -left-[37px] md:-left-[53px] mt-1.5 h-2 w-2 rounded-full bg-white border border-sc-black z-10"></div>
+                    <div class="flex flex-col gap-1">
+                        <span class="text-[8px] font-mono text-sc-gray tracking-[0.3em] uppercase italic">16_JAN_2026 | 21:30_WIB</span>
+                        <h4 class="text-[10px] text-white font-bold tracking-[0.2em] uppercase italic">Sampai di Pusat Transit Lokal [Bandung_Barat]</h4>
+                        <p class="text-[9px] text-sc-gray tracking-wider uppercase italic">Pemindaian unit di gerbang masuk pusat sortir lokal.</p>
+                    </div>
+                </div>
+
+                <div class="relative reveal opacity-60">
+                    <div class="absolute -left-[37px] md:-left-[53px] mt-1.5 h-2 w-2 rounded-full bg-white border border-sc-black z-10"></div>
+                    <div class="flex flex-col gap-1">
+                        <span class="text-[8px] font-mono text-sc-gray tracking-[0.3em] uppercase italic">16_JAN_2026 | 14:20_WIB</span>
+                        <h4 class="text-[10px] text-white font-bold tracking-[0.2em] uppercase italic">Dalam Perjalanan ke Kota Tujuan</h4>
+                        <p class="text-[9px] text-sc-gray tracking-wider uppercase italic">Arsip sedang dalam pemindahan antar wilayah via jalur logistik utama.</p>
+                    </div>
+                </div>
+
+                <div class="relative reveal opacity-60">
+                    <div class="absolute -left-[37px] md:-left-[53px] mt-1.5 h-2 w-2 rounded-full bg-white border border-sc-black z-10"></div>
+                    <div class="flex flex-col gap-1">
+                        <span class="text-[8px] font-mono text-sc-gray tracking-[0.3em] uppercase italic">16_JAN_2026 | 08:15_WIB</span>
+                        <h4 class="text-[10px] text-white font-bold tracking-[0.2em] uppercase italic">Unit Masuk Pusat Sortir [Jakarta_Main_Hub]</h4>
+                        <p class="text-[9px] text-sc-gray tracking-wider uppercase italic">Klasifikasi otomatis berdasarkan koordinat destinasi.</p>
+                    </div>
+                </div>
+
+                <div class="relative reveal opacity-60">
+                    <div class="absolute -left-[37px] md:-left-[53px] mt-1.5 h-2 w-2 rounded-full bg-white border border-sc-black z-10"></div>
+                    <div class="flex flex-col gap-1">
+                        <span class="text-[8px] font-mono text-sc-gray tracking-[0.3em] uppercase italic">15_JAN_2026 | 19:00_WIB</span>
+                        <h4 class="text-[10px] text-white font-bold tracking-[0.2em] uppercase italic">Diserahkan ke Kurir Ekspedisi</h4>
+                        <p class="text-[9px] text-sc-gray tracking-wider uppercase italic">Penjemputan kolektif dari fasilitas pergudangan Seven Cultures.</p>
+                    </div>
+                </div>
+
+                <div class="relative reveal opacity-60">
+                    <div class="absolute -left-[37px] md:-left-[53px] mt-1.5 h-2 w-2 rounded-full bg-white border border-sc-black z-10"></div>
+                    <div class="flex flex-col gap-1">
+                        <span class="text-[8px] font-mono text-sc-gray tracking-[0.3em] uppercase italic">15_JAN_2026 | 13:45_WIB</span>
+                        <h4 class="text-[10px] text-white font-bold tracking-[0.2em] uppercase italic">Penyegelan & Verifikasi QC Complete</h4>
+                        <p class="text-[9px] text-sc-gray tracking-wider uppercase italic">Unit telah melewati inspeksi kualitas dan disegel untuk pengiriman.</p>
+                    </div>
+                </div>
+
+                <div class="relative reveal opacity-60">
+                    <div class="absolute -left-[37px] md:-left-[53px] mt-1.5 h-2 w-2 rounded-full bg-white border border-sc-black z-10"></div>
+                    <div class="flex flex-col gap-1">
+                        <span class="text-[8px] font-mono text-sc-gray tracking-[0.3em] uppercase italic">15_JAN_2026 | 10:00_WIB</span>
+                        <h4 class="text-[10px] text-white font-bold tracking-[0.2em] uppercase italic">Unit Dikeluarkan dari Gudang Pusat [Warehouse_A]</h4>
+                        <p class="text-[9px] text-sc-gray tracking-wider uppercase italic">Inisiasi awal proses logistik untuk pesanan #SC7-170126-Q8Z2P1.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="bg-sc-black py-20 border-t border-white/5">
+    <div class="container mx-auto px-6 md:px-12">
+        <div class="max-w-3xl mx-auto flex flex-col items-center reveal">
+            
+            <div class="mb-8 flex flex-col items-center">
+                <div class="w-12 h-12 border border-white/10 flex items-center justify-center mb-4">
+                    <i class='bx bx-support text-xl text-white opacity-40'></i>
+                </div>
+                <span class="text-[9px] tracking-[0.5em] text-white opacity-40 uppercase font-mono">Control_Center_Access</span>
+            </div>
+
+            <p class="text-[9px] tracking-[0.3em] text-sc-gray uppercase italic mb-12 text-center max-w-md leading-relaxed">
+                Jika ditemukan anomali pada data koordinat atau kerusakan pada integritas fisik arsip Anda, segera hubungi pusat kendali logistik Seven Cultures.
+            </p>
+            
+            <div class="flex flex-col md:flex-row gap-4 w-full">
+                
+                <a href="https://wa.me/6281234567890?text=Halo%207C%20Archive,%20saya%20ingin%20melaporkan%20kendala%20pengiriman%20dengan%20ID%20SC7-170126" 
+                   class="flex-1 py-5 border border-red-500/30 text-red-500 text-[10px] font-bold uppercase tracking-[0.4em] flex items-center justify-center gap-3 hover:bg-red-500 hover:text-white transition-all duration-300">
+                    <i class='bx bx-error-alt text-lg'></i>
+                    Lapor Kendala Arsip
+                </a>
+
+                <button onclick="window.print()" 
+                        class="flex-1 py-5 bg-white text-black text-[10px] font-bold uppercase tracking-[0.4em] flex items-center justify-center gap-3 hover:bg-sc-gray transition-all duration-300">
+                    <i class='bx bx-printer text-lg'></i>
+                    Cetak Dokumen Log
+                </button>
+            </div>
+
+            <div class="mt-16 flex items-center gap-4 opacity-20">
+                <div class="h-px w-8 bg-white"></div>
+                <span class="text-[7px] font-mono text-white tracking-[0.5em] uppercase italic">
+                    All_Systems_Nominal_Session_ID_7C991
+                </span>
+                <div class="h-px w-8 bg-white"></div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+    <!-- Footer -->
+    <footer class="py-12 md:py-24 px-4 md:px-8 bg-sc-black border-t border-white/10">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-16 max-w-7xl mx-auto">
+            <div class="sm:col-span-2 lg:col-span-1">
+                <h3 class="font-playfair text-2xl md:text-3xl mb-3 md:mb-4">SEVEN CULTURES</h3>
+                <p class="text-sc-gray text-sm md:text-base leading-relaxed">Bandung Neo-Heritage Archive. Streetwear yang lahir dari kultur jalanan Bandung dengan sentuhan modern dan kualitas premium.</p>
+                <div class="flex gap-3 mt-6 md:mt-8">
+                    <a href="#" class="w-10 h-10 md:w-12 md:h-12 border border-white/20 flex items-center justify-center text-sc-white hover:bg-sc-white hover:text-sc-black transition-all">
+                        <i class='bx bxl-instagram text-lg md:text-xl'></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 md:w-12 md:h-12 border border-white/20 flex items-center justify-center text-sc-white hover:bg-sc-white hover:text-sc-black transition-all">
+                        <i class='bx bxl-tiktok text-lg md:text-xl'></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 md:w-12 md:h-12 border border-white/20 flex items-center justify-center text-sc-white hover:bg-sc-white hover:text-sc-black transition-all">
+                        <i class='bx bxl-twitter text-lg md:text-xl'></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 md:w-12 md:h-12 border border-white/20 flex items-center justify-center text-sc-white hover:bg-sc-white hover:text-sc-black transition-all">
+                        <i class='bx bxl-whatsapp text-lg md:text-xl'></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div>
+                <h4 class="font-bebas text-lg md:text-xl tracking-[0.2rem] mb-4 md:mb-6">NAVIGASI</h4>
+                <ul class="list-none space-y-2 md:space-y-3">
+                    <li><a href="#home" class="text-sc-gray no-underline text-sm md:text-base hover:text-sc-white transition-colors">Home</a></li>
+                    <li><a href="#store" class="text-sc-gray no-underline text-sm md:text-base hover:text-sc-white transition-colors">Store</a></li>
+                    <li><a href="#about" class="text-sc-gray no-underline text-sm md:text-base hover:text-sc-white transition-colors">About</a></li>
+                    <li><a href="#help" class="text-sc-gray no-underline text-sm md:text-base hover:text-sc-white transition-colors">Bantuan</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h4 class="font-bebas text-lg md:text-xl tracking-[0.2rem] mb-4 md:mb-6">PRODUK</h4>
+                <ul class="list-none space-y-2 md:space-y-3">
+                    <li><a href="#" class="text-sc-gray no-underline text-sm md:text-base hover:text-sc-white transition-colors">Kaos</a></li>
+                    <li><a href="#" class="text-sc-gray no-underline text-sm md:text-base hover:text-sc-white transition-colors">Jaket</a></li>
+                    <li><a href="#" class="text-sc-gray no-underline text-sm md:text-base hover:text-sc-white transition-colors">Hoodie</a></li>
+                    <li><a href="#" class="text-sc-gray no-underline text-sm md:text-base hover:text-sc-white transition-colors">Celana</a></li>
+                    <li><a href="#" class="text-sc-gray no-underline text-sm md:text-base hover:text-sc-white transition-colors">Aksesoris</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h4 class="font-bebas text-lg md:text-xl tracking-[0.2rem] mb-4 md:mb-6">KONTAK</h4>
+                <ul class="list-none space-y-2 md:space-y-3">
+                    <li><a href="#" class="text-sc-gray no-underline text-sm md:text-base hover:text-sc-white transition-colors flex items-center gap-2"><i class='bx bx-map'></i> Jl. Braga, Bandung</a></li>
+                    <li><a href="#" class="text-sc-gray no-underline text-sm md:text-base hover:text-sc-white transition-colors flex items-center gap-2"><i class='bx bx-phone'></i> +62 812 3456 7890</a></li>
+                    <li><a href="#" class="text-sc-gray no-underline text-sm md:text-base hover:text-sc-white transition-colors flex items-center gap-2"><i class='bx bx-envelope'></i> hello@sevencultures.id</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto mt-12 md:mt-16 pt-6 md:pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p class="text-sc-gray text-xs md:text-sm text-center md:text-left">© 2026 Seven Cultures. All rights reserved. VOL 01</p>
+            <div class="flex items-center gap-2 text-sc-gray text-xs md:text-sm">
+                <span>Founded by</span>
+                <strong class="text-sc-white">Reyy</strong>
+                <span>&</span>
+                <strong class="text-sc-white">Jibb</strong>
+                <i class='bx bxs-heart text-sc-gray'></i>
+            </div>
+        </div>
+    </footer>
+
+<!-- notif minimal pilih 1 -->
+<div id="filterToast" class="fixed top-[-120px] left-1/2 -translate-x-1/2 z-[10001] w-[90%] md:w-max md:min-w-[450px] bg-sc-dark/60 backdrop-blur-xl border border-white/10 p-5 rounded-sm shadow-[0_20px_50px_rgba(0,0,0,0.5)] transition-all duration-700 ease-in-out flex items-center gap-4 pointer-events-none">
+    <div class="flex-shrink-0 w-10 h-10 flex items-center justify-center border border-white/20 rounded-full">
+        <i class='bx bx-info-circle text-xl text-white'></i>
+    </div>
+    <div class="flex flex-col">
+        <span class="text-[10px] tracking-[0.3em] text-white uppercase font-bold font-space mb-0.5">Sistem Arsip</span>
+        <p class="text-[9px] md:text-[10px] tracking-[0.1em] text-sc-gray leading-relaxed uppercase" id="toastMsg">
+            Maaf, pilih minimal satu kategori agar kami bisa mencarikan produk terbaik untukmu.
+        </p>
+    </div>
+</div>
+
+<script src="./../assets/js/tracking-page.js"></script>
+<script src="./../assets/js/demo.js"></script>
+</body>
+</html>

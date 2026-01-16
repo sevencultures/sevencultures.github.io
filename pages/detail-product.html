@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Seven Cultures | Bandung Neo-Heritage Archive</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="stylesheet" href="./../assets/css/detail-product.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -77,7 +79,6 @@
 </nav>
 
     
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
 <section class="bg-sc-black pt-20 md:pt-32 pb-12 md:pb-20" id="product-visuals">
     <div class="container mx-auto px-0 md:px-12 relative group">
@@ -115,67 +116,22 @@
             </div>
         </div>
 
-        <div class="swiper-button-next !text-white !w-12 !h-12 border border-white/10 bg-black/40 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity after:!text-xs"></div>
-        <div class="swiper-button-prev !text-white !w-12 !h-12 border border-white/10 bg-black/40 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity after:!text-xs"></div>
+<div class="swiper-button-next !w-12 !h-12 border border-white/10 bg-black/40 backdrop-blur-sm opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300 after:hidden !text-white hover:!bg-white hover:!text-black">
+    <i class='bx bx-chevron-right text-2xl'></i>
+</div>
+
+<div class="swiper-button-prev !w-12 !h-12 border border-white/10 bg-black/40 backdrop-blur-sm opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300 after:hidden !text-white hover:!bg-white hover:!text-black">
+    <i class='bx bx-chevron-left text-2xl'></i>
+</div>
 
         <div class="swiper-pagination !-bottom-10"></div>
     </div>
 </section>
 
-<style>
-    /* Custom Styling for Dots (Archive Look) */
-    .swiper-pagination-bullet {
-        width: 12px !important;
-        height: 2px !important;
-        border-radius: 0 !important;
-        background: rgba(255, 255, 255, 0.2) !important;
-        opacity: 1 !important;
-        transition: all 0.3s ease;
-    }
-    .swiper-pagination-bullet-active {
-        background: #fff !important;
-        width: 30px !important;
-    }
-    
-    /* Hover Effect pada Slider */
-    .swiper-slide img {
-        transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .swiper-slide:hover img {
-        transform: scale(1.05);
-    }
-</style>
 
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
-<script>
-    const swiper = new Swiper('.productSwiper', {
-        slidesPerView: 1, // Default Mobile: 1:1
-        spaceBetween: 4, // Jarak antar foto
-        loop: true,
-        grabCursor: true,
-        
-        // Konfigurasi Desktop (2 Foto Berdampingan)
-        breakpoints: {
-            1024: {
-                slidesPerView: 2, // Desktop: 2:1 Ratio visual
-                spaceBetween: 12
-            }
-        },
 
-        // Navigation
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        },
 
-        // Dots (Pagination)
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
-        },
-    });
-</script>
 
 <section class="bg-sc-black py-20 border-t border-white/5">
     <div class="container mx-auto px-6 md:px-12 text-center md:text-left">
@@ -272,31 +228,6 @@
     </div>
 </section>
 
-
-<style>
-    /* Slide Up Animation */
-    @keyframes slideUp {
-        from { transform: translateY(100%); }
-        to { transform: translateY(0); }
-    }
-
-    .sheet-animate {
-        animation: slideUp 0.5s cubic-bezier(0.32, 0.72, 0, 1) forwards;
-    }
-
-    /* Hide Scrollbar but keep functionality */
-    .no-scrollbar::-webkit-scrollbar {
-        display: none;
-    }
-    .no-scrollbar {
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-    }
-</style>
-<script>
-
-</script>
-
 <div id="top-notification" class="fixed top-0 left-0 w-full z-[10001] transition-transform duration-500 ease-in-out -translate-y-full">
     <div class="bg-red-600 text-white py-5 px-6 md:px-12 flex items-center justify-between shadow-2xl border-b border-white/10">
         <div class="flex items-center gap-4">
@@ -388,44 +319,6 @@
     </div>
 </section>
 
-<style>
-    /* Styling saat metode dipilih (khusus yang verified) */
-    .active-payment {
-        border-color: #fff !important;
-        background: rgba(255, 255, 255, 0.1) !important;
-        transform: translateY(-2px);
-    }
-</style>
-
-<script>
-    const notifyBar = document.getElementById('top-notification');
-
-    function handlePayment(element, isVerified) {
-        if (!isVerified) {
-            // Jika BELUM verifikasi: Munculkan notifikasi dari atas
-            notifyBar.classList.remove('-translate-y-full');
-            
-            // Otomatis tutup setelah 4 detik
-            setTimeout(() => {
-                hideNotify();
-            }, 4000);
-        } else {
-            // Jika SUDAH verifikasi: Tandai tombol yang dipilih
-            const allBtns = document.querySelectorAll('.payment-btn');
-            allBtns.forEach(btn => btn.classList.remove('active-payment'));
-            
-            element.classList.add('active-payment');
-            
-            // Opsi: Berikan feedback suara atau haptic kecil jika di mobile
-            console.log("Metode dipilih: " + element.innerText);
-        }
-    }
-
-    function hideNotify() {
-        notifyBar.classList.add('-translate-y-full');
-    }
-</script>
-
 <section class="bg-sc-black py-16 border-t border-white/5">
     <div class="container mx-auto px-6 md:px-12">
         <div class="max-w-xl mx-auto">
@@ -467,46 +360,7 @@
     </div>
 </section>
 
-<script>
-    function validateVoucher() {
-        const input = document.getElementById('voucherInput').value.trim().toLowerCase();
-        const responseArea = document.getElementById('voucherResponse');
-        const responseBox = document.getElementById('responseBox');
-        const responseIcon = document.getElementById('responseIcon');
-        const responseStatus = document.getElementById('responseStatus');
-        const responseMsg = document.getElementById('responseMsg');
 
-        // Reset state
-        responseArea.classList.remove('hidden', 'opacity-100');
-        responseArea.classList.add('block', 'opacity-0');
-
-        setTimeout(() => {
-            if (input === "sevencultures") {
-                // BERHASIL
-                responseBox.className = "flex items-center gap-4 p-4 border border-green-500/30 bg-green-500/5 italic text-green-500";
-                responseIcon.className = "bx bx-check-circle text-xl";
-                responseStatus.innerText = "Access_Granted";
-                responseMsg.innerText = "Voucher berhasil digunakan. Potongan nilai telah diaplikasikan.";
-            } else if (input === "") {
-                // KOSONG
-                responseBox.className = "flex items-center gap-4 p-4 border border-white/10 bg-white/5 italic text-white";
-                responseIcon.className = "bx bx-info-circle text-xl";
-                responseStatus.innerText = "Empty_Input";
-                responseMsg.innerText = "Harap masukkan kode valid sebelum melakukan pengecekan.";
-            } else {
-                // GAGAL
-                responseBox.className = "flex items-center gap-4 p-4 border border-red-500/30 bg-red-500/5 italic text-red-500";
-                responseIcon.className = "bx bx-error-alt text-xl";
-                responseStatus.innerText = "Access_Denied";
-                responseMsg.innerText = "Voucher gagal atau tidak terdaftar dalam database sistem.";
-            }
-            
-            // Show with animation
-            responseArea.classList.remove('opacity-0');
-            responseArea.classList.add('opacity-100');
-        }, 300); // Delay singkat untuk kesan sinkronisasi data
-    }
-</script>
 
 
 
@@ -579,55 +433,6 @@
         </div>
     </div>
 </section>
-
-<style>
-    /* Styling state aktif via JavaScript */
-    .address-card.selected {
-        border-color: #fff !important;
-        background: rgba(255, 255, 255, 0.05) !important;
-    }
-    
-    .address-card.selected .space-y-4 {
-        opacity: 1 !important;
-    }
-</style>
-
-<script>
-    function selectAddress(element) {
-        // Hapus class selected dan reset style dari semua kartu
-        const cards = document.querySelectorAll('.address-card');
-        cards.forEach(card => {
-            card.classList.remove('selected', 'border-white', 'bg-white/[0.05]');
-            card.classList.add('border-white/5', 'bg-white/[0.01]');
-            
-            // Reset bullet indicator
-            const bullet = card.querySelector('.w-full.h-full');
-            bullet.classList.remove('bg-white');
-            bullet.classList.add('bg-transparent');
-
-            // Reset badge
-            const badge = card.querySelector('span:first-child');
-            if (badge.classList.contains('bg-white')) {
-                badge.classList.remove('bg-white', 'text-black');
-                badge.classList.add('border', 'border-white/10', 'text-sc-gray');
-            }
-        });
-
-        // Tambahkan style ke kartu yang diklik
-        element.classList.add('selected', 'border-white', 'bg-white/[0.05]');
-        element.classList.remove('border-white/5', 'bg-white/[0.01]');
-
-        // Update bullet indicator
-        const bullet = element.querySelector('.w-full.h-full');
-        bullet.classList.remove('bg-transparent');
-        bullet.classList.add('bg-white');
-
-        // Update badge
-        const badge = element.querySelector('span:first-child');
-        badge.classList.remove('border', 'border-white/10', 'text-sc-gray');
-        badge.classList.add('bg-white', 'text-black');
-    }
-</script>
 
 
 
@@ -795,77 +600,6 @@
         </div>
     </div>
 </div>
-
-<script>
-    const receiptModal = document.getElementById('receiptModal');
-    const receiptContent = document.getElementById('receiptContent');
-    const consentCheck = document.getElementById('consent-check');
-
-    function openReceiptModal() {
-        receiptModal.classList.remove('hidden');
-        receiptModal.classList.add('flex');
-        document.body.style.overflow = 'hidden';
-    }
-
-    function closeReceiptModal() {
-        receiptModal.classList.add('hidden');
-        receiptModal.classList.remove('flex');
-        document.body.style.overflow = 'auto';
-    }
-
-    function confirmArchive() {
-        const btn = event.currentTarget;
-
-        // 1. Validasi Checkbox Consent
-        if (!consentCheck.checked) {
-            // Memberi efek getar sedikit jika tidak dicentang (opsional)
-            consentCheck.parentElement.classList.add('animate-pulse');
-            alert("Harap setujui syarat dan ketentuan preservasi arsip.");
-            setTimeout(() => consentCheck.parentElement.classList.remove('animate-pulse'), 1000);
-            return;
-        }
-
-        // 2. Memulai Proses Sinkronisasi (Loading State)
-        btn.disabled = true; // Mencegah klik ganda
-        btn.style.pointerEvents = 'none';
-        
-        // Tampilan Loading Teknis
-        btn.innerHTML = `
-            <div class="flex items-center gap-3">
-                <i class='bx bx-loader-alt animate-spin text-xl'></i>
-                <span class="tracking-[0.4em]">SYNCHRONIZING_DATA...</span>
-            </div>
-        `;
-        btn.classList.add('opacity-80');
-
-        // 3. Simulasi Delay Proses (2.5 Detik)
-        setTimeout(() => {
-            // Perubahan ke Status Sukses/Granted
-            btn.innerHTML = `
-                <div class="flex items-center gap-3">
-                    <i class='bx bx-check-circle text-xl'></i>
-                    <span class="tracking-[0.4em]">ACCESS_GRANTED</span>
-                </div>
-            `;
-            
-            // Ubah warna tombol menjadi hijau untuk feedback visual sukses
-            btn.classList.remove('bg-white', 'text-black', 'opacity-80');
-            btn.classList.add('bg-green-600', 'text-white');
-
-            // 4. Redirect ke Halaman Checkout (Pembayaran) setelah jeda singkat
-            setTimeout(() => {
-                // Ganti "checkout.html" dengan nama file halaman pembayaranmu
-                window.location.href = "checkout-product.html"; 
-            }, 1000); // Memberi waktu user melihat status "ACCESS GRANTED"
-
-        }, 2500);
-    }
-</script>
-
-
-
-
-
 
     <!-- Footer -->
     <footer class="py-12 md:py-24 px-4 md:px-8 bg-sc-black border-t border-white/10">

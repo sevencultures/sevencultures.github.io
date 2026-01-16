@@ -68,8 +68,7 @@
                 }
             });
         });
-        
-
+  
     const configSheet = document.getElementById('configSheet');
     const sheetContent = document.getElementById('sheetContent');
 
@@ -85,94 +84,34 @@
         configSheet.classList.remove('flex');
         document.body.style.overflow = 'auto'; // Aktifkan kembali scroll
     }
-  
-  
-    function copyOrderID() {
-        // 1. Ambil teks ID
-        const orderIDText = document.getElementById('orderID').innerText;
-        const notify = document.getElementById('copyNotify');
-
-        // 2. Proses Copy ke Clipboard
-        navigator.clipboard.writeText(orderIDText).then(() => {
-            // 3. Tampilkan Notifikasi Sukses
-            notify.classList.remove('opacity-0');
-            
-            // 4. Sembunyikan kembali setelah 2 detik
-            setTimeout(() => {
-                notify.classList.add('opacity-0');
-            }, 2000);
-        }).catch(err => {
-            console.error('Gagal menyalin ID: ', err);
-        });
-    }
-
-  
-    // Konfigurasi Timer (15 Menit)
-    let countdown;
-    function startTimer(duration, display) {
-        let timer = duration, minutes, seconds;
-        countdown = setInterval(function () {
-            minutes = parseInt(timer / 60, 10);
-            seconds = parseInt(timer % 60, 10);
-
-            minutes = minutes < 10 ? "0" + minutes : minutes;
-            seconds = seconds < 10 ? "0" + seconds : seconds;
-
-            display.textContent = minutes + ":" + seconds;
-
-            if (--timer < 0) {
-                clearInterval(countdown);
-                display.textContent = "EXPIRED";
-                display.classList.add('text-red-500');
-                document.getElementById('checkPaymentBtn').disabled = true;
+    
+    
+    const swiper = new Swiper('.productSwiper', {
+        slidesPerView: 1, // Default Mobile: 1:1
+        spaceBetween: 4, // Jarak antar foto
+        loop: true,
+        grabCursor: true,
+        
+        // Konfigurasi Desktop (2 Foto Berdampingan)
+        breakpoints: {
+            1024: {
+                slidesPerView: 2, // Desktop: 2:1 Ratio visual
+                spaceBetween: 12
             }
-        }, 1000);
-    }
+        },
 
-    window.onload = function () {
-        const fifteenMinutes = 60 * 15;
-        const display = document.querySelector('#paymentTimer');
-        startTimer(fifteenMinutes, display);
-    };
+        // Navigation
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
 
-    // LOGIKA CEK PEMBAYARAN (LANGSUNG BERHASIL)
-    function checkPaymentStatus() {
-        const btn = document.getElementById('checkPaymentBtn');
-        const successModal = document.getElementById('successModal');
-
-        // 1. Loading State (Memberikan kesan sistem sedang bekerja)
-        btn.disabled = true;
-        btn.innerHTML = `
-            <i class='bx bx-loader-alt animate-spin text-lg'></i>
-            <span class="tracking-[0.4em]">VERIFYING_DANA...</span>
-        `;
-
-        // 2. Simulasi sinkronisasi (Jeda 2.5 detik)
-        setTimeout(() => {
-            // Berhenti timer
-            clearInterval(countdown);
-
-            // Munculkan Modal Sukses
-            successModal.classList.remove('hidden');
-            successModal.classList.add('flex');
-            
-            // Kunci scroll body
-            document.body.style.overflow = 'hidden';
-
-            // Reset tombol (opsional)
-            btn.innerHTML = `<span>Verification_Complete</span>`;
-            btn.classList.add('bg-green-600', 'text-white');
-        }, 2500);
-    }
-
-    function closeSuccessModal() {
-        document.getElementById('successModal').classList.add('hidden');
-        document.body.style.overflow = 'auto';
-        window.location.href = "index.html"; // Redirect ke Home
-    }
-
-  
-  
+        // Dots (Pagination)
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+    });
   
   
   

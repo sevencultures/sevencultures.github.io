@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seven Cultures | Bandung Neo-Heritage Archive</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="./../assets/css/history.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'sc-black': '#0a0a0a',
+                        'sc-white': '#f5f5f5',
+                        'sc-gray': '#888888',
+                        'sc-dark': '#1a1a1a',
+                    },
+                    fontFamily: {
+                        'bebas': ['Bebas Neue', 'sans-serif'],
+                        'space': ['Space Grotesk', 'sans-serif'],
+                        'playfair': ['Playfair Display', 'serif'],
+                        'cormorant': ['Cormorant Garamond', 'serif'],
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 1.5s ease-in-out infinite',
+                        'strip-move': 'stripMove 30s linear infinite',
+                        'strip-move-reverse': 'stripMoveReverse 30s linear infinite',
+                    },
+                    keyframes: {
+                        stripMove: {
+                            'from': { transform: 'translateX(0)' },
+                            'to': { transform: 'translateX(-50%)' },
+                        },
+                        stripMoveReverse: {
+                            'from': { transform: 'translateX(-50%)' },
+                            'to': { transform: 'translateX(0)' },
+                        },
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-sc-black text-sc-white overflow-x-hidden font-space">
+    <!-- Loader -->
+    <div class="fixed inset-0 bg-sc-black flex flex-col gap-4 items-center justify-center z-[10000] transition-all duration-800" id="loader">
+        <div class="font-playfair text-4xl md:text-5xl font-bold tracking-[0.3rem] md:tracking-[0.5rem] text-white loader-pulse">
+            SEVEN CULTURES
+        </div>
+        
+        <div class="text-[0.65rem] md:text-xs font-sans font-light tracking-[0.3em] md:tracking-[0.5em] text-sc-gray uppercase animate-pulse">
+            BANDUNG NEO-HERITAGE ARCHIVE
+        </div>
+    </div>
+
+  <!-- Navigation -->
+<nav class="fixed top-0 left-0 w-full px-6 md:px-12 py-6 flex justify-between items-center z-[1000] bg-gradient-to-b from-sc-black/95 to-transparent transition-all duration-300" id="navbar">
+    
+    <a href="javascript:history.back()" class="group flex items-center gap-4 text-sc-white no-underline">
+        <div class="w-10 h-10 md:w-12 md:h-12 border border-white/10 bg-white/5 flex items-center justify-center transition-all duration-500 group-hover:bg-white group-hover:text-black">
+            <i class='bx bx-left-arrow-alt text-2xl md:text-3xl'></i>
+        </div>
+        <div class="flex flex-col">
+            <span class="text-[9px] tracking-[0.4em] text-sc-gray uppercase font-mono group-hover:text-white transition-colors">Return To</span>
+            <span class="text-[11px] tracking-[0.2em] text-white uppercase font-bold">Home</span>
+        </div>
+    </a>
+
+    <div class="opacity-40 pointer-events-none hidden md:block">
+        <span class="text-[10px] tracking-[0.5em] text-white uppercase font-space">Seven Cultures / Detail_Ref</span>
+    </div>
+
+</nav>
+
+<section class="bg-sc-black py-24 border-t border-white/5">
+    <div class="container mx-auto px-6 md:px-12">
+        <div class="max-w-6xl mx-auto">
+            
+            <div class="mb-16 reveal">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="text-[9px] tracking-[0.5em] text-white opacity-40 uppercase font-mono">Archive_Acquisition_Log</span>
+                    <div class="h-px w-8 bg-white/20"></div>
+                </div>
+                <h2 class="font-playfair text-4xl text-white italic leading-tight">Riwayat <span class="text-sc-gray not-italic uppercase tracking-tighter">Koleksi</span></h2>
+            </div>
+
+            <div class="space-y-4">
+                
+                <div class="group flex flex-col xl:flex-row items-center justify-between p-6 bg-white/[0.02] border border-white/5 hover:border-white/20 transition-all gap-8 reveal">
+                    <div class="flex items-center gap-6 w-full">
+                        <div class="w-20 h-24 bg-zinc-900 border border-white/10 overflow-hidden flex-shrink-0">
+                            <img src="./../assets/img/b2.jpg" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-[7px] font-mono text-sc-gray tracking-[0.4em] uppercase mb-1">ID: #SC-01229</span>
+                            <h3 class="text-[12px] text-white font-bold tracking-[0.2em] uppercase mb-2">Braga Archive Jacket</h3>
+                            <div class="flex items-center gap-3">
+                                <span class="text-[10px] text-white font-mono tracking-tighter">IDR 899.000</span>
+                                <span class="text-[8px] text-sc-gray font-mono line-through opacity-40">1.280k</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-row gap-3 w-full xl:w-auto">
+                        <a href="detail-product.html" class="flex-1 xl:w-40 py-4 border border-white/10 text-[8px] text-white uppercase tracking-[0.3em] font-bold hover:bg-white hover:text-black transition-all text-center">
+                            Lihat Produk
+                        </a>
+                        <a href="tracking-page.html" class="flex-1 xl:w-40 py-4 bg-white text-black text-[8px] text-center uppercase tracking-[0.3em] font-bold hover:bg-sc-gray transition-all">
+                            Lihat History
+                        </a>
+                    </div>
+                </div>
+
+                <div class="group flex flex-col xl:flex-row items-center justify-between p-6 bg-white/[0.02] border border-white/5 hover:border-white/20 transition-all gap-8 reveal">
+                    <div class="flex items-center gap-6 w-full">
+                        <div class="w-20 h-24 bg-zinc-900 border border-white/10 overflow-hidden flex-shrink-0">
+                            <img src="./../assets/img/d1.jpg" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-[7px] font-mono text-sc-gray tracking-[0.4em] uppercase mb-1">ID: #SC-01230</span>
+                            <h3 class="text-[12px] text-white font-bold tracking-[0.2em] uppercase mb-2">Heritage Boxy Tee</h3>
+                            <span class="text-[10px] text-white font-mono tracking-tighter uppercase">IDR 249.000</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-row gap-3 w-full xl:w-auto">
+                        <a href="detail-product.html" class="flex-1 xl:w-40 py-4 border border-white/10 text-[8px] text-white uppercase tracking-[0.3em] font-bold hover:bg-white hover:text-black transition-all text-center">
+                            Lihat Produk
+                        </a>
+                        <a href="tracking-page.html" class="flex-1 xl:w-40 py-4 bg-white text-black text-[8px] text-center uppercase tracking-[0.3em] font-bold hover:bg-sc-gray transition-all">
+                            Lihat History
+                        </a>
+                    </div>
+                </div>
+
+                <div class="group flex flex-col xl:flex-row items-center justify-between p-6 bg-white/[0.02] border border-white/5 hover:border-white/20 transition-all gap-8 reveal">
+                    <div class="flex items-center gap-6 w-full">
+                        <div class="w-20 h-24 bg-zinc-900 border border-white/10 overflow-hidden flex-shrink-0">
+                            <img src="./../assets/img/product-1.jpg" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-[7px] font-mono text-sc-gray tracking-[0.4em] uppercase mb-1">ID: #SC-01231</span>
+                            <h3 class="text-[12px] text-white font-bold tracking-[0.2em] uppercase mb-2">Essential Heavyweight</h3>
+                            <div class="flex items-center gap-3">
+                                <span class="text-[10px] text-white font-mono tracking-tighter">IDR 279.000</span>
+                                <span class="text-[8px] text-sc-gray font-mono line-through opacity-40">349k</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-row gap-3 w-full xl:w-auto">
+                        <a href="detail-product.html" class="flex-1 xl:w-40 py-4 border border-white/10 text-[8px] text-white uppercase tracking-[0.3em] font-bold hover:bg-white hover:text-black transition-all text-center">
+                            Lihat Produk
+                        </a>
+                        <a href="tracking-page.html" class="flex-1 xl:w-40 py-4 bg-white text-black text-[8px] text-center uppercase tracking-[0.3em] font-bold hover:bg-sc-gray transition-all">
+                            Lihat History
+                        </a>
+                    </div>
+                </div>
+
+                <div class="group flex flex-col xl:flex-row items-center justify-between p-6 bg-white/[0.02] border border-white/5 hover:border-white/20 transition-all gap-8 reveal">
+                    <div class="flex items-center gap-6 w-full">
+                        <div class="w-20 h-24 bg-zinc-900 border border-white/10 overflow-hidden flex-shrink-0">
+                            <img src="./../assets/img/c3.jpg" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-[7px] font-mono text-sc-gray tracking-[0.4em] uppercase mb-1">ID: #SC-01232</span>
+                            <h3 class="text-[12px] text-white font-bold tracking-[0.2em] uppercase mb-2">Neo-Cultural Hoodie</h3>
+                            <span class="text-[10px] text-white font-mono tracking-tighter uppercase">IDR 549.000</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-row gap-3 w-full xl:w-auto">
+                        <a href="detail-product.html" class="flex-1 xl:w-40 py-4 border border-white/10 text-[8px] text-white uppercase tracking-[0.3em] font-bold hover:bg-white hover:text-black transition-all text-center">
+                            Lihat Produk
+                        </a>
+                        <a href="tracking-page.html" class="flex-1 xl:w-40 py-4 bg-white text-black text-[8px] text-center uppercase tracking-[0.3em] font-bold hover:bg-sc-gray transition-all">
+                            Lihat History
+                        </a>
+                    </div>
+                </div>
+
+                <div class="group flex flex-col xl:flex-row items-center justify-between p-6 bg-white/[0.02] border border-white/5 hover:border-white/20 transition-all gap-8 reveal">
+                    <div class="flex items-center gap-6 w-full">
+                        <div class="w-20 h-24 bg-zinc-900 border border-white/10 overflow-hidden flex-shrink-0">
+                            <img src="./../assets/img/b8.jpg" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-[7px] font-mono text-sc-gray tracking-[0.4em] uppercase mb-1">ID: #SC-01233</span>
+                            <h3 class="text-[12px] text-white font-bold tracking-[0.2em] uppercase mb-2">Utility Archive Lanyard</h3>
+                            <div class="flex items-center gap-3">
+                                <span class="text-[10px] text-white font-mono tracking-tighter">IDR 120.000</span>
+                                <span class="text-[8px] text-sc-gray font-mono line-through opacity-40">150k</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-row gap-3 w-full xl:w-auto">
+                        <a href="detail-product.html" class="flex-1 xl:w-40 py-4 border border-white/10 text-[8px] text-white uppercase tracking-[0.3em] font-bold hover:bg-white hover:text-black transition-all text-center">
+                            Lihat Produk
+                        </a>
+                        <a href="tracking-page.html" class="flex-1 xl:w-40 py-4 bg-white text-black text-[8px] text-center uppercase tracking-[0.3em] font-bold hover:bg-sc-gray transition-all">
+                            Lihat History
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+    <!-- Footer -->
+    <footer class="py-12 md:py-24 px-4 md:px-8 bg-sc-black border-t border-white/10">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-16 max-w-7xl mx-auto">
+            <div class="sm:col-span-2 lg:col-span-1">
+                <h3 class="font-playfair text-2xl md:text-3xl mb-3 md:mb-4">SEVEN CULTURES</h3>
+                <p class="text-sc-gray text-sm md:text-base leading-relaxed">Bandung Neo-Heritage Archive. Streetwear yang lahir dari kultur jalanan Bandung dengan sentuhan modern dan kualitas premium.</p>
+                <div class="flex gap-3 mt-6 md:mt-8">
+                    <a href="#" class="w-10 h-10 md:w-12 md:h-12 border border-white/20 flex items-center justify-center text-sc-white hover:bg-sc-white hover:text-sc-black transition-all">
+                        <i class='bx bxl-instagram text-lg md:text-xl'></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 md:w-12 md:h-12 border border-white/20 flex items-center justify-center text-sc-white hover:bg-sc-white hover:text-sc-black transition-all">
+                        <i class='bx bxl-tiktok text-lg md:text-xl'></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 md:w-12 md:h-12 border border-white/20 flex items-center justify-center text-sc-white hover:bg-sc-white hover:text-sc-black transition-all">
+                        <i class='bx bxl-twitter text-lg md:text-xl'></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 md:w-12 md:h-12 border border-white/20 flex items-center justify-center text-sc-white hover:bg-sc-white hover:text-sc-black transition-all">
+                        <i class='bx bxl-whatsapp text-lg md:text-xl'></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div>
+                <h4 class="font-bebas text-lg md:text-xl tracking-[0.2rem] mb-4 md:mb-6">NAVIGASI</h4>
+                <ul class="list-none space-y-2 md:space-y-3">
+                    <li><a href="#home" class="text-sc-gray no-underline text-sm md:text-base hover:text-sc-white transition-colors">Home</a></li>
+                    <li><a href="#store" class="text-sc-gray no-underline text-sm md:text-base hover:text-sc-white transition-colors">Store</a></li>
+                    <li><a href="#about" class="text-sc-gray no-underline text-sm md:text-base hover:text-sc-white transition-colors">About</a></li>
+                    <li><a href="#help" class="text-sc-gray no-underline text-sm md:text-base hover:text-sc-white transition-colors">Bantuan</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h4 class="font-bebas text-lg md:text-xl tracking-[0.2rem] mb-4 md:mb-6">PRODUK</h4>
+                <ul class="list-none space-y-2 md:space-y-3">
+                    <li><a href="#" class="text-sc-gray no-underline text-sm md:text-base hover:text-sc-white transition-colors">Kaos</a></li>
+                    <li><a href="#" class="text-sc-gray no-underline text-sm md:text-base hover:text-sc-white transition-colors">Jaket</a></li>
+                    <li><a href="#" class="text-sc-gray no-underline text-sm md:text-base hover:text-sc-white transition-colors">Hoodie</a></li>
+                    <li><a href="#" class="text-sc-gray no-underline text-sm md:text-base hover:text-sc-white transition-colors">Celana</a></li>
+                    <li><a href="#" class="text-sc-gray no-underline text-sm md:text-base hover:text-sc-white transition-colors">Aksesoris</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h4 class="font-bebas text-lg md:text-xl tracking-[0.2rem] mb-4 md:mb-6">KONTAK</h4>
+                <ul class="list-none space-y-2 md:space-y-3">
+                    <li><a href="#" class="text-sc-gray no-underline text-sm md:text-base hover:text-sc-white transition-colors flex items-center gap-2"><i class='bx bx-map'></i> Jl. Braga, Bandung</a></li>
+                    <li><a href="#" class="text-sc-gray no-underline text-sm md:text-base hover:text-sc-white transition-colors flex items-center gap-2"><i class='bx bx-phone'></i> +62 812 3456 7890</a></li>
+                    <li><a href="#" class="text-sc-gray no-underline text-sm md:text-base hover:text-sc-white transition-colors flex items-center gap-2"><i class='bx bx-envelope'></i> hello@sevencultures.id</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto mt-12 md:mt-16 pt-6 md:pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p class="text-sc-gray text-xs md:text-sm text-center md:text-left">© 2026 Seven Cultures. All rights reserved. VOL 01</p>
+            <div class="flex items-center gap-2 text-sc-gray text-xs md:text-sm">
+                <span>Founded by</span>
+                <strong class="text-sc-white">Reyy</strong>
+                <span>&</span>
+                <strong class="text-sc-white">Jibb</strong>
+                <i class='bx bxs-heart text-sc-gray'></i>
+            </div>
+        </div>
+    </footer>
+
+<!-- notif minimal pilih 1 -->
+<div id="filterToast" class="fixed top-[-120px] left-1/2 -translate-x-1/2 z-[10001] w-[90%] md:w-max md:min-w-[450px] bg-sc-dark/60 backdrop-blur-xl border border-white/10 p-5 rounded-sm shadow-[0_20px_50px_rgba(0,0,0,0.5)] transition-all duration-700 ease-in-out flex items-center gap-4 pointer-events-none">
+    <div class="flex-shrink-0 w-10 h-10 flex items-center justify-center border border-white/20 rounded-full">
+        <i class='bx bx-info-circle text-xl text-white'></i>
+    </div>
+    <div class="flex flex-col">
+        <span class="text-[10px] tracking-[0.3em] text-white uppercase font-bold font-space mb-0.5">Sistem Arsip</span>
+        <p class="text-[9px] md:text-[10px] tracking-[0.1em] text-sc-gray leading-relaxed uppercase" id="toastMsg">
+            Maaf, pilih minimal satu kategori agar kami bisa mencarikan produk terbaik untukmu.
+        </p>
+    </div>
+</div>
+
+<script src="./../assets/js/history.js"></script>
+<script src="./../assets/js/demo.js"></script>
+</body>
+</html>
